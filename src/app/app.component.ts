@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, signal, WritableSignal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
+import {count} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,9 @@ import {RouterOutlet} from '@angular/router';
 })
 export class AppComponent {
 
-  title = 'YMRLK_BLOG';
+  counter: WritableSignal<number> = signal(0);
 
+  count() {
+    this.counter.set(this.counter() + 1);
+  }
 }
