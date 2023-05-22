@@ -13,7 +13,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install dependencies
         run: npm install
+      - name: run unit tests
+        run: npm run test:headless
       - name: build SSR project
         run: npm run build:ssr
-      - name: run unit tests
-        run: npm run test
