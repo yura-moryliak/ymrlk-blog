@@ -15,3 +15,5 @@ jobs:
         run: npm install
       - name: build SSR project
         run: npm run build:ssr
+      - name: run unit tests
+        run: npm run test
