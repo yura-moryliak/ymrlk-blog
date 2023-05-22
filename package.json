@@ -9,7 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run ymrlk-blog:serve-ssr",
     "serve:ssr": "node dist/ymrlk-blog/server/main.js",
-    "build:ssr": "ng build && ng run ymrlk-blog:server",
+    "build:ssr": "ng build --base-href /ymrlk-blog && ng run ymrlk-blog:server",
     "prerender": "ng run ymrlk-blog:prerender"
   },
   "private": true,
