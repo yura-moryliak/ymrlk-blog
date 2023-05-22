@@ -1,13 +1,17 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: ymrlk-blog-ci
 on: [push]
 jobs:
-  check-bats-version:
+  init:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+          node-version: ${{ matrix.node-version }}
+      - name: install dependencies
+        run: npm install
+      - name: build SSR project
+        run: npm run build:ssr
