@@ -14,6 +14,9 @@
     "prerender": "ng run ymrlk-blog:prerender",
     "production:ssr": "npm run build:ssr && npm run serve:ssr"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.0",
