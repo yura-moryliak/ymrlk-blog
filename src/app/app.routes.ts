@@ -12,6 +12,11 @@ export const routes: Routes = [
       .then((cmp) => cmp.RegisterComponent)
   },
   {
+    path: 'user/:id',
+    loadComponent: () => import('./user/user.component')
+      .then((cmp) => cmp.UserComponent)
+  },
+  {
     path: 'feed',
     loadComponent: () => import('./feed/feed.component')
       .then((cmp) => cmp.FeedComponent)

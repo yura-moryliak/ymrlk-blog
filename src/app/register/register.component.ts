@@ -1,12 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'ym-register',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [CommonModule]
 })
 export class RegisterComponent {
 
