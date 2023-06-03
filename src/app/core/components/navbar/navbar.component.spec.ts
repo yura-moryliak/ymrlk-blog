@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from "@angular/router/testing";
 
-import { NavbarComponent } from './navbar.component';
+import {NavbarComponent} from './navbar.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -8,7 +9,10 @@ describe('NavbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NavbarComponent]
+      imports: [
+        NavbarComponent,
+        RouterTestingModule
+      ]
     });
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
