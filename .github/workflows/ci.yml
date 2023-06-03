@@ -19,5 +19,7 @@ jobs:
         run: npm install
       - name: run unit tests
         run: npm run test:headless
+      - name: linting
+        run: npm run lint
       - name: build SSR project
         run: npm run build:ssr

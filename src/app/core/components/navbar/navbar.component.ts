@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @Component({
-  selector: 'ym-feed',
+  selector: 'ym-navbar',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss']
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
-export class FeedComponent {
+export class NavbarComponent {
 
 }
