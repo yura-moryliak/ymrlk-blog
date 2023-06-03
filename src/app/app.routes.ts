@@ -18,7 +18,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'feed',
     pathMatch: 'full'
   }
 ];
