@@ -1,19 +1,16 @@
-<div class="container-fluid">
+<form class="auth-form d-flex flex-column align-items-center justify-content-center"
+      [formGroup]="form">
 
-  <form class="auth-form d-flex flex-column align-items-center justify-content-center">
+  <div class="form-control-container d-flex flex-column">
+    <label for="login">Login</label>
+    <input id="login" type="text" placeholder="Type in your login here" formControlName="userName" />
+  </div>
 
-    <div class="form-control-container d-flex flex-column">
-      <label for="login">Login</label>
-      <input id="login" type="text" placeholder="Type in your login here" />
-    </div>
+  <div class="form-control-container d-flex flex-column">
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Type in your password here" formControlName="password" />
+  </div>
 
-    <div class="form-control-container d-flex flex-column">
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="Type in your password here" />
-    </div>
+  <button (click)="login()">Login</button>
 
-    <button>Login</button>
-
-  </form>
-
-</div>
+</form>
