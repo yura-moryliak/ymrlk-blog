@@ -1,6 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+
+import {AuthService} from '../../services/auth.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'ym-navbar',
@@ -14,6 +17,17 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
     RouterLinkActive
   ]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
+  isLoggedIn$!: Observable<boolean>;
+
+  private authService: AuthService = inject(AuthService);
+
+  ngOnInit() {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+  }
+
+  logOut(): void {
+    this.authService.logOut();
+  }
 }
