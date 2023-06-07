@@ -2,13 +2,13 @@
       [formGroup]="form">
 
   <div class="form-control-container d-flex flex-column">
-    <label for="login">Login</label>
-    <input id="login" type="text" placeholder="Type in your login here" formControlName="userName" />
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
   </div>
 
   <div class="form-control-container d-flex flex-column">
     <label for="password">Password</label>
-    <input id="password" type="password" placeholder="Type in your password here" formControlName="password" />
+    <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
   </div>
 
   <button (click)="login()">Login</button>
