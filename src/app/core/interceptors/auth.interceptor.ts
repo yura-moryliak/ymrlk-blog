@@ -6,7 +6,7 @@ import {BehaviorSubject, catchError, filter, Observable, switchMap, take, throwE
 import {AuthService} from '../services/auth.service';
 import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 
-let isRefreshing: boolean = false;
+let isRefreshing = false;
 const refreshTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 export const authInterceptor = (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
@@ -28,7 +28,7 @@ export const authInterceptor = (request: HttpRequest<unknown>, next: HttpHandler
   ) as Observable<HttpEvent<unknown>>;
 }
 
-const addToken = (request: HttpRequest<any>, token: string): HttpRequest<unknown> => (
+const addToken = (request: HttpRequest<unknown>, token: string): HttpRequest<unknown> => (
   request.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
 );
 
@@ -36,7 +36,7 @@ const handleUnauthorizedError = (request: HttpRequest<unknown>, next: HttpHandle
   isRefreshing ? updateCurrentRefresh(request, next) : initRefreshToken(request, next, authService)
 );
 
-const initRefreshToken = (request: HttpRequest<unknown>, next: HttpHandlerFn, authService: AuthService): Observable<HttpEvent<any>> => {
+const initRefreshToken = (request: HttpRequest<unknown>, next: HttpHandlerFn, authService: AuthService): Observable<HttpEvent<unknown>> => {
   isRefreshing = true;
   refreshTokenSubject.next('');
 
@@ -50,7 +50,7 @@ const initRefreshToken = (request: HttpRequest<unknown>, next: HttpHandlerFn, au
   )
 }
 
-const updateCurrentRefresh = (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<any>> => (
+const updateCurrentRefresh = (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => (
   refreshTokenSubject.pipe(
     filter((token: string) => token != null),
     take(1),

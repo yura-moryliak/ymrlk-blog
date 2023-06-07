@@ -67,7 +67,9 @@ export class AuthService {
     return <string>localStorage.getItem(ACCESS_TOKEN_KEY);
   }
 
-  register(): void {}
+  register(): void {
+    console.log('Register');
+  }
 
   private getCurrentUserUUID(): Observable<boolean> {
     return this.httpClient.get<AuthProfileCredentialsInterface>(`${ environment.api.baseUrl }/users/profile`).pipe(
