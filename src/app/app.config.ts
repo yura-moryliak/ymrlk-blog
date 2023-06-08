@@ -10,7 +10,6 @@ import {authInterceptor} from './core/interceptors/auth.interceptor';
 import {appInitializerAuthCheckFactory} from './core/factories/app-initializer-auth-check.factory';
 
 
-
 export const appConfig: ApplicationConfig = {
   providers: [
     {

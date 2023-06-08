@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 
-import {NavbarComponent} from "./core/components/navbar/navbar.component";
+import {NavbarComponent} from './core/components/navbar/navbar.component';
+import {backendRequestProvider} from './core/providers/backend-request.provider';
 
 @Component({
   selector: 'ym-root',
@@ -14,5 +15,6 @@ import {NavbarComponent} from "./core/components/navbar/navbar.component";
     RouterOutlet,
     NavbarComponent
   ],
+  providers: [backendRequestProvider]
 })
 export class AppComponent { }

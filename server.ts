@@ -2,12 +2,12 @@ import 'zone.js/node';
 
 import {APP_BASE_HREF} from '@angular/common';
 import {ngExpressEngine} from '@nguniversal/express-engine';
+
 import * as express from 'express';
 import {existsSync} from 'node:fs';
 import {join} from 'node:path';
-import bootstrap from './src/main.server';
 
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import bootstrap from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -34,11 +34,8 @@ export function app(): express.Express {
   server.get('*', (req, res) => {
     res.render(indexHtml, {
       req,
-      res,
       providers: [
-        { provide: APP_BASE_HREF, useValue: req.baseUrl },
-        { provide: REQUEST, useValue: req },
-        { provide: RESPONSE, useValue: res },
+        { provide: APP_BASE_HREF, useValue: req.baseUrl }
       ]
     });
   });
