@@ -7,7 +7,6 @@ import {appConfig} from './app/app.config';
 import {environment} from './environments/environment';
 
 if (environment.production) {
-  console.log('IS PRODUCTION: ', environment);
   enableProdMode();
 }
 
