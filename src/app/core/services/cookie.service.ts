@@ -20,6 +20,7 @@ export class CookieService {
   }
 
   private static getCookieRegExp(name: string): RegExp {
+    // eslint-disable-next-line no-useless-escape
     const escapedName: string = name.replace(/([\[\]\{\}\(\)\|\=\;\+\?\,\.\*\^\$])/gi, '\\$1');
 
     return new RegExp('(?:^' + escapedName + '|;\\s*' + escapedName + ')=(.*?)(?:;|$)', 'g');
@@ -63,7 +64,7 @@ export class CookieService {
     }
 
     const cookies: { [key: string]: string } = {};
-    const document: any = this.document;
+    const document: Document = this.document;
 
     if (document.cookie && document.cookie !== '') {
       document.cookie.split(';').forEach((currentCookie:string) => {
@@ -170,6 +171,7 @@ export class CookieService {
     const cookies: any = this.getAll();
 
     for (const cookieName in cookies) {
+      // eslint-disable-next-line no-prototype-builtins
       if (cookies.hasOwnProperty(cookieName)) {
         this.delete(cookieName, path, domain, secure, sameSite);
       }
