@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {isPlatformBrowser} from '@angular/common';
 
 import {BehaviorSubject, catchError, Observable, of, switchMap, tap, throwError} from 'rxjs';
 
@@ -9,7 +10,8 @@ import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.interface';
 import {AuthProfileCredentialsInterface} from '../interfaces/auth/auth-profile-creentials.interface';
 import {LocalStorageService} from './local-storage.service';
-import {CookieService} from './cookie.service';
+import {CookieService} from 'ngx-cookie-service';
+// import {CookieService} from './cookie.service';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -25,6 +27,7 @@ export class AuthService {
   }
 
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private isPlatformBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor(
     private httpClient: HttpClient,
@@ -102,18 +105,24 @@ export class AuthService {
 
   private storeTokens(tokens: AuthTokensInterface): void {
     this.localStorageService.saveData(ACCESS_TOKEN_KEY, tokens.accessToken);
-    this.cookieService.set(REFRESH_TOKEN_KEY, tokens.refreshToken, {
-      expires: environment.tokens.refresh.expiresIn,
-      path: environment.tokens.refresh.path,
-      domain: environment.tokens.refresh.domain,
-      secure: environment.tokens.refresh.httpOnly,
-      sameSite: 'Strict'
-    });
+
+    if (this.isPlatformBrowser) {
+      this.cookieService.set(REFRESH_TOKEN_KEY, tokens.refreshToken, {
+        expires: environment.tokens.refresh.expiresIn,
+        path: environment.tokens.refresh.path,
+        domain: environment.tokens.refresh.domain,
+        secure: environment.tokens.refresh.httpOnly,
+        sameSite: 'Strict'
+      });
+    }
   }
 
   private removeTokens(): void {
     this.localStorageService.removeData(ACCESS_TOKEN_KEY);
     this.localStorageService.removeData(USER_UUID_KEY);
-    this.cookieService.delete(REFRESH_TOKEN_KEY);
+
+    if (this.isPlatformBrowser) {
+      this.cookieService.delete(REFRESH_TOKEN_KEY);
+    }
   }
 }
