@@ -1,14 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 
-import {NavbarComponent} from './core/components/navbar/navbar.component';
+import {NavbarComponent} from './core/shared-components/navbar/navbar.component';
 import {backendRequestProvider} from './core/providers/backend-request.provider';
 
 @Component({
   selector: 'ym-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
     CommonModule,

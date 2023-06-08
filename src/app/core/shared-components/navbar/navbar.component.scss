@@ -1,0 +1,96 @@
+@import "../../../../assets/styles/variables";
+
+ym-navbar {
+
+  nav.navbar {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    align-items: center;
+    background-color: $primary-font-color;
+
+    .logo {
+      width: 100px;
+      min-width: 100px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      a {
+        text-decoration: none;
+        color: $white-font-color;
+      }
+    }
+
+    .navbar-items {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      display: flex;
+
+      .navbar-item {
+        border: none;
+        height: inherit;
+        width: 100px;
+        transition: 0.3s ease;
+        background: none;
+        color: $white-font-color;
+        position: relative;
+
+        &:hover {
+          opacity: 0.7;
+          cursor: pointer;
+        }
+
+        &:last-of-type {
+          margin: 0;
+        }
+
+        @media all and (max-width: 575px) {
+          display: none;
+        }
+      }
+
+      .active {
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 3px;
+          background-color: $btn-border-color;
+          left: 0;
+        }
+      }
+    }
+
+    .navbar-trigger-button {
+      display: block;
+      border: none;
+      background: none;
+      height: 100%;
+      width: 100px;
+      cursor: pointer;
+
+      @media all and (min-width: 575px) {
+        display: none;
+      }
+    }
+  }
+
+  svg {
+    width: 17px;
+    height: 17px;
+
+    path {
+      fill: $white-font-color;
+    }
+
+    rect {
+      fill: $white-font-color;
+    }
+  }
+
+}
