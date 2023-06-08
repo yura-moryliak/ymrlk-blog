@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment.development';
 import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.interface';
 import {AuthProfileCredentialsInterface} from '../interfaces/auth/auth-profile-creentials.interface';
+import {LocalStorageService} from './local-storage.service';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -29,7 +30,8 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
   ) { }
 
 
@@ -63,9 +65,7 @@ export class AuthService {
     )
   }
 
-  getAccessToken(): string {
-    return <string>localStorage.getItem(ACCESS_TOKEN_KEY);
-  }
+  getAccessToken = (): string => this.localStorageService.getData(ACCESS_TOKEN_KEY) as string;
 
   register(): void {
     console.log('Register');
@@ -75,7 +75,7 @@ export class AuthService {
     return this.httpClient.get<AuthProfileCredentialsInterface>(`${ environment.api.baseUrl }/users/profile`).pipe(
       switchMap((profileCredentials: AuthProfileCredentialsInterface) => {
 
-        localStorage.setItem(USER_UUID_KEY, profileCredentials.uuid);
+        this.localStorageService.saveData(USER_UUID_KEY, profileCredentials.uuid);
         return of(true);
       }),
       catchError((error) => {
@@ -102,7 +102,7 @@ export class AuthService {
   }
 
   private storeTokens(tokens: AuthTokensInterface): void {
-    localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken);
+    this.localStorageService.saveData(ACCESS_TOKEN_KEY, tokens.accessToken);
     this.cookieService.set(REFRESH_TOKEN_KEY, tokens.refreshToken, {
       expires: environment.tokens.refresh.expiresIn,
       path: environment.tokens.refresh.path,
@@ -113,8 +113,8 @@ export class AuthService {
   }
 
   private removeTokens(): void {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
-    localStorage.removeItem(USER_UUID_KEY);
+    this.localStorageService.removeData(ACCESS_TOKEN_KEY);
+    this.localStorageService.removeData(USER_UUID_KEY);
     this.cookieService.delete(REFRESH_TOKEN_KEY);
   }
 }
