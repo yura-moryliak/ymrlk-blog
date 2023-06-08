@@ -3,7 +3,7 @@ import {EnvConfigsInterface} from '../app/core/interfaces/env-configs.interface'
 export const environment: EnvConfigsInterface = {
   production: true,
   api: {
-    baseUrl: 'https://ymrlk-blog-api.onrender.com'
+    baseUrl: 'https://ymrlk-blog-api.onrender.com/api'
   },
   tokens: {
     refresh: {
