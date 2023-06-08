@@ -4,13 +4,12 @@ import {HttpClient} from '@angular/common/http';
 
 import {BehaviorSubject, catchError, Observable, of, switchMap, tap, throwError} from 'rxjs';
 
-import {SsrCookieService} from 'ngx-cookie-service-ssr';
-
 import {environment} from '../../../environments/environment.development';
 import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.interface';
 import {AuthProfileCredentialsInterface} from '../interfaces/auth/auth-profile-creentials.interface';
 import {LocalStorageService} from './local-storage.service';
+import {CookieService} from './cookie.service';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -29,7 +28,7 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private cookieService: SsrCookieService,
+    private cookieService: CookieService,
     private router: Router,
     private localStorageService: LocalStorageService
   ) { }
