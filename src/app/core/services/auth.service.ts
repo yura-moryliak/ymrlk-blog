@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, catchError, Observable, of, switchMap, tap, throwError} from 'rxjs';
 
 import {CookieService} from 'ngx-cookie-service';
+import {SsrCookieService} from 'ngx-cookie-service-ssr';
 
 import {environment} from '../../../environments/environment.development';
 import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
@@ -29,7 +30,8 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private cookieService: CookieService,
+    // private cookieService: CookieService,
+    private ssrCookieService: SsrCookieService,
     private router: Router,
     private localStorageService: LocalStorageService
   ) { }
@@ -98,12 +100,12 @@ export class AuthService {
   }
 
   private getRefreshToken(): string {
-    return <string>this.cookieService.get(REFRESH_TOKEN_KEY);
+    return <string>this.ssrCookieService.get(REFRESH_TOKEN_KEY);
   }
 
   private storeTokens(tokens: AuthTokensInterface): void {
     this.localStorageService.saveData(ACCESS_TOKEN_KEY, tokens.accessToken);
-    this.cookieService.set(REFRESH_TOKEN_KEY, tokens.refreshToken, {
+    this.ssrCookieService.set(REFRESH_TOKEN_KEY, tokens.refreshToken, {
       expires: environment.tokens.refresh.expiresIn,
       path: environment.tokens.refresh.path,
       domain: environment.tokens.refresh.domain,
@@ -115,6 +117,6 @@ export class AuthService {
   private removeTokens(): void {
     this.localStorageService.removeData(ACCESS_TOKEN_KEY);
     this.localStorageService.removeData(USER_UUID_KEY);
-    this.cookieService.delete(REFRESH_TOKEN_KEY);
+    this.ssrCookieService.delete(REFRESH_TOKEN_KEY);
   }
 }
