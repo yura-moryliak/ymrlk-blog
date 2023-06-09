@@ -1,26 +1,145 @@
-<form class="auth-form d-flex flex-column align-items-center justify-content-center"
-      [formGroup]="form">
+<div class="auth-container">
 
-  <div class="form-control-container d-flex flex-column">
-    <label for="username">Username</label>
-    <input id="username" type="text" placeholder="Type in your user name" formControlName="userName" />
+  <div class="left-side-container">
+
+    <div class="logo">
+      <a routerLink="">
+        <img src="assets/images/ymrlk-logo.png" alt="ymrlk-logo" />
+      </a>
+    </div>
+
+    <header>
+      <h1>A place where free thoughts are born</h1>
+    </header>
+
   </div>
 
-  <div class="form-control-container d-flex flex-column">
-    <label for="email">Email</label>
-    <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
+  <div class="right-side-container">
+
+    <nav class="auth-path">
+      <p class="auth-link">
+        Already a member?
+        <a routerLink="/login">Login right now</a>
+      </p>
+    </nav>
+
+    <form class="auth-form" [formGroup]="form">
+
+
+      <div class="logo">
+        <h2>Register <span>to</span></h2>
+        <a routerLink="">
+          <img src="assets/images/ymrlk-logo.png" alt="ymrlk-logo" />
+        </a>
+      </div>
+
+      <div class="form-control">
+        <label for="firstName">
+          First name
+
+          <ng-container *ngIf="form.controls.firstName.invalid && form.controls.firstName.dirty || form.controls.firstName.touched">
+            <ng-container *ngIf="form.controls.firstName?.errors?.['required']">
+              <span class="error-message">Is required</span>
+            </ng-container>
+          </ng-container>
+
+        </label>
+        <input id="firstName" type="text" placeholder="Type in your first name" formControlName="firstName" />
+      </div>
+
+      <div class="form-control">
+        <label for="lastName">
+          Last name
+
+          <ng-container *ngIf="form.controls.lastName.invalid && form.controls.lastName.dirty || form.controls.lastName.touched">
+            <ng-container *ngIf="form.controls.lastName?.errors?.['required']">
+              <span class="error-message">Is required</span>
+            </ng-container>
+          </ng-container>
+        </label>
+        <input id="lastName" type="text" placeholder="Type in your last name" formControlName="lastName" />
+      </div>
+
+      <div class="form-control">
+        <label for="email">
+          Email
+
+          <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
+
+            <ng-container *ngIf="form.controls.email?.errors?.['email']">
+              <span class="error-message">Is not valid</span>
+            </ng-container>
+
+            <ng-container *ngIf="form.controls.email?.errors?.['required']">
+              <span class="error-message">Is required</span>
+            </ng-container>
+
+          </ng-container>
+        </label>
+        <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
+      </div>
+
+      <div class="form-control">
+        <label for="password">
+          Password
+
+          <ng-container *ngIf="form.controls.password.invalid && form.controls.password.dirty || form.controls.password.touched">
+
+            <ng-container *ngIf="form.controls.password?.errors?.['required']">
+              <span class="error-message">Is required</span>
+            </ng-container>
+
+            <ng-container *ngIf="form.controls.password?.errors?.['minlength']">
+              <span class="error-message">
+                Required min length is
+                {{ form.controls.password?.errors?.['minlength']['actualLength'] }}
+                of
+                {{ form.controls.password?.errors?.['minlength']['requiredLength'] }} chars
+              </span>
+            </ng-container>
+
+            <ng-container *ngIf="form.controls.password?.errors?.['maxlength']">
+              <span class="error-message">
+                Max length is
+                {{ form.controls.password?.errors?.['maxlength']['actualLength'] }}
+                of
+                {{ form.controls.password?.errors?.['maxlength']['requiredLength'] }} allowed chars
+              </span>
+            </ng-container>
+
+          </ng-container>
+        </label>
+        <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
+      </div>
+
+      <div class="form-control">
+        <label for="confirmPassword">
+          Confirm password
+
+          <ng-container *ngIf="form.controls.confirmPassword.invalid && form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched">
+
+            <ng-container *ngIf="form.controls.confirmPassword?.errors?.['required'] || form.controls.confirmPassword.errors?.['matching']">
+              <span class="error-message">Is required or does not match</span>
+            </ng-container>
+
+          </ng-container>
+        </label>
+        <input id="confirmPassword" type="password" placeholder="Confirm password" formControlName="confirmPassword" />
+      </div>
+
+      <button class="primary-button"
+              [disabled]="form.invalid"
+              (click)="register()">Create account</button>
+
+      <nav class="auth-path">
+        <p class="auth-link">
+          Already a member?
+          <a routerLink="/login">Login right now</a>
+        </p>
+      </nav>
+
+    </form>
+
   </div>
 
-  <div class="form-control-container d-flex flex-column">
-    <label for="password">Password</label>
-    <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
-  </div>
-
-  <div class="form-control-container d-flex flex-column">
-    <label for="confirmationPassword">Confirm password</label>
-    <input id="confirmationPassword" type="password" placeholder="Confirm password" formControlName="confirmPassword" />
-  </div>
-
-  <button (click)="register()">Register</button>
-
-</form>
+</div>

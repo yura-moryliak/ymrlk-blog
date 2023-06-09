@@ -66,11 +66,12 @@
             label {
               display: inline-flex;
               justify-content: space-between;
+            }
 
-              a {
-                text-decoration: none;
-                color: $btn-border-color;
-              }
+            a {
+              margin-top: 5px;
+              text-decoration: none;
+              color: $btn-border-color;
             }
           }
         }

@@ -33,36 +33,38 @@
       </div>
 
       <div class="form-control">
-        <label for="email">Email</label>
+        <label for="email">
+          Email
+
+          <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
+
+            <ng-container *ngIf="form.controls.email?.errors?.['email']">
+              <span class="error-message">Is not valid</span>
+            </ng-container>
+
+            <ng-container *ngIf="form.controls.email?.errors?.['required']">
+              <span class="error-message">Is required</span>
+            </ng-container>
+
+          </ng-container>
+        </label>
         <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
-
-        <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
-
-          <ng-container *ngIf="form.controls.email?.errors?.['email']">
-            <span class="error-message">Email is not valid</span>
-          </ng-container>
-
-          <ng-container *ngIf="form.controls.email?.errors?.['required']">
-            <span class="error-message">Email is required</span>
-          </ng-container>
-
-        </ng-container>
       </div>
 
       <div class="form-control with-forgot-password">
         <label for="password">
-          <span>Password</span>
-          <a routerLink="">Forgot password?</a>
+          Password
+
+          <ng-container *ngIf="form.controls.password.invalid && form.controls.password.dirty || form.controls.password.touched">
+
+            <ng-container *ngIf="form.controls.password?.errors?.['required']">
+              <span class="error-message">Password is required</span>
+            </ng-container>
+
+          </ng-container>
         </label>
         <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
-
-        <ng-container *ngIf="form.controls.password.invalid && form.controls.password.dirty || form.controls.password.touched">
-
-          <ng-container *ngIf="form.controls.password?.errors?.['required']">
-            <span class="error-message">Password is required</span>
-          </ng-container>
-
-        </ng-container>
+        <a routerLink="">Forgot password?</a>
       </div>
 
       <button class="primary-button"
