@@ -22,7 +22,7 @@ import {AuthService} from '../../services/auth.service';
 export class NavbarComponent implements OnInit, OnDestroy {
 
   isLoggedIn$!: Observable<boolean>;
-  isNavbarExpanded: boolean = false;
+  isNavbarExpanded = false;
 
   private authService: AuthService = inject(AuthService);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
