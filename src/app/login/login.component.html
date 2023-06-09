@@ -1,16 +1,86 @@
-<form class="auth-form d-flex flex-column align-items-center justify-content-center"
-      [formGroup]="form">
+<div class="auth-container">
 
-  <div class="form-control-container d-flex flex-column">
-    <label for="email">Email</label>
-    <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
+  <div class="left-side-container">
+
+    <div class="logo">
+      <a routerLink="">
+        <img src="assets/images/ymrlk-logo.png" alt="ymrlk-logo" />
+      </a>
+    </div>
+
+    <header>
+      <h1>A place where free thoughts are born</h1>
+    </header>
+
   </div>
 
-  <div class="form-control-container d-flex flex-column">
-    <label for="password">Password</label>
-    <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
+  <div class="right-side-container">
+
+    <nav class="auth-path">
+      <p class="auth-link">
+        Not a member yet?
+        <a routerLink="/register">Register right now</a>
+      </p>
+    </nav>
+
+    <form class="auth-form" [formGroup]="form">
+
+      <div class="logo">
+        <h2>Login <span>to</span></h2>
+        <a routerLink="">
+          <img src="assets/images/ymrlk-logo.png" alt="ymrlk-logo" />
+        </a>
+      </div>
+
+      <div class="form-control">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
+
+        <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
+
+          <ng-container *ngIf="form.controls.email?.errors?.['email']">
+            <span class="error-message">Email is not valid</span>
+          </ng-container>
+
+          <ng-container *ngIf="form.controls.email?.errors?.['required']">
+            <span class="error-message">Email is required</span>
+          </ng-container>
+
+        </ng-container>
+      </div>
+
+      <div class="form-control with-forgot-password">
+        <label for="password">
+          <span>Password</span>
+          <a routerLink="">Forgot password?</a>
+        </label>
+        <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
+
+        <ng-container *ngIf="form.controls.password.invalid && form.controls.password.dirty || form.controls.password.touched">
+
+          <ng-container *ngIf="form.controls.password?.errors?.['required']">
+            <span class="error-message">Password is required</span>
+          </ng-container>
+
+        </ng-container>
+      </div>
+
+      <button class="primary-button"
+              [disabled]="form.invalid"
+              (click)="login()">Get me in</button>
+
+      <!--TODO tmp solution-->
+      <span class="error-message" *ngIf="error">{{ error.error.message }}</span>
+
+      <nav class="auth-path">
+        <p class="auth-link">
+          Not a member yet?
+          <a routerLink="/register">Register right now</a>
+        </p>
+      </nav>
+
+    </form>
+
   </div>
 
-  <button (click)="login()">Login</button>
-
-</form>
+</div>

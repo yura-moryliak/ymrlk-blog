@@ -1,0 +1,79 @@
+<nav class="navbar">
+
+  <div class="logo">
+    <a routerLink="">YMRLK</a>
+  </div>
+
+  <div class="navbar-items">
+
+    <ng-container *ngIf="(isLoggedIn$ | async) !== true">
+
+      <button class="navbar-item" routerLink="login" routerLinkActive="active">
+        <span>Login</span>
+      </button>
+
+      <button class="navbar-item" routerLink="register" routerLinkActive="active">
+        <span>Register</span>
+      </button>
+
+    </ng-container>
+
+    <ng-container *ngIf="(isLoggedIn$ | async) !== false">
+
+      <button class="navbar-item avatar-item" routerLink="/user/admin">
+        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+          <path d="M12,12A6,6,0,1,0,6,6,6.006,6.006,0,0,0,12,12ZM12,2A4,4,0,1,1,8,6,4,4,0,0,1,12,2Z"/>
+          <path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/>
+        </svg>
+
+        <span>Yura Moryliak</span>
+      </button>
+
+      <button class="navbar-item logout-item" (click)="logOut()">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
+             x="0px" y="0px" viewBox="0 0 512.292 512.292" style="enable-background:new 0 0 512.292 512.292;"
+             xml:space="preserve" width="512" height="512">
+        <g>
+          <path
+            d="M256.061,0L256.061,0c17.673,0,32,14.327,32,32v106.667c0,17.673-14.327,32-32,32l0,0c-17.673,0-32-14.327-32-32V32   C224.061,14.327,238.387,0,256.061,0z"/>
+          <path
+            d="M330.727,105.387L330.727,105.387c-0.157,10.742,5.259,20.8,14.315,26.581c80.432,49.143,105.796,154.185,56.652,234.616   S247.51,472.38,167.078,423.237S61.282,269.052,110.426,188.62c14.042-22.982,33.324-42.315,56.269-56.418   c9.211-5.781,14.773-15.92,14.699-26.795l0,0c0.049-17.673-14.238-32.039-31.911-32.088c-6.07-0.017-12.02,1.693-17.155,4.931   C22.233,146.634-11.58,291.318,56.803,401.412s213.067,143.907,323.161,75.524s143.907-213.067,75.524-323.161   c-19.035-30.645-44.879-56.489-75.524-75.524c-14.997-9.461-34.824-4.973-44.285,10.024   C332.447,93.397,330.731,99.33,330.727,105.387z"/>
+        </g>
+      </svg>
+      </button>
+
+    </ng-container>
+
+  </div>
+
+  <button class="navbar-trigger-button" *ngIf="(isLoggedIn$ | async) !== true" (click)="toggleNavbar()">
+    <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512" *ngIf="!isNavbarExpanded">
+      <rect y="11" width="24" height="2" rx="1"/>
+      <rect y="4" width="24" height="2" rx="1"/>
+      <rect y="18" width="24" height="2" rx="1"/>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512" *ngIf="isNavbarExpanded">
+      <path d="M16,8a1,1,0,0,0-1.414,0L12,10.586,9.414,8A1,1,0,0,0,8,9.414L10.586,12,8,14.586A1,1,0,0,0,9.414,16L12,13.414,14.586,16A1,1,0,0,0,16,14.586L13.414,12,16,9.414A1,1,0,0,0,16,8Z"/>
+      <path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z"/></svg>
+  </button>
+
+</nav>
+
+<div class="navbar-expanded-container"
+     *ngIf="(isLoggedIn$ | async) !== true && isNavbarExpanded">
+
+  <button class="navbar-item"
+          routerLink="login"
+          routerLinkActive="active"
+          (click)="toggleNavbar()">
+    <span>Login</span>
+  </button>
+
+  <button class="navbar-item"
+          routerLink="register"
+          routerLinkActive="active"
+          (click)="toggleNavbar()">
+    <span>Register</span>
+  </button>
+
+</div>

@@ -1,0 +1,27 @@
+@import "../variables";
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 30px;
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  input {
+    border: 1px solid $primary-font-color;
+    border-radius: 7px;
+    outline: none;
+    height: 40px;
+    padding-left: 5px;
+    font-size: 14px;
+    background-color: $general-bg-color;
+    transition: $transition-ease;
+
+    &:focus {
+      border: 1px solid $btn-border-color;
+    }
+  }
+}

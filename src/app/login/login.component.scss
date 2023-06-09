@@ -1,0 +1,9 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins/auth-container.mixin";
+
+ym-login {
+  display: block;
+  height: 100%;
+
+  @include auth-container();
+}

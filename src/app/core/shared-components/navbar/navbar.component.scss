@@ -1,0 +1,181 @@
+@import "../../../../assets/styles/variables";
+
+ym-navbar {
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    align-items: center;
+    background-color: $primary-font-color;
+
+    .logo {
+      width: 100px;
+      min-width: 100px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding-left: 20px;
+
+      a {
+        text-decoration: none;
+        color: $white-font-color;
+      }
+    }
+
+    .navbar-items {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      display: flex;
+
+      .navbar-item {
+        border: none;
+        height: inherit;
+        min-width: 100px;
+        background: none;
+        position: relative;
+
+        span {
+          color: $white-font-color;
+          font-size: 14px;
+        }
+
+        &.avatar-item {
+          display: flex;
+          align-items: center;
+
+          svg {
+            width: 20px;
+            min-width: 20px;
+            height: 20px;
+            border: 1px solid $white-font-color;
+            padding: 5px;
+            border-radius: 50%;
+          }
+
+          span {
+            margin-left: 5px;
+          }
+
+        }
+
+        &:hover {
+          opacity: 0.7;
+          cursor: pointer;
+        }
+
+        &:last-of-type {
+          margin: 0;
+        }
+
+        @media all and (max-width: $HandsetBreakpoint) {
+          &:not(.logout-item, .avatar-item) {
+            display: none;
+          }
+        }
+      }
+
+      .active {
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 5px;
+          background-color: $tabs-border-color;
+          left: 0;
+        }
+      }
+    }
+
+    .navbar-trigger-button {
+      display: block;
+      border: none;
+      background: none;
+      height: 100%;
+      width: 100px;
+      cursor: pointer;
+
+      @media all and (min-width: $HandsetBreakpoint) {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-expanded-container {
+    display: flex;
+    flex-direction: column;
+    background-color: $primary-font-color;
+    padding: 10px 0;
+
+    .navbar-item {
+      border: none;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      cursor: pointer;
+      position: relative;
+      padding: 0 20px;
+
+      span {
+        color: $white-font-color;
+        font-size: 14px;
+      }
+
+      &.avatar-item {
+        display: flex;
+        align-items: center;
+
+        svg {
+          width: 20px;
+          min-width: 20px;
+          height: 20px;
+          border: 1px solid $white-font-color;
+          padding: 5px;
+          border-radius: 50%;
+        }
+
+        span {
+          margin-left: 5px;
+        }
+
+      }
+
+      &:hover {
+        opacity: 0.7;
+        cursor: pointer;
+      }
+    }
+
+    .active {
+
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 5px;
+        height: 100%;
+        background-color: $tabs-border-color;
+        right: 0;
+      }
+    }
+  }
+
+  svg {
+    width: 17px;
+    height: 17px;
+
+    path {
+      fill: $white-font-color;
+    }
+
+    rect {
+      fill: $white-font-color;
+    }
+  }
+
+}
