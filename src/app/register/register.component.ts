@@ -6,10 +6,13 @@ import {RouterLink} from '@angular/router';
 
 import {Subscription} from 'rxjs';
 
+import {ToastrService} from 'ngx-toastr';
+
 import {AuthService} from '../core/services/auth.service';
 import {RegisterCredentialsInterface, RegisterFormInterface} from "../core/interfaces/register-form.interface";
 import {passwordMatchValidator} from '../core/validators/password-match.validator';
-import {ToastrService} from 'ngx-toastr';
+import {LoaderComponent} from '../core/shared-components/loader/loader.component';
+import {LoaderService} from '../core/shared-components/loader/services/loader.service';
 
 @Component({
   selector: 'ym-register',
@@ -17,7 +20,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./register.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent]
 })
 export class RegisterComponent {
 
@@ -43,13 +46,27 @@ export class RegisterComponent {
 
   private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
+  private loaderService: LoaderService = inject(LoaderService);
 
   private subscriptions: Subscription = new Subscription();
 
   register(): void {
+
+    this.loaderService.show();
+
     const registerSubscription: Subscription = this.authService.register(this.form.value as RegisterCredentialsInterface).subscribe({
-      next: (response) => response && this.toastService.success('Account was created successfully', 'Register successful'),
-      error: (error: HttpErrorResponse) => this.toastService.error(error.error.message, 'Register failure')
+      next: (response): void => {
+        if (response) {
+          this.toastService.success('Account was created successfully', 'Register successful');
+          this.form.reset();
+          this.loaderService.hide();
+        }
+      },
+      error: (error: HttpErrorResponse): void => {
+        this.toastService.error(error.error.message, 'Register failure');
+        this.form.reset();
+        this.loaderService.hide();
+      }
     });
 
     this.subscriptions.add(registerSubscription);

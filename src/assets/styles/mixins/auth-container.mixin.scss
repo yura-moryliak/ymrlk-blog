@@ -51,7 +51,7 @@
         }
       }
 
-      form {
+      .auth-form {
         display: flex;
         align-items: flex-start;
         flex-direction: column;
@@ -97,6 +97,19 @@
 
           img {
             display: none;
+          }
+
+        }
+
+        .primary-button {
+          position: relative;
+
+
+          ym-loader {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            transform: translate(0, 50%);
           }
 
         }

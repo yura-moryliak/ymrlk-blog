@@ -69,7 +69,10 @@
 
       <button class="primary-button"
               [disabled]="form.invalid"
-              (click)="login()">Get me in</button>
+              (click)="login()">
+        Get me in
+        <ym-loader></ym-loader>
+      </button>
 
       <nav class="auth-path">
         <p class="auth-link">

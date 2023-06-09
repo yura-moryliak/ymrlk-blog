@@ -25,7 +25,6 @@
 
     <form class="auth-form" [formGroup]="form">
 
-
       <div class="logo">
         <h2>Register <span>to</span></h2>
         <a routerLink="">
@@ -129,7 +128,11 @@
 
       <button class="primary-button"
               [disabled]="form.invalid"
-              (click)="register()">Create account</button>
+              (click)="register()">
+        Create account
+
+        <ym-loader></ym-loader>
+      </button>
 
       <nav class="auth-path">
         <p class="auth-link">

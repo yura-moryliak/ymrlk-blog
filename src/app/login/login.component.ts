@@ -11,6 +11,8 @@ import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../core/services/auth.service';
 import {LoginFormInterface} from '../core/interfaces/login-form.interface';
 import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials.interface';
+import {LoaderComponent} from '../core/shared-components/loader/loader.component';
+import {LoaderService} from '../core/shared-components/loader/services/loader.service';
 
 @Component({
   selector: 'ym-login',
@@ -18,7 +20,7 @@ import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials
   styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent]
 })
 export class LoginComponent implements OnDestroy {
 
@@ -30,19 +32,29 @@ export class LoginComponent implements OnDestroy {
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private toastService: ToastrService = inject(ToastrService);
+  private loaderService: LoaderService = inject(LoaderService);
 
   private subscriptions: Subscription = new Subscription();
 
   login(): void {
+
+    this.loaderService.show();
+
     const loginSubscription: Subscription = this.authService.login(this.form.value as AuthCredentialsInterface)
       .subscribe({
         next: (isLoggedIn: boolean | null): void => {
           if (isLoggedIn) {
             this.router.navigate(['/']).catch((error) => console.log(error));
             this.toastService.success('You are successfully logged in', 'Login success');
+            this.form.reset();
+            this.loaderService.hide();
           }
         },
-        error: (error: HttpErrorResponse) => this.toastService.error(error.error.message, 'Login failure')
+        error: (error: HttpErrorResponse): void => {
+          this.toastService.error(error.error.message, 'Login failure');
+          this.form.reset();
+          this.loaderService.hide();
+        }
       });
 
     this.subscriptions.add(loginSubscription);
