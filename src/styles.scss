@@ -1,5 +1,11 @@
+@import "ngx-toastr/toastr";
+
 @import "./assets/fonts/Roboto/roboto.scss.css";
 @import "./assets/styles/variables";
+
+@import "./assets/styles/common-classes/commons";
+@import "./assets/styles/common-classes/button";
+@import "./assets/styles/common-classes/form-control";
 
 * {
   font-family: Roboto-medium-500, sans-serif;
@@ -11,4 +17,5 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: $general-bg-color;
 }

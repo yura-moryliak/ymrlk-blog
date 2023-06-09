@@ -1,0 +1,25 @@
+@import "../variables";
+
+.primary-button {
+  background-color: $btn-border-color;
+  border: none;
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  transition: $transition-ease;
+  text-transform: uppercase;
+  border-radius: 7px;
+  color: $white-font-color;
+
+  &:hover {
+
+    &:not(:disabled) {
+      box-shadow: 0 5px 15px $glow-effect-color;
+      cursor: pointer;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}

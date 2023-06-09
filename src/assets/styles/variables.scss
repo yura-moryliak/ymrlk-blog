@@ -1,7 +1,15 @@
 $primary-font-color: #1F2421;
 $white-font-color: #FEFEFF;
 
-$btn-border-color: #52D1DC;
+$tabs-border-color: #B98EA7;
+$btn-border-color: #613F75;
+
+$general-bg-color: #FBFFFE;
+
+$transition-ease: all 0.2s ease-in-out;
 
 // breakpoints
 $HandsetBreakpoint: 599.98px;
+$TabletBreakpoint: 960px;
+
+$glow-effect-color: rgba(145, 92, 182, .4);

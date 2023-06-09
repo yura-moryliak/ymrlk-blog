@@ -1,0 +1,141 @@
+@mixin auth-container() {
+
+  .auth-container {
+    display: flex;
+    height: inherit;
+
+    .left-side-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 400px;
+      min-width: 400px;
+      transition: 0.3s ease-out;
+      padding: 64px 64px 30px;
+      background-color: $tabs-border-color;
+
+      header {
+        text-align: center;
+
+        h1 {
+          color: $white-font-color;
+        }
+
+      }
+
+      @media screen and (max-width: $TabletBreakpoint) {
+        display: none;
+      }
+    }
+
+    .right-side-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+
+      .auth-path {
+        display: flex;
+        justify-content: flex-end;
+
+        p {
+          a {
+            text-decoration: none;
+            color: $btn-border-color;
+            cursor: pointer;
+          }
+        }
+
+        @media screen and (max-width: $TabletBreakpoint) {
+          display: none;
+        }
+      }
+
+      form {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+        max-width: 400px;
+        align-self: center;
+        width: 100%;
+
+        .form-control {
+          &.with-forgot-password {
+            label {
+              display: inline-flex;
+              justify-content: space-between;
+
+              a {
+                text-decoration: none;
+                color: $btn-border-color;
+              }
+            }
+          }
+        }
+
+        .auth-path {
+          width: 100%;
+          justify-content: center;
+          display: none;
+
+          @media screen and (max-width: $TabletBreakpoint) {
+            display: flex;
+          }
+        }
+
+        .logo {
+          justify-content: flex-start;
+
+          h2 {
+            span {
+              display: none;
+            }
+          }
+
+          img {
+            display: none;
+          }
+
+        }
+
+        @media screen and (max-width: $TabletBreakpoint) {
+          .logo {
+            display: flex;
+            justify-content: center;
+
+            h2 {
+              span {
+                display: inline;
+              }
+            }
+
+            img {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      align-items: center;
+
+      h2 {
+        margin-right: 10px;
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+    }
+  }
+
+}
