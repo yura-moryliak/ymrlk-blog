@@ -1,8 +1,9 @@
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterLink, RouterLinkActive} from "@angular/router";
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
+import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 import {AuthService} from '../../services/auth.service';
 
@@ -18,21 +19,39 @@ import {AuthService} from '../../services/auth.service';
     RouterLinkActive
   ]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   isLoggedIn$!: Observable<boolean>;
+  isNavbarExpanded: boolean = false;
 
   private authService: AuthService = inject(AuthService);
+  private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  private subscriptions: Subscription = new Subscription();
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.observeNavbarResize();
   }
 
   logOut(): void {
     this.authService.logOut();
   }
 
-  openNavbar() {
-    console.log('Open navbar...');
+  toggleNavbar(): void {
+    this.isNavbarExpanded = !this.isNavbarExpanded;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  private observeNavbarResize(): void {
+    const breakpointsSubscription: Subscription = this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((state: BreakpointState): void => {
+      if (!state.matches) {
+        this.isNavbarExpanded = false;
+      }
+    });
+
+    this.subscriptions.add(breakpointsSubscription);
   }
 }

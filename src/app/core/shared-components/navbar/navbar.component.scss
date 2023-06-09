@@ -2,7 +2,7 @@
 
 ym-navbar {
 
-  nav.navbar {
+  .navbar {
     display: flex;
     justify-content: space-between;
     height: 60px;
@@ -15,8 +15,8 @@ ym-navbar {
       height: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
       cursor: pointer;
+      padding-left: 20px;
 
       a {
         text-decoration: none;
@@ -33,11 +33,34 @@ ym-navbar {
       .navbar-item {
         border: none;
         height: inherit;
-        width: 100px;
+        min-width: 100px;
         transition: 0.3s ease;
         background: none;
-        color: $white-font-color;
         position: relative;
+
+        span {
+          color: $white-font-color;
+          font-size: 14px;
+        }
+
+        &.avatar-item {
+          display: flex;
+          align-items: center;
+
+          svg {
+            width: 20px;
+            min-width: 20px;
+            height: 20px;
+            border: 1px solid $white-font-color;
+            padding: 5px;
+            border-radius: 50%;
+          }
+
+          span {
+            margin-left: 5px;
+          }
+
+        }
 
         &:hover {
           opacity: 0.7;
@@ -48,8 +71,10 @@ ym-navbar {
           margin: 0;
         }
 
-        @media all and (max-width: 575px) {
-          display: none;
+        @media all and (max-width: $HandsetBreakpoint) {
+          &:not(.logout-item, .avatar-item) {
+            display: none;
+          }
         }
       }
 
@@ -74,8 +99,69 @@ ym-navbar {
       width: 100px;
       cursor: pointer;
 
-      @media all and (min-width: 575px) {
+      @media all and (min-width: $HandsetBreakpoint) {
         display: none;
+      }
+    }
+  }
+
+  .navbar-expanded-container {
+    display: flex;
+    flex-direction: column;
+    background-color: $primary-font-color;
+    padding: 10px 0;
+
+    .navbar-item {
+      border: none;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      cursor: pointer;
+      position: relative;
+      padding: 0 20px;
+
+      span {
+        color: $white-font-color;
+        font-size: 14px;
+      }
+
+      &.avatar-item {
+        display: flex;
+        align-items: center;
+
+        svg {
+          width: 20px;
+          min-width: 20px;
+          height: 20px;
+          border: 1px solid $white-font-color;
+          padding: 5px;
+          border-radius: 50%;
+        }
+
+        span {
+          margin-left: 5px;
+        }
+
+      }
+
+      &:hover {
+        opacity: 0.7;
+        cursor: pointer;
+      }
+    }
+
+    .active {
+
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 3px;
+        height: 100%;
+        background-color: $btn-border-color;
+        right: 0;
       }
     }
   }
