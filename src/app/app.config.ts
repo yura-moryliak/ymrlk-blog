@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, ApplicationConfig} from '@angular/core';
+import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {provideClientHydration} from "@angular/platform-browser";
@@ -8,6 +8,7 @@ import {AuthService} from './core/services/auth.service';
 
 import {authInterceptor} from './core/interceptors/auth.interceptor';
 import {appInitializerAuthCheckFactory} from './core/factories/app-initializer-auth-check.factory';
+import {provideToastr, ToastNoAnimationModule} from 'ngx-toastr';
 
 
 export const appConfig: ApplicationConfig = {
@@ -22,6 +23,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),
-    provideClientHydration()
+    provideClientHydration(),
+    importProvidersFrom(ToastNoAnimationModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      timeOut: 10000,
+      preventDuplicates: true,
+      toastClass: 'ymrlk-toast-override-panel ngx-toastr'
+    }))
   ]
 };

@@ -1,4 +1,4 @@
-@import "ngx-toastr/toastr";
+@import 'ngx-toastr/toastr';
 
 @import "./assets/fonts/Roboto/roboto.scss.css";
 @import "./assets/styles/variables";
@@ -18,4 +18,11 @@ html, body {
   padding: 0;
   box-sizing: border-box;
   background-color: $general-bg-color;
+
+  .ymrlk-toast-override-panel {
+    .toast-title,
+    .toast-message {
+      color: $white-font-color;
+    }
+  }
 }

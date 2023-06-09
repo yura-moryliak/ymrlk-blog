@@ -6,6 +6,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 
 import {Subscription} from 'rxjs';
 
+import {ToastrService} from 'ngx-toastr';
+
 import {AuthService} from '../core/services/auth.service';
 import {LoginFormInterface} from '../core/interfaces/login-form.interface';
 import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials.interface';
@@ -25,10 +27,10 @@ export class LoginComponent implements OnDestroy {
     password: new FormControl('', Validators.required)
   });
 
-  error!: HttpErrorResponse;
-
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+  private toastService: ToastrService = inject(ToastrService);
+
   private subscriptions: Subscription = new Subscription();
 
   login(): void {
@@ -37,9 +39,10 @@ export class LoginComponent implements OnDestroy {
         next: (isLoggedIn: boolean | null): void => {
           if (isLoggedIn) {
             this.router.navigate(['/']).catch((error) => console.log(error));
+            this.toastService.success('You are successfully logged in', 'Login success');
           }
         },
-        error: (error: HttpErrorResponse) => this.error = error
+        error: (error: HttpErrorResponse) => this.toastService.error(error.error.message, 'Login failure')
       });
 
     this.subscriptions.add(loginSubscription);
