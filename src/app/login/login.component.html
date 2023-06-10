@@ -17,6 +17,11 @@
   <div class="right-side-container">
 
     <nav class="auth-path">
+
+      <p class="auth-link">
+        <a routerLink="">Go home</a>
+      </p>
+
       <p class="auth-link">
         Not a member yet?
         <a routerLink="/register">Register right now</a>
@@ -64,7 +69,11 @@
           </ng-container>
         </label>
         <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
-        <a routerLink="">Forgot password?</a>
+
+        <button class="btn-as-link" (click)="openForgotPasswordDialog()">
+          Forgot password?
+        </button>
+
       </div>
 
       <button class="primary-button"
@@ -75,6 +84,11 @@
       </button>
 
       <nav class="auth-path">
+
+        <p class="auth-link">
+          <a routerLink="">Go home</a>
+        </p>
+
         <p class="auth-link">
           Not a member yet?
           <a routerLink="/register">Register right now</a>

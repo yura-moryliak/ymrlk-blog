@@ -1,4 +1,4 @@
-@mixin auth-container() {
+@mixin ym-auth-container() {
 
   .auth-container {
     display: flex;
@@ -39,6 +39,11 @@
         justify-content: flex-end;
 
         p {
+
+          &:first-of-type {
+            margin-right: 15px;
+          }
+
           a {
             text-decoration: none;
             color: $btn-border-color;
@@ -68,17 +73,15 @@
               justify-content: space-between;
             }
 
-            a {
-              margin-top: 5px;
-              text-decoration: none;
-              color: $btn-border-color;
+            button {
+              margin-top: 10px;
             }
           }
         }
 
         .auth-path {
           width: 100%;
-          justify-content: center;
+          justify-content: space-between;
           display: none;
 
           @media screen and (max-width: $TabletBreakpoint) {

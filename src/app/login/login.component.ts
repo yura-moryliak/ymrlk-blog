@@ -3,6 +3,7 @@ import {Router, RouterLink} from '@angular/router';
 import {Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpErrorResponse} from '@angular/common/http';
+import {Dialog} from '@angular/cdk/dialog';
 
 import {Subscription} from 'rxjs';
 
@@ -13,6 +14,7 @@ import {LoginFormInterface} from '../core/interfaces/login-form.interface';
 import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials.interface';
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
 import {LoaderService} from '../core/shared-components/loader/services/loader.service';
+import {ForgotPasswordDialogComponent} from './forgot-password-dialog/forgot-password-dialog.component';
 
 @Component({
   selector: 'ym-login',
@@ -33,6 +35,7 @@ export class LoginComponent implements OnDestroy {
   private router: Router = inject(Router);
   private toastService: ToastrService = inject(ToastrService);
   private loaderService: LoaderService = inject(LoaderService);
+  private dialogService: Dialog = inject(Dialog);
 
   private subscriptions: Subscription = new Subscription();
 
@@ -58,6 +61,18 @@ export class LoginComponent implements OnDestroy {
       });
 
     this.subscriptions.add(loginSubscription);
+  }
+
+  openForgotPasswordDialog(): void {
+    this.dialogService.open(ForgotPasswordDialogComponent, {
+      width: '550px',
+      maxWidth: '90vw',
+      height: '500px',
+      closeOnDestroy: true,
+      closeOnNavigation: true,
+      closeOnOverlayDetachments: true,
+      panelClass: 'ym-dialog-common-wrapper'
+    });
   }
 
   ngOnDestroy(): void {

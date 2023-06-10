@@ -2,6 +2,7 @@ import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/
 import {provideRouter} from '@angular/router';
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {provideClientHydration} from "@angular/platform-browser";
+import {DialogModule} from '@angular/cdk/dialog';
 
 import {ToastNoAnimationModule} from 'ngx-toastr';
 
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
       timeOut: 10000,
       preventDuplicates: true,
       toastClass: 'ymrlk-toast-override-panel ngx-toastr'
-    }))
+    })),
+    importProvidersFrom(DialogModule),
   ]
 };
