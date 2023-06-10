@@ -1,3 +1,5 @@
+@import "../variables";
+
 @mixin ym-auth-container() {
 
   .auth-container {
@@ -125,6 +127,7 @@
             h2 {
               span {
                 display: inline;
+                font-family: Roboto-medium-500, sans-serif;
               }
             }
 
