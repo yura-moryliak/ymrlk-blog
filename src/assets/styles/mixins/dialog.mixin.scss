@@ -1,0 +1,17 @@
+@import "../variables";
+
+@mixin ym-dialog() {
+  .ym-dialog-container {
+    display: grid;
+    grid-template-rows: 50px calc(100% - 100px) 50px;
+    height: 100%;
+    padding: 0 20px;
+
+    .ym-dialog-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid $divider-color;
+    }
+  }
+}

@@ -5,5 +5,6 @@ ym-login {
   display: block;
   height: 100%;
 
-  @include auth-container();
+  @include ym-auth-container();
+
 }

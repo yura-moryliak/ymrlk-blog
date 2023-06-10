@@ -1,0 +1,10 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins/auth-container.mixin";
+
+ym-register {
+  display: block;
+  height: 100%;
+
+  @include ym-auth-container();
+
+}

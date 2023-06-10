@@ -9,6 +9,7 @@ import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.interface';
 import {AuthProfileCredentialsInterface} from '../interfaces/auth/auth-profile-creentials.interface';
 import {LocalStorageService} from './local-storage.service';
+import {RegisterCredentialsInterface} from '../interfaces/register-form.interface';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -64,8 +65,8 @@ export class AuthService {
 
   getAccessToken = (): string => this.localStorageService.getData(ACCESS_TOKEN_KEY) as string;
 
-  register(): void {
-    console.log('Register');
+  register(credentials: RegisterCredentialsInterface): Observable<any> {
+    return this.httpClient.post(`${ environment.api.baseUrl }/users/register`, credentials);
   }
 
   private getCurrentUserUUID(): Observable<boolean> {

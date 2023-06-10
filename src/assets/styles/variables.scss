@@ -4,12 +4,15 @@ $white-font-color: #FEFEFF;
 $tabs-border-color: #B98EA7;
 $btn-border-color: #613F75;
 
+$controls-border-color: #D9D9D9;
+
 $general-bg-color: #FBFFFE;
+$glow-effect-color: rgba(145, 92, 182, .4);
 
 $transition-ease: all 0.2s ease-in-out;
+$border-radius: 7px;
+$divider-color: #e0e0e0;
 
 // breakpoints
 $HandsetBreakpoint: 599.98px;
 $TabletBreakpoint: 960px;
-
-$glow-effect-color: rgba(145, 92, 182, .4);

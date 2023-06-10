@@ -1,4 +1,4 @@
-@mixin auth-container() {
+@mixin ym-auth-container() {
 
   .auth-container {
     display: flex;
@@ -39,6 +39,11 @@
         justify-content: flex-end;
 
         p {
+
+          &:first-of-type {
+            margin-right: 15px;
+          }
+
           a {
             text-decoration: none;
             color: $btn-border-color;
@@ -51,7 +56,7 @@
         }
       }
 
-      form {
+      .auth-form {
         display: flex;
         align-items: flex-start;
         flex-direction: column;
@@ -66,18 +71,17 @@
             label {
               display: inline-flex;
               justify-content: space-between;
+            }
 
-              a {
-                text-decoration: none;
-                color: $btn-border-color;
-              }
+            button {
+              margin-top: 10px;
             }
           }
         }
 
         .auth-path {
           width: 100%;
-          justify-content: center;
+          justify-content: space-between;
           display: none;
 
           @media screen and (max-width: $TabletBreakpoint) {
@@ -96,6 +100,19 @@
 
           img {
             display: none;
+          }
+
+        }
+
+        .primary-button {
+          position: relative;
+
+
+          ym-loader {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            transform: translate(0, 50%);
           }
 
         }
