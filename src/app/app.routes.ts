@@ -22,7 +22,13 @@ export const routes: Routes = [
     canActivate: [loggedInGuard]
   },
   {
-    path: 'user/:id',
+    path: 'reset-password/:accountId',
+    loadComponent: () => import('./reset-password/reset-password.component')
+      .then((cmp) => cmp.ResetPasswordComponent),
+    canActivate: [loggedInGuard]
+  },
+  {
+    path: 'user/:accountId',
     loadComponent: () => import('./user/user.component')
       .then((cmp) => cmp.UserComponent),
     canActivate: [authGuard] // for example only

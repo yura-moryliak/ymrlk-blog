@@ -27,7 +27,6 @@ export class RegisterComponent {
   form: FormGroup<RegisterFormInterface> = new FormGroup<RegisterFormInterface>({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    subdomain: new FormControl(''),
     email: new FormControl('', Validators.compose([
       Validators.required,
       Validators.email

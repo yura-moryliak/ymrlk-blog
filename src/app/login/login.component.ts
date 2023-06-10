@@ -14,7 +14,7 @@ import {LoginFormInterface} from '../core/interfaces/login-form.interface';
 import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials.interface';
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
 import {LoaderService} from '../core/shared-components/loader/services/loader.service';
-import {ForgotPasswordDialogComponent} from './forgot-password-dialog/forgot-password-dialog.component';
+import {ForgotPasswordDialogComponent} from './components/forgot-password-dialog/forgot-password-dialog.component';
 
 @Component({
   selector: 'ym-login',

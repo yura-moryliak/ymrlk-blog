@@ -5,7 +5,7 @@ import {DialogRef} from '@angular/cdk/dialog';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {RegisterFormInterface} from '../../core/interfaces/register-form.interface';
+import {RegisterFormInterface} from '../../../core/interfaces/register-form.interface';
 
 type ResetPasswordFormEmailControlType = Pick<RegisterFormInterface, 'email'>;
 
