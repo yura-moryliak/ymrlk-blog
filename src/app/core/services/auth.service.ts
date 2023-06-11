@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
@@ -11,6 +11,7 @@ import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.interface';
 import {LocalStorageService} from './local-storage.service';
 import {RegisterCredentialsInterface} from '../interfaces/register-form.interface';
+import {UsersService} from './users.service';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -25,6 +26,7 @@ export class AuthService {
     return this.isLoggedInSubject.asObservable();
   }
 
+  private usersService: UsersService = inject(UsersService);
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -42,7 +44,7 @@ export class AuthService {
         const decodedJwt: any = jwtDecode(tokens.accessToken);
         this.localStorageService.saveData(USER_UUID_KEY, decodedJwt[USER_UUID_KEY]);
 
-        return of(true);
+        return this.usersService.getUserByUUID().pipe(switchMap(() => of(true)))
       }),
       catchError((error: HttpErrorResponse) => {
         console.log('AuthService:Login->ERROR: ', error);
