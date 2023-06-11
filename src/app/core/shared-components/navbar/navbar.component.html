@@ -26,7 +26,9 @@
           <path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/>
         </svg>
 
-        <span>Yura Moryliak</span>
+        <ng-container *ngIf="(user$ | async) as userState">
+          <span>{{ userState.firstName }} {{ userState.lastName }}</span>
+        </ng-container>
       </button>
 
       <button class="navbar-item logout-item" (click)="logOut()">

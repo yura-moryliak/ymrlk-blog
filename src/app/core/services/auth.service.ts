@@ -1,19 +1,21 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 import {BehaviorSubject, catchError, Observable, of, switchMap, tap, throwError} from 'rxjs';
+
+import jwtDecode from 'jwt-decode';
 
 import {environment} from '../../../environments/environment.development';
 import {AuthTokensInterface} from '../interfaces/auth/auth-tokens.interface';
 import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.interface';
-import {AuthProfileCredentialsInterface} from '../interfaces/auth/auth-profile-creentials.interface';
 import {LocalStorageService} from './local-storage.service';
 import {RegisterCredentialsInterface} from '../interfaces/register-form.interface';
+import {UsersService} from './users.service';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
-export const USER_UUID_KEY = 'user-uuid';
+export const USER_UUID_KEY = 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,7 @@ export class AuthService {
     return this.isLoggedInSubject.asObservable();
   }
 
+  private usersService: UsersService = inject(UsersService);
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -37,7 +40,15 @@ export class AuthService {
     return this.httpClient.post<AuthTokensInterface>(`${ environment.api.baseUrl }/auth/login`, credentials, {withCredentials: true}).pipe(
       switchMap((tokens: AuthTokensInterface) => {
         this.doLogin(tokens);
-        return this.getCurrentUserUUID();
+
+        const decodedJwt: any = jwtDecode(tokens.accessToken);
+        this.localStorageService.saveData(USER_UUID_KEY, decodedJwt[USER_UUID_KEY]);
+
+        return this.usersService.getUserByUUID().pipe(switchMap(() => of(true)))
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('AuthService:Login->ERROR: ', error);
+        return throwError(error.error);
       })
     )
   }
@@ -67,20 +78,6 @@ export class AuthService {
 
   register(credentials: RegisterCredentialsInterface): Observable<any> {
     return this.httpClient.post(`${ environment.api.baseUrl }/users/register`, credentials);
-  }
-
-  private getCurrentUserUUID(): Observable<boolean> {
-    return this.httpClient.get<AuthProfileCredentialsInterface>(`${ environment.api.baseUrl }/users/profile`).pipe(
-      switchMap((profileCredentials: AuthProfileCredentialsInterface) => {
-
-        this.localStorageService.saveData(USER_UUID_KEY, profileCredentials.uuid);
-        return of(true);
-      }),
-      catchError((error) => {
-        console.log('AuthService:Login->Profile:ERROR: ', error);
-        return throwError(error);
-      })
-    )
   }
 
   private doLogin(tokens: AuthTokensInterface): void {
