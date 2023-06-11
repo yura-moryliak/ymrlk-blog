@@ -54,7 +54,7 @@ export class LoginComponent implements OnDestroy {
           }
         },
         error: (error: HttpErrorResponse): void => {
-          this.toastService.error(error.error.message, 'Login failure');
+          this.toastService.error(error.message, 'Login failure');
           this.form.reset();
           this.loaderService.hide();
         }

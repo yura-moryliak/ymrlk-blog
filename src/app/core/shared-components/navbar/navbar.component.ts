@@ -6,6 +6,9 @@ import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/lay
 import {Observable, Subscription} from 'rxjs';
 
 import {AuthService} from '../../services/auth.service';
+import {UsersService} from '../../services/users.service';
+import {UserInterface} from '../../interfaces/user/user.interface';
+import {LoaderComponent} from '../loader/loader.component';
 
 @Component({
   selector: 'ym-navbar',
@@ -16,20 +19,25 @@ import {AuthService} from '../../services/auth.service';
   imports: [
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    LoaderComponent
   ]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
+  user$!: Observable<UserInterface>;
   isLoggedIn$!: Observable<boolean>;
   isNavbarExpanded = false;
 
   private authService: AuthService = inject(AuthService);
+  private usersService: UsersService = inject(UsersService);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+
   private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.user$ = this.usersService.userState$;
     this.observeNavbarResize();
   }
 
