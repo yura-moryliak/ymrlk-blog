@@ -18,7 +18,7 @@ import {TabInterface} from './interfaces/tab.interface';
 export class TabsComponent implements OnInit {
 
   @Input() tabsList: TabInterface[] = [];
-  @Input() isRouterLess: boolean = false;
+  @Input() isRouterLess = false;
 
   @ViewChild('tabsViewContainer', { static: true, read: ViewContainerRef })
   tabsViewContainer!: ViewContainerRef;
