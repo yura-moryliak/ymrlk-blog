@@ -36,7 +36,7 @@ export class GeneralInfoComponent implements OnInit, OnDestroy {
 
     this.user = data.user;
     this.populateForm();
-  };
+  }
 
   user!: UserInterface;
   env: EnvConfigsInterface = environment;
