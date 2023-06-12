@@ -6,7 +6,7 @@
       <li *ngFor="let tab of tabsList">
         <a [routerLink]="tab.routerLink"
            routerLinkActive="active"
-           (click)="setActive(tab)">
+           (click)="setActive(tab)" [ngClass]="{ 'active': tab.isActive }">
           <span>{{ tab.title }}</span>
         </a>
       </li>

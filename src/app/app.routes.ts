@@ -37,6 +37,12 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'account-settings',
+    loadComponent: () => import('./account/account.component')
+      .then((cmp) => cmp.AccountComponent),
+    canActivate: [authGuard]
+  },
+  {
     path: 'user/:sub',
     loadComponent: () => import('./user/user.component')
       .then((cmp) => cmp.UserComponent),

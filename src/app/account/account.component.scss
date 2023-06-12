@@ -1,0 +1,13 @@
+@import "../../assets/styles/variables";
+
+ym-account {
+
+  .account-settings-container {
+    padding: 0 80px;
+
+    @media screen and (max-width: $HandsetBreakpoint) {
+      padding: 0 20px;
+    }
+  }
+
+}

@@ -1,0 +1,16 @@
+@mixin account-settings-form() {
+
+  &{
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+
+    .account-settings-form {
+      display: flex;
+      flex-direction: column;
+      max-width: 550px;
+      width: 550px;
+    }
+  }
+
+}

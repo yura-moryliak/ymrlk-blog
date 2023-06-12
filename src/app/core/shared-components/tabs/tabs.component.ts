@@ -1,5 +1,5 @@
 import {
-  Component, inject, Input,
+  Component, ComponentRef, inject, Input,
   OnInit, ViewChild, ViewContainerRef, ViewEncapsulation
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -18,17 +18,37 @@ import {TabInterface} from './interfaces/tab.interface';
 export class TabsComponent implements OnInit {
 
   @Input() tabsList: TabInterface[] = [];
+  @Input() isRouterLess: boolean = false;
 
   @ViewChild('tabsViewContainer', { static: true, read: ViewContainerRef })
   tabsViewContainer!: ViewContainerRef;
 
   private router: Router = inject(Router);
+  private componentRef!: ComponentRef<any>;
 
   ngOnInit(): void {
     this.initActiveTab();
   }
 
+  setActive(selectedTab: TabInterface): void {
+    this.tabsList.forEach((tabItem: TabInterface) => tabItem.isActive = false);
+    selectedTab.isActive = true;
+
+    this.tabsViewContainer.clear();
+    this.componentRef = this.tabsViewContainer.createComponent(selectedTab.component);
+
+    if (selectedTab.data) {
+      (this.componentRef.instance as any).data = selectedTab.data;
+    }
+  }
+
   private initActiveTab(): void {
+
+    if (this.isRouterLess) {
+      this.setActive(this.tabsList[0]);
+      return;
+    }
+
     const splitUrlList: string[] = this.router.url.split('/');
     const lastUrlSegment: string = splitUrlList[splitUrlList.length - 1];
 
@@ -39,11 +59,5 @@ export class TabsComponent implements OnInit {
     foundTab ?
       this.setActive(foundTab) :
       this.setActive(this.tabsList[0]);
-  }
-
-  setActive(tab: TabInterface): void {
-    tab.isActive = true;
-    this.tabsViewContainer.clear();
-    this.tabsViewContainer.createComponent(tab.component);
   }
 }
