@@ -35,4 +35,17 @@ export class UsersService {
     )
   }
 
+  updateUserState(userState: UserInterface): void {
+    this.userStateSubject.next(userState);
+  }
+
+  updateProfile(model: Partial<UserInterface>): Observable<UserInterface> {
+    return this.httpClient.put(`${ environment.api.baseUrl }/users/profile/update`, {
+      uuid: this.localStorageService.getData(USER_UUID_KEY),
+      model
+    }).pipe(catchError((error: HttpErrorResponse) => {
+      console.log('UsersService:updateProfile->ERROR: ', error);
+      return throwError(error.error);
+    }))
+  }
 }

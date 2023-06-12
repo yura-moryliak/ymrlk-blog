@@ -1,0 +1,6 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins/account-settings-form.mixin";
+
+ym-general-info {
+  @include account-settings-form();
+}
