@@ -70,10 +70,6 @@
         </label>
         <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
 
-        <button tabindex="-1" class="btn-as-link" (click)="openForgotPasswordDialog()">
-          Forgot password?
-        </button>
-
       </div>
 
       <button class="primary-button"
@@ -81,6 +77,10 @@
               (click)="login()">
         Get me in
         <ym-loader></ym-loader>
+      </button>
+
+      <button class="btn-as-link" (click)="openForgotPasswordDialog()">
+        Forgot password?
       </button>
 
       <nav class="auth-path">

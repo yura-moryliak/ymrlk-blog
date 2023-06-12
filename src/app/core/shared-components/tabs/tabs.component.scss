@@ -1,0 +1,55 @@
+@import "../../../../assets/styles/variables";
+
+ym-tabs {
+
+  .tabs-container {
+
+    .tab-items-container {
+      border-bottom: 1px solid $divider-color;
+
+      ul {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          margin-right: 30px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+
+          a {
+            text-decoration: none;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            height: inherit;
+
+            &:hover {
+              opacity: 0.7;
+              cursor: pointer;
+            }
+          }
+
+        }
+
+        .active {
+          &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 5px;
+            background-color: $tabs-border-color;
+            left: 0;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}

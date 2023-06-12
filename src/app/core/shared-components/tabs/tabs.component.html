@@ -1,0 +1,19 @@
+<div class="tabs-container">
+
+  <div class="tab-items-container">
+
+    <ul>
+      <li *ngFor="let tab of tabsList">
+        <a [routerLink]="tab.routerLink"
+           routerLinkActive="active"
+           (click)="setActive(tab)">
+          <span>{{ tab.title }}</span>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="tabs-view-container" #tabsViewContainer></div>
+
+</div>

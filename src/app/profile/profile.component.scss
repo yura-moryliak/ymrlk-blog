@@ -1,0 +1,45 @@
+@import "../../assets/styles/variables";
+
+ym-profile {
+
+  .profile-container {
+    padding: 0 80px;
+
+    .profile-card-container {
+      padding: 60px 0 20px;
+
+      .profile-card {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .avatar {
+          width: 150px;
+          height: 150px;
+          flex-shrink: 0;
+
+          img {
+            border-radius: 100%;
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .profile-simple-info {
+          margin-left: 20px;
+          display: flex;
+          flex-direction: column;
+          min-width: 200px;
+
+          h1 {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
+
+}
