@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'ym-user',
+  selector: 'ym-followers',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  templateUrl: './followers.component.html',
+  styleUrls: ['./followers.component.scss']
 })
-export class UserComponent {
+export class FollowersComponent {
 
 }

@@ -3,6 +3,8 @@ import {Routes} from '@angular/router';
 import {authGuard} from './core/guards/auth.guard';
 import {loggedInGuard} from './core/guards/loggedin.guard';
 
+import {profileChildRoutes} from './profile/profile-child.routes';
+
 export const routes: Routes = [
   {
     path: '',
@@ -28,15 +30,17 @@ export const routes: Routes = [
     canActivate: [loggedInGuard]
   },
   {
-    path: 'user/:accountId',
+    path: 'profile',
+    loadComponent: () => import('./profile/profile.component')
+      .then((cmp) => cmp.ProfileComponent),
+    children: profileChildRoutes,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'user/:sub',
     loadComponent: () => import('./user/user.component')
       .then((cmp) => cmp.UserComponent),
-    canActivate: [authGuard] // for example only
   },
-
-  // TODO Here will come path as /account/moryliak.y
-  // TODO add canActivate: [authGuard]
-
   {
     path: '**',
     redirectTo: '',

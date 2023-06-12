@@ -1,9 +1,9 @@
-import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subscription, tap} from 'rxjs';
 
 import {AuthService} from '../../services/auth.service';
 import {UsersService} from '../../services/users.service';
@@ -25,6 +25,8 @@ import {LoaderComponent} from '../loader/loader.component';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
+  @Output() userState: EventEmitter<UserInterface> = new EventEmitter<UserInterface>();
+
   user$!: Observable<UserInterface>;
   isLoggedIn$!: Observable<boolean>;
   isNavbarExpanded = false;
@@ -37,7 +39,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    this.user$ = this.usersService.userState$;
+    this.user$ = this.usersService.userState$.pipe(tap((user: UserInterface) => this.userState.emit(user)))
     this.observeNavbarResize();
   }
 

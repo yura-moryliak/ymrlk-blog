@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'ym-user',
+  selector: 'ym-posts',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.scss']
 })
-export class UserComponent {
+export class PostsComponent {
 
 }

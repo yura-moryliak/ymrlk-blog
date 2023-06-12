@@ -1,0 +1,24 @@
+<ym-navbar (userState)="initUser($event)"></ym-navbar>
+
+<div class="profile-container">
+
+  <div class="profile-card-container">
+
+    <div class="profile-card">
+
+      <div class="avatar">
+        <img src="https://cdn.dribbble.com/users/16528303/avatars/normal/data?1686236762" alt="{{ user?.firstName }} {{ user?.lastName }}" />
+      </div>
+
+      <div class="profile-simple-info">
+        <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
+        <button class="primary-button">Edit profile</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <ym-tabs [tabsList]="profileTabs"></ym-tabs>
+
+</div>

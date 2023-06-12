@@ -7,4 +7,12 @@ ym-login {
 
   @include ym-auth-container();
 
+  .auth-form {
+
+    .btn-as-link {
+      margin-top: 15px;
+    }
+
+  }
+
 }

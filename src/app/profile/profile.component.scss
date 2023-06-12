@@ -1,0 +1,67 @@
+@import "../../assets/styles/variables";
+
+ym-profile {
+
+  .profile-container {
+    padding: 0 80px;
+    transition: $transition-ease;
+
+    .profile-card-container {
+      padding: 60px 0 20px;
+
+      .profile-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .avatar {
+          width: 150px;
+          height: 150px;
+          flex-shrink: 0;
+
+          img {
+            border-radius: 100%;
+            width: 100%;
+            height: 100%;
+          }
+
+          @media screen and (max-width: $HandsetBreakpoint) {
+            width: 100px;
+            height: 100px;
+          }
+        }
+
+        .profile-simple-info {
+          margin-left: 20px;
+          display: flex;
+          flex-direction: column;
+          min-width: 200px;
+
+          h1 {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+
+          @media screen and (max-width: $HandsetBreakpoint) {
+            align-items: center;
+            margin: 0;
+          }
+        }
+
+        @media screen and (max-width: $HandsetBreakpoint) {
+          flex-direction: column;
+        }
+      }
+
+      @media screen and (max-width: $HandsetBreakpoint) {
+        padding: 20px 0 20px;
+      }
+    }
+
+    @media screen and (max-width: $HandsetBreakpoint) {
+      padding: 0 20px;
+    }
+  }
+
+}
