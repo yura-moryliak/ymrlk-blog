@@ -56,9 +56,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   private observeNavbarResize(): void {
-    const breakpointsSubscription: Subscription = this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((state: BreakpointState): void => {
-      if (!state.matches) {
-        this.isNavbarExpanded = false;
+    const breakpointsSubscription: Subscription = this.breakpointObserver.observe([Breakpoints.Handset]).subscribe({
+      next: (state: BreakpointState): void => {
+        if (!state.matches) {
+          this.isNavbarExpanded = false;
+        }
       }
     });
 

@@ -51,12 +51,15 @@
     <input id="subdomain" type="text" placeholder="Change URL subdomain" formControlName="subdomain" />
 
     <span class="legend">
-      Your public URL is look like: <b>{{ env.client.baseUrl }}/{{ form.controls.subdomain.value ? form.controls.subdomain.value : user?.uuid }}</b>
+      Your public URL will look like: <b>{{ env.client.baseUrl }}/{{ form.controls.subdomain.value ? form.controls.subdomain.value : user?.uuid }}</b>
     </span>
   </div>
 
   <button class="primary-button"
           [disabled]="form.invalid"
-          (click)="saveChanges()">Save changes</button>
+          (click)="saveChanges()">
+    Save changes
+    <ym-loader></ym-loader>
+  </button>
 
 </form>

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, Input, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -11,6 +11,8 @@ import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {EnvConfigsInterface} from '../../../core/interfaces/env-configs.interface';
 import {UsersService} from '../../../core/services/users.service';
 import {environment} from '../../../../environments/environment.development';
+import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
+import {LoaderService} from '../../../core/shared-components/loader/services/loader.service';
 
 export interface AccountGeneralInfoFormInterface {
   firstName: FormControl<string | null>;
@@ -25,9 +27,9 @@ export interface AccountGeneralInfoFormInterface {
   styleUrls: ['./general-info.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
 })
-export class GeneralInfoComponent implements OnInit, OnDestroy {
+export class GeneralInfoComponent implements OnDestroy {
 
   @Input() set data(data: { user: UserInterface }) {
     if (!data) {
@@ -44,27 +46,23 @@ export class GeneralInfoComponent implements OnInit, OnDestroy {
 
   private usersService: UsersService = inject(UsersService);
   private toastService: ToastrService = inject(ToastrService);
+  private loaderService: LoaderService = inject(LoaderService);
 
   private oldFormState!: UserInterface;
   private subscriptions: Subscription = new Subscription();
 
-  ngOnInit(): void {
-    const formValueChangesSubscription: Subscription = this.form.valueChanges.subscribe((changes) => {
-      console.log('Track changes for detecting navigation: ', changes);
-    });
-
-    this.subscriptions.add(formValueChangesSubscription);
-  }
-
   saveChanges(): void {
+    this.loaderService.show();
     this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
       next: (userState: UserInterface): void => {
         this.usersService.updateUserState(userState);
         this.toastService.success(`General info for ${ userState.firstName } ${ userState.lastName } was successfully updated`, 'Update profile successful');
+        this.loaderService.hide();
       },
       error: () => {
         this.toastService.error('Something went wrong while updating profile', 'Update profile failure');
         this.form.reset(this.oldFormState);
+        this.loaderService.hide();
       }
     });
   }
