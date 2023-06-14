@@ -46,15 +46,6 @@ ym-navbar {
           display: flex;
           align-items: center;
 
-          svg {
-            width: 20px;
-            min-width: 20px;
-            height: 20px;
-            border: 1px solid $white-font-color;
-            padding: 5px;
-            border-radius: 50%;
-          }
-
           span {
             margin-left: 5px;
           }

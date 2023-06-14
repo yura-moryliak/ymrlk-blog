@@ -15,9 +15,13 @@
     .error-message {
       margin-top: 0;
     }
+
+    .info-message {
+      font-size: 13px;
+    }
   }
 
-  input {
+  input, textarea {
     border: 1px solid $controls-border-color;
     border-radius: $border-radius;
     outline: none;
@@ -30,6 +34,12 @@
     &:focus {
       border: 1px solid $btn-border-color;
     }
+  }
+
+  textarea {
+    resize: none;
+    min-height: 150px;
+    padding: 10px;
   }
 
   .legend {

@@ -1,1 +1,65 @@
-<p>edit-profile works!</p>
+<form class="account-settings-form" [formGroup]="form">
+
+  <div class="avatar-upload-container">
+
+    <ym-avatar #avatarComponent
+               [source]="user?.avatarSrc!"
+               [width]="150"
+               [height]="150"
+               alt="{{ user?.firstName }} {{ user.lastName }}">
+    </ym-avatar>
+
+    <div class="avatar-actions">
+
+      <button class="primary-button">
+        <label for="uploadPicture">Upload avatar</label>
+        <input id="uploadPicture" type="file" (change)="uploadPicture($event)" accept="image/jpeg" />
+      </button>
+      <button class="default-button" [disabled]="user.avatarSrc === ''" (click)="deletePicture()">Delete</button>
+
+      <span class="info-badge">Max JPG, JPEG image size 3 MB</span>
+    </div>
+
+  </div>
+
+  <div class="form-control">
+    <label for="location">Location</label>
+    <input id="location" type="text" placeholder="Type in your location" formControlName="location" />
+  </div>
+
+  <div class="form-control">
+    <label for="bio">
+      Bio
+
+      <ng-container *ngIf="form.controls.bio.value?.length! <= bioMaxLength else bioMaxLengthError">
+        <span class="info-message">{{ form.controls.bio.value?.length }} / {{ bioMaxLength }}</span>
+      </ng-container>
+
+      <ng-template #bioMaxLengthError>
+
+        <ng-container *ngIf="form.controls.bio.invalid && form.controls.bio.dirty || form.controls.bio.touched">
+
+          <ng-container *ngIf="form.controls.bio?.errors?.['maxlength']">
+              <span class="error-message">
+                {{ form.controls.bio?.errors?.['maxlength']['actualLength'] }}
+                /
+                {{ form.controls.bio?.errors?.['maxlength']['requiredLength'] }}
+              </span>
+          </ng-container>
+
+        </ng-container>
+
+      </ng-template>
+
+    </label>
+    <textarea id="bio" placeholder="Tell about yourself in short" formControlName="bio"></textarea>
+  </div>
+
+  <button class="primary-button"
+          [disabled]="form.invalid"
+          (click)="saveChanges()">
+    Save changes
+    <ym-loader></ym-loader>
+  </button>
+
+</form>

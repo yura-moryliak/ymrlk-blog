@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
-import {BehaviorSubject, catchError, Observable, of, switchMap, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, of, switchMap} from 'rxjs';
 
 import {LocalStorageService} from './local-storage.service';
 import {UserInterface} from '../interfaces/user/user.interface';
@@ -27,10 +27,6 @@ export class UsersService {
       switchMap((user: UserInterface) => {
         this.userStateSubject.next(user);
         return of(user);
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.log('UsersService:getUserByUUID->ERROR: ', error);
-        return throwError(error.error);
       })
     )
   }
@@ -43,9 +39,22 @@ export class UsersService {
     return this.httpClient.put(`${ environment.api.baseUrl }/users/profile/update`, {
       uuid: this.localStorageService.getData(USER_UUID_KEY),
       model
-    }).pipe(catchError((error: HttpErrorResponse) => {
-      console.log('UsersService:updateProfile->ERROR: ', error);
-      return throwError(error.error);
-    }))
+    });
+  }
+
+  uploadProfileAvatar(file: File): Observable<UserInterface> {
+    const formData: FormData = new FormData();
+
+    formData.append('avatar', file);
+    formData.append('uuid', <string>this.localStorageService.getData(USER_UUID_KEY));
+
+    return this.httpClient.post(`${ environment.api.baseUrl }/users/profile/upload-avatar`, formData);
+  }
+
+  deleteProfileAvatar(avatarSrc: string): Observable<UserInterface> {
+    return this.httpClient.post(`${ environment.api.baseUrl }/users/profile/delete-avatar`, {
+      uuid: this.localStorageService.getData(USER_UUID_KEY),
+      fileName: avatarSrc.split('/')[avatarSrc.split('/').length - 1]
+    })
   }
 }

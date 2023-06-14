@@ -4,13 +4,17 @@
   background-color: $btn-border-color;
   border: none;
   height: 40px;
-  width: 100%;
   font-size: 14px;
   transition: $transition-ease;
   text-transform: uppercase;
   border-radius: $border-radius;
   color: $white-font-color;
   position: relative;
+  padding: 0 20px;
+
+  span, label {
+    color: $white-font-color;
+  }
 
   ym-loader {
     position: absolute;
@@ -47,4 +51,10 @@
     width: 17px;
     height: 17px;
   }
+}
+
+.default-button {
+  @extend .primary-button;
+  background-color: $divider-color;
+  color: $primary-font-color;
 }

@@ -68,8 +68,10 @@ export class TabsComponent implements OnInit, OnDestroy {
 
   private initActiveTab(): void {
 
-    if (this.isRouterLess) {
-      this.setActive(this.tabsList[0]);
+    const isActiveTab: TabInterface | undefined = this.tabsList.find((tab: TabInterface) => tab.isActive);
+
+    if (this.isRouterLess && isActiveTab) {
+      this.setActive(isActiveTab ? isActiveTab : this.tabsList[0]);
       return;
     }
 

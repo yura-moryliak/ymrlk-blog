@@ -6,9 +6,11 @@
 
     <div class="profile-card">
 
-      <div class="avatar">
-        <img src="https://cdn.dribbble.com/users/16528303/avatars/normal/data?1686236762" alt="{{ user?.firstName }} {{ user?.lastName }}" />
-      </div>
+      <ym-avatar [source]="user?.avatarSrc!"
+                 [width]="150"
+                 [height]="150"
+                 alt="{{ user?.firstName }} {{ user?.lastName }}">
+      </ym-avatar>
 
       <div class="profile-simple-info">
         <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>

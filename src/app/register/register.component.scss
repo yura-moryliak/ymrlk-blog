@@ -7,4 +7,12 @@ ym-register {
 
   @include ym-auth-container();
 
+  .auth-form {
+
+    .primary-button {
+      width: 100%;
+    }
+
+  }
+
 }

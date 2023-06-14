@@ -4,6 +4,7 @@ export interface UserInterface {
   email?: string;
   subdomain?: string;
   bio?: string;
+  location?: string;
   avatarSrc?: string;
   uuid?: string;
 }

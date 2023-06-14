@@ -1,0 +1,25 @@
+@import "../../../../assets/styles/variables";
+
+ym-avatar {
+
+  .avatar-container {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      &.rounded {
+        border-radius: 100%;
+      }
+    }
+  }
+
+}

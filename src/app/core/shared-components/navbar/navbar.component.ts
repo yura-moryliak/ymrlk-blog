@@ -3,12 +3,13 @@ import {CommonModule} from '@angular/common';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
-import {Observable, Subscription, tap} from 'rxjs';
+import {last, Observable, Subscription, tap} from 'rxjs';
 
 import {AuthService} from '../../services/auth.service';
 import {UsersService} from '../../services/users.service';
 import {UserInterface} from '../../interfaces/user/user.interface';
 import {LoaderComponent} from '../loader/loader.component';
+import {AvatarComponent} from '../avatar/avatar.component';
 
 @Component({
   selector: 'ym-navbar',
@@ -20,7 +21,8 @@ import {LoaderComponent} from '../loader/loader.component';
     CommonModule,
     RouterLink,
     RouterLinkActive,
-    LoaderComponent
+    LoaderComponent,
+    AvatarComponent
   ]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
@@ -66,4 +68,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(breakpointsSubscription);
   }
+
+  protected readonly last = last;
 }
