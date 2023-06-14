@@ -2,6 +2,8 @@ import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
+import {Subscription} from 'rxjs';
+
 import {ToastrService} from 'ngx-toastr';
 
 import {AccountBase} from '../../account.base';
@@ -35,7 +37,7 @@ export class PasswordsChangeComponent extends AccountBase<AccountPasswordChangeF
   protected saveChanges(): void {
     this.loaderService.show();
 
-    this.usersService.changePassword(this.form.value as AccountPasswordsFormValue).subscribe({
+    const passwordChangeSubscription: Subscription = this.usersService.changePassword(this.form.value as AccountPasswordsFormValue).subscribe({
       next: (isChanged: boolean): void => {
         if (isChanged) {
           this.loaderService.hide();
@@ -48,6 +50,8 @@ export class PasswordsChangeComponent extends AccountBase<AccountPasswordChangeF
         this.loaderService.hide();
       }
     })
+
+    this.subscriptions.add(passwordChangeSubscription);
   }
 
   protected populateForm(): void {

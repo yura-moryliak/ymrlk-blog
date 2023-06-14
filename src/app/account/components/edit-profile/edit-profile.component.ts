@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
+import {Subscription} from 'rxjs';
+
 import {ToastrService} from 'ngx-toastr';
 
 import {AccountBase} from '../../account.base';
@@ -69,7 +71,7 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
   protected saveChanges(): void {
     this.loaderService.show();
 
-    this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
+    const updateProfileSubscription: Subscription = this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
       next: (user: UserInterface): void => {
         this.user = user;
         this.usersService.updateUserState(user);
@@ -80,7 +82,9 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
         this.toastService.error(error.error.message, 'Update profile');
         this.loaderService.hide();
       }
-    })
+    });
+
+    this.subscriptions.add(updateProfileSubscription);
   }
 
   protected populateForm(): void {

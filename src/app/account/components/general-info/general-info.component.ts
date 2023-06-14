@@ -33,22 +33,24 @@ export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInte
   private loaderService: LoaderService = inject(LoaderService);
 
   private oldFormState!: UserInterface;
-  private subscriptions: Subscription = new Subscription();
 
   protected saveChanges(): void {
     this.loaderService.show();
-    this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
+
+    const updateProfileSubscription: Subscription = this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
       next: (userState: UserInterface): void => {
         this.usersService.updateUserState(userState);
         this.toastService.success(`General info for ${ userState.firstName } ${ userState.lastName } was successfully updated`, 'Update profile');
         this.loaderService.hide();
       },
-      error: () => {
+      error: (): void => {
         this.toastService.error('Something went wrong while updating profile', 'Update profile');
         this.form.reset(this.oldFormState);
         this.loaderService.hide();
       }
     });
+
+    this.subscriptions.add(updateProfileSubscription);
   }
 
   protected populateForm(): void {
@@ -62,9 +64,5 @@ export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInte
       subdomain: new FormControl(this.user.subdomain || '')
     });
     this.oldFormState = { ...this.form.value } as Partial<UserInterface>;
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 }
