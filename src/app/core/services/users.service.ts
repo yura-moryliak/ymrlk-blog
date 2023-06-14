@@ -7,6 +7,7 @@ import {LocalStorageService} from './local-storage.service';
 import {UserInterface} from '../interfaces/user/user.interface';
 import {USER_UUID_KEY} from './auth.service';
 import {environment} from '../../../environments/environment.development';
+import {AccountPasswordsFormValue} from '../../account/components/passwords-change/passwords-change.component';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,12 @@ export class UsersService {
       uuid: this.localStorageService.getData(USER_UUID_KEY),
       fileName: avatarSrc.split('/')[avatarSrc.split('/').length - 1]
     })
+  }
+
+  changePassword(model: AccountPasswordsFormValue): Observable<boolean> {
+    return this.httpClient.put(`${ environment.api.baseUrl }/users/profile/change-password`, {
+      uuid: this.localStorageService.getData(USER_UUID_KEY),
+      ...model
+    }).pipe(switchMap((isPasswordChanged: any) => of(isPasswordChanged)))
   }
 }

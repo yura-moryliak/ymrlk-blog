@@ -66,13 +66,6 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
     });
   }
 
-  protected populateForm(): void {
-    this.form = new FormGroup({
-      location: new FormControl(this.user.location || ''),
-      bio: new FormControl(this.user.bio || '', Validators.maxLength(this.bioMaxLength))
-    });
-  }
-
   protected saveChanges(): void {
     this.loaderService.show();
 
@@ -88,5 +81,12 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
         this.loaderService.hide();
       }
     })
+  }
+
+  protected populateForm(): void {
+    this.form = new FormGroup({
+      location: new FormControl(this.user.location || ''),
+      bio: new FormControl(this.user.bio || '', Validators.maxLength(this.bioMaxLength))
+    });
   }
 }

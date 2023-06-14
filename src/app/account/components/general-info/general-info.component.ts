@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -35,7 +35,7 @@ export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInte
   private oldFormState!: UserInterface;
   private subscriptions: Subscription = new Subscription();
 
-  saveChanges(): void {
+  protected saveChanges(): void {
     this.loaderService.show();
     this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
       next: (userState: UserInterface): void => {
@@ -51,10 +51,6 @@ export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInte
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   protected populateForm(): void {
     this.form = new FormGroup<AccountGeneralInfoFormInterface>({
       firstName: new FormControl(this.user.firstName || '', Validators.required),
@@ -66,5 +62,9 @@ export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInte
       subdomain: new FormControl(this.user.subdomain || '')
     });
     this.oldFormState = { ...this.form.value } as Partial<UserInterface>;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
