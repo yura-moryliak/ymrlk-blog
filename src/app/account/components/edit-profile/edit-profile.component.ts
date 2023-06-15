@@ -10,6 +10,7 @@ import {LoaderComponent} from '../../../core/shared-components/loader/loader.com
 import {AccountEditProfileFormInterface} from '../../interfaces/account-edit-profile-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
+import {LinkifyPipe} from '../../../core/pipes/linkify.pipe';
 
 @Component({
   selector: 'ym-edit-profile',
@@ -17,7 +18,7 @@ import {UserInterface} from '../../../core/interfaces/user/user.interface';
   styleUrls: ['./edit-profile.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, LoaderComponent, ReactiveFormsModule, AvatarComponent],
+  imports: [CommonModule, LoaderComponent, ReactiveFormsModule, AvatarComponent, LinkifyPipe]
 })
 export class EditProfileComponent extends AccountBaseComponent<AccountEditProfileFormInterface> {
 
@@ -33,21 +34,26 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
       return;
     }
 
-    const file: File = filesList[0];
+    let file: File | null = filesList[0];
 
-    this.usersService.uploadProfileAvatar(file).subscribe({
+    const uploadPictureSubscription: Subscription = this.usersService.uploadProfileAvatar(file).subscribe({
       next: (user: UserInterface): void => {
         this.user = user;
         this.avatarComponent.source = <string>user.avatarSrc;
         this.usersService.updateUserState(user);
         this.toastService.success('Picture uploaded successfully', 'Upload picture');
       },
-      error: (error: HttpErrorResponse) => this.toastService.error(error.error.message, 'Upload picture')
+      error: (error: HttpErrorResponse) => {
+        this.toastService.error(error.error.message, 'Upload picture');
+        file = null;
+      }
     });
+
+    this.subscriptions.add(uploadPictureSubscription);
   }
 
   deletePicture(): void {
-    this.usersService.deleteProfileAvatar(<string>this.user.avatarSrc).subscribe({
+    const deletePictureSubscription: Subscription = this.usersService.deleteProfileAvatar(<string>this.user.avatarSrc).subscribe({
       next: (user: UserInterface): void => {
         this.user = user;
         this.usersService.updateUserState(user);
@@ -55,11 +61,11 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
       },
       error: () => this.toastService.error('Something went wrong while deleting picture', 'Delete picture')
     });
+
+    this.subscriptions.add(deletePictureSubscription);
   }
 
   protected saveChanges(): void {
-    this.loaderService.show();
-
     const updateProfileSubscription: Subscription = this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
       next: (user: UserInterface): void => {
         this.user = user;
