@@ -10,6 +10,7 @@ import {AboutComponent} from './components/about/about.component';
 import {PostsComponent} from './components/posts/posts.component';
 import {SubscriptionsComponent} from './components/subscriptions/subscriptions.component';
 import {FollowersComponent} from './components/followers/followers.component';
+import {AvatarComponent} from '../core/shared-components/avatar/avatar.component';
 
 
 @Component({
@@ -18,7 +19,7 @@ import {FollowersComponent} from './components/followers/followers.component';
   styleUrls: ['./profile.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, NavbarComponent, RouterLink, TabsComponent],
+  imports: [CommonModule, NavbarComponent, RouterLink, TabsComponent, AvatarComponent],
 })
 export class ProfileComponent {
 

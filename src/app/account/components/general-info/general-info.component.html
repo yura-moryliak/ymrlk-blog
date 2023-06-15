@@ -1,62 +1,52 @@
 <form class="account-settings-form" [formGroup]="form">
 
-  <div class="form-control">
-    <label for="firstName">
-      First name
+  <ym-form-control-input
+    label="First name"
+    forId="firstName"
+    type="text"
+    placeholder="Type in your first name"
+    formControlName="firstName">
 
-      <ng-container *ngIf="form.controls.firstName.invalid && form.controls.firstName.dirty || form.controls.firstName.touched">
-        <ng-container *ngIf="form.controls.firstName?.errors?.['required']">
-          <span class="error-message">Is required</span>
-        </ng-container>
-      </ng-container>
+    <ym-control-validation [control]="form.controls.firstName"></ym-control-validation>
 
-    </label>
-    <input id="firstName" type="text" placeholder="Type in your first name" formControlName="firstName" />
-  </div>
+  </ym-form-control-input>
 
-  <div class="form-control">
-    <label for="lastName">
-      Last name
+  <ym-form-control-input
+    label="last name"
+    forId="lastName"
+    type="text"
+    placeholder="Type in your last name"
+    formControlName="lastName">
+    <ym-control-validation [control]="form.controls.lastName"></ym-control-validation>
+  </ym-form-control-input>
 
-      <ng-container *ngIf="form.controls.lastName.invalid && form.controls.lastName.dirty || form.controls.lastName.touched">
-        <ng-container *ngIf="form.controls.lastName?.errors?.['required']">
-          <span class="error-message">Is required</span>
-        </ng-container>
-      </ng-container>
-    </label>
-    <input id="lastName" type="text" placeholder="Type in your last name" formControlName="lastName" />
-  </div>
+  <ym-form-control-input
+    label="Email"
+    forId="email"
+    type="email"
+    placeholder="Type in your email address"
+    formControlName="email">
+    <ym-control-validation [control]="form.controls.email"></ym-control-validation>
+  </ym-form-control-input>
 
-  <div class="form-control">
-    <label for="email">
-      Email
-
-      <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
-
-        <ng-container *ngIf="form.controls.email?.errors?.['email']">
-          <span class="error-message">Is not valid</span>
-        </ng-container>
-
-        <ng-container *ngIf="form.controls.email?.errors?.['required']">
-          <span class="error-message">Is required</span>
-        </ng-container>
-
-      </ng-container>
-    </label>
-    <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
-  </div>
-
-  <div class="form-control">
-    <label for="subdomain">Subdomain</label>
-    <input id="subdomain" type="text" placeholder="Change URL subdomain" formControlName="subdomain" />
+  <ym-form-control-input
+    label="Subdomain"
+    forId="subdomain"
+    type="text"
+    placeholder="Change URL subdomain"
+    formControlName="subdomain">
 
     <span class="legend">
-      Your public URL is look like: <b>{{ env.client.baseUrl }}/{{ form.controls.subdomain.value ? form.controls.subdomain.value : user?.uuid }}</b>
+      Your public URL will look like: <b>{{ env.client.baseUrl }}/{{ form.controls.subdomain.value ? form.controls.subdomain.value : user?.uuid }}</b>
     </span>
-  </div>
+
+  </ym-form-control-input>
 
   <button class="primary-button"
           [disabled]="form.invalid"
-          (click)="saveChanges()">Save changes</button>
+          (click)="saveChanges()">
+    Save changes
+    <ym-loader></ym-loader>
+  </button>
 
 </form>

@@ -47,7 +47,7 @@ export class AccountComponent implements OnInit, OnDestroy {
       id: 'social-networks',
       component: SocialNetworksComponent,
       componentType: SocialNetworksComponent,
-      title: 'Social networks'
+      title: 'Social profiles'
     }
   ];
 
@@ -62,7 +62,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.subscriptions.add(userStateSubscription);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 }

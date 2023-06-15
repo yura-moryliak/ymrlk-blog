@@ -14,23 +14,6 @@ ym-profile {
         align-items: center;
         justify-content: center;
 
-        .avatar {
-          width: 150px;
-          height: 150px;
-          flex-shrink: 0;
-
-          img {
-            border-radius: 100%;
-            width: 100%;
-            height: 100%;
-          }
-
-          @media screen and (max-width: $HandsetBreakpoint) {
-            width: 100px;
-            height: 100px;
-          }
-        }
-
         .profile-simple-info {
           margin-left: 20px;
           display: flex;

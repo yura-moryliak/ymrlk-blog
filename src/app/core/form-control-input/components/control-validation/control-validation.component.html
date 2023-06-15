@@ -1,0 +1,33 @@
+<div class="form-control-validators" *ngIf="control.invalid && control.dirty || control.touched">
+
+  <ng-container *ngIf="control.errors?.['required']">
+    <span class="error-message">Is required</span>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors?.['minlength']">
+              <span class="error-message">
+                Required min length is
+                {{ control.errors?.['minlength']['actualLength'] }}
+                of
+                {{ control.errors?.['minlength']['requiredLength'] }} chars
+              </span>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors?.['maxlength']">
+              <span class="error-message">
+                Max length is
+                {{ control.errors?.['maxlength']['actualLength'] }}
+                of
+                {{ control.errors?.['maxlength']['requiredLength'] }} allowed chars
+              </span>
+  </ng-container>
+
+</div>
+
+<ng-container *ngIf="maxLength">
+
+  <ng-container *ngIf="control.value?.length! <= maxLength">
+    <span class="info-message">{{ control.value?.length }} / {{ maxLength }}</span>
+  </ng-container>
+
+</ng-container>

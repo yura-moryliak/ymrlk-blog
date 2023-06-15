@@ -1,0 +1,51 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins/account-settings-form.mixin";
+
+ym-edit-profile {
+  @include account-settings-form();
+
+  .account-settings-form {
+
+    .avatar-upload-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      border-bottom: 1px solid $divider-color;
+      padding-bottom: 15px;
+
+      ym-avatar {
+
+        .avatar-icon {
+          width: 100%;
+          height: 100%;
+        }
+
+      }
+
+      .avatar-actions {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+
+        .primary-button {
+
+          input {
+            &[type=file] {
+              display: none;
+            }
+          }
+
+        }
+
+        .info-badge {
+          color: $tabs-border-color;
+          font-size: 13px;
+        }
+      }
+
+    }
+
+  }
+
+}

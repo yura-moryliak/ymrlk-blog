@@ -1,1 +1,56 @@
-<p>edit-profile works!</p>
+<form class="account-settings-form" [formGroup]="form">
+
+  <div class="avatar-upload-container">
+
+    <ym-avatar #avatarComponent
+               [source]="user?.avatarSrc!"
+               [width]="150"
+               [height]="150"
+               alt="{{ user?.firstName }} {{ user.lastName }}">
+    </ym-avatar>
+
+    <div class="avatar-actions">
+
+      <button class="primary-button">
+        <label for="uploadPicture">Upload avatar</label>
+        <input id="uploadPicture" type="file" (change)="uploadPicture($event)" accept="image/jpeg" />
+      </button>
+      <button class="default-button" [disabled]="user.avatarSrc === ''" (click)="deletePicture()">Delete</button>
+
+      <span class="info-badge">Max JPG, JPEG image size 3 MB</span>
+    </div>
+
+  </div>
+
+  <ym-form-control-input
+    label="Location"
+    forId="location"
+    type="text"
+    placeholder="Type in your location"
+    formControlName="location">
+  </ym-form-control-input>
+
+  <ym-form-control-input
+    label="Bio"
+    forId="bio"
+    type="textarea"
+    placeholder="Tell about yourself in short"
+    formControlName="bio">
+
+    <ym-control-validation
+      [control]="form.controls.bio"
+      [maxLength]="bioMaxLength">
+    </ym-control-validation>
+
+    <span class="legend">Urls are hyperlinked</span>
+
+  </ym-form-control-input>
+
+  <button class="primary-button"
+          [disabled]="form.invalid"
+          (click)="saveChanges()">
+    Save changes
+    <ym-loader></ym-loader>
+  </button>
+
+</form>

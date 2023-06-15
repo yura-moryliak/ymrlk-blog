@@ -1,6 +1,6 @@
 <div class="tabs-container">
 
-  <div class="tab-items-container">
+  <div class="tab-items-container" *ngIf="!isTabsAsSelectVisible">
 
     <ul>
       <li *ngFor="let tab of tabsList">
@@ -11,6 +11,33 @@
         </a>
       </li>
     </ul>
+
+  </div>
+
+  <div class="tabs-list-as-select" *ngIf="isTabsAsSelectVisible">
+
+    <button class="selected-tab-item" (click)="toggleTabsSelect()">
+      <span>{{ activeTab?.title }}</span>
+      <svg [ngClass]="{ 'up': isTabsSelectOpened, 'down': !isTabsSelectOpened }" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+        <path d="M18.71,8.21a1,1,0,0,0-1.42,0l-4.58,4.58a1,1,0,0,1-1.42,0L6.71,8.21a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41l4.59,4.59a3,3,0,0,0,4.24,0l4.59-4.59A1,1,0,0,0,18.71,8.21Z"/>
+      </svg>
+    </button>
+
+    <div class="tab-item-as-select-options" *ngIf="isTabsSelectOpened">
+
+      <button class="tab-item-as-select-option"
+           *ngFor="let tab of tabsList"
+           [ngClass]="{ 'selected-tab': tab.id === activeTab?.id }"
+           (click)="setActive(tab); toggleTabsSelect()">
+        <a [routerLink]="tab.routerLink">
+          <span>{{ tab.title }}</span>
+          <svg *ngIf="tab.id === activeTab?.id" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+            <path d="M22.319,4.431,8.5,18.249a1,1,0,0,1-1.417,0L1.739,12.9a1,1,0,0,0-1.417,0h0a1,1,0,0,0,0,1.417l5.346,5.345a3.008,3.008,0,0,0,4.25,0L23.736,5.847a1,1,0,0,0,0-1.416h0A1,1,0,0,0,22.319,4.431Z"/>
+          </svg>
+        </a>
+      </button>
+
+    </div>
 
   </div>
 
