@@ -4,7 +4,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 
 import {Subscription} from 'rxjs';
 
-import {AccountBase} from '../../classes/account.base';
+import {AccountBaseComponent} from '../../classes/account.base';
 import {AccountPasswordChangeFormInterface} from '../../interfaces/account-password-change-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
@@ -22,7 +22,7 @@ export type AccountPasswordsFormValue = {
   standalone: true,
   imports: [CommonModule, AvatarComponent, FormsModule, LoaderComponent, ReactiveFormsModule],
 })
-export class PasswordsChangeComponent extends AccountBase<AccountPasswordChangeFormInterface> {
+export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswordChangeFormInterface> {
 
   protected saveChanges(): void {
     this.loaderService.show();

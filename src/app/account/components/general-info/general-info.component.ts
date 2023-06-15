@@ -5,7 +5,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 
 import {Subscription} from 'rxjs';
 
-import {AccountBase} from '../../classes/account.base';
+import {AccountBaseComponent} from '../../classes/account.base';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {EnvConfigsInterface} from '../../../core/interfaces/env-configs.interface';
 import {environment} from '../../../../environments/environment.development';
@@ -20,7 +20,7 @@ import {AccountGeneralInfoFormInterface} from '../../interfaces/account-general-
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
 })
-export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInterface> implements OnDestroy {
+export class GeneralInfoComponent extends AccountBaseComponent<AccountGeneralInfoFormInterface> implements OnDestroy {
 
   env: EnvConfigsInterface = environment;
 

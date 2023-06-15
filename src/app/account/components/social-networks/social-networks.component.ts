@@ -4,7 +4,7 @@ import {FormArray, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {AccountBase} from '../../classes/account.base';
+import {AccountBaseComponent} from '../../classes/account.base';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
@@ -18,7 +18,7 @@ import {AccountSocialProfilesStaticFormGroup} from '../../classes/account-social
   standalone: true,
   imports: [CommonModule, AvatarComponent, LoaderComponent, ReactiveFormsModule],
 })
-export class SocialNetworksComponent extends AccountBase<{ socialProfiles: FormArray }> {
+export class SocialNetworksComponent extends AccountBaseComponent<{ socialProfiles: FormArray }> {
 
   socialProfiles!: FormArray;
 

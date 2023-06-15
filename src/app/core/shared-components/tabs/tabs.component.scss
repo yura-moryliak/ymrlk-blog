@@ -55,6 +55,8 @@ ym-tabs {
       cursor: pointer;
 
       .selected-tab-item {
+        width: 100%;
+        background-color: $white-font-color;
         height: 35px;
         border: 1px solid $btn-border-color;
         border-radius: $border-radius;
@@ -62,26 +64,34 @@ ym-tabs {
         align-items: center;
         justify-content: space-between;
         padding: 0 10px;
+        font-size: inherit;
       }
 
       .tab-item-as-select-options {
         border-radius: $border-radius;
         border: 1px solid $btn-border-color;
         margin-top: 5px;
+        overflow: hidden;
 
         .tab-item-as-select-option {
+          width: 100%;
+          background-color: $white-font-color;
           padding: 0 10px;
           height: 35px;
-          border-bottom: 1px solid $divider-color;
+          border: none;
           display: flex;
           align-items: center;
           cursor: pointer;
+          font-size: inherit;
 
           a {
             display: inline-flex;
             justify-content: space-between;
+            align-items: center;
             width: 100%;
             text-decoration: none;
+            height: 100%;
+            border-bottom: 1px solid $divider-color;
           }
 
           &.selected-tab {

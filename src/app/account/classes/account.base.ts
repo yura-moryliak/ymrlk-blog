@@ -14,7 +14,7 @@ import {AuthService} from '../../core/services/auth.service';
   selector: 'ym-account-base',
   template: ''
 })
-export abstract class AccountBase<TControl extends {[K in keyof TControl]: AbstractControl<any>} = any> implements OnDestroy {
+export abstract class AccountBaseComponent<TControl extends {[K in keyof TControl]: AbstractControl<any>} = any> implements OnDestroy {
 
   @Input() set data(data: { user: UserInterface }) {
     if (!data) {

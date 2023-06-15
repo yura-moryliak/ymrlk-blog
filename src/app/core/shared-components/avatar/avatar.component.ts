@@ -13,7 +13,7 @@ export class AvatarComponent {
 
   @Input() set source(src: string) {
     src !== '' ? this.src = src : this.src = 'assets/images/user-avatar.png';
-  };
+  }
   @Input() alt = '';
   @Input() width = 100;
   @Input() height = 100;
