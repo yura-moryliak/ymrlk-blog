@@ -1,0 +1,15 @@
+<div class="form-control">
+
+  <label [for]="forId">
+    {{ label }}
+
+    <ng-content select="ym-control-validation"></ng-content>
+  </label>
+
+  <input [id]="forId"
+         [type]="type"
+         [placeholder]="placeholder"
+         [ngModel]="value"
+         (ngModelChange)="updateValue($event)"
+         [disabled]="isDisabled" />
+</div>

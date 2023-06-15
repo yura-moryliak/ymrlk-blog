@@ -8,6 +8,10 @@ import {AccountBaseComponent} from '../../classes/account.base';
 import {AccountPasswordChangeFormInterface} from '../../interfaces/account-password-change-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
+import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {
+  ControlValidationComponent
+} from '../../../core/form-control-input/components/control-validation/control-validation.component';
 
 export type AccountPasswordsFormValue = {
   oldPassword: string;
@@ -20,7 +24,7 @@ export type AccountPasswordsFormValue = {
   styleUrls: ['./passwords-change.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, AvatarComponent, FormsModule, LoaderComponent, ReactiveFormsModule],
+  imports: [CommonModule, AvatarComponent, FormsModule, LoaderComponent, ReactiveFormsModule, FormControlInputComponent, ControlValidationComponent],
 })
 export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswordChangeFormInterface> {
 

@@ -41,7 +41,8 @@ export class AccountComponent implements OnInit, OnDestroy {
       id: 'passwords',
       component: PasswordsChangeComponent,
       componentType: PasswordsChangeComponent,
-      title: 'Password'
+      title: 'Password',
+      isActive: true
     },
     {
       id: 'social-networks',
