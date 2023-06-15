@@ -11,6 +11,10 @@ import {EnvConfigsInterface} from '../../../core/interfaces/env-configs.interfac
 import {environment} from '../../../../environments/environment.development';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
 import {AccountGeneralInfoFormInterface} from '../../interfaces/account-general-info-form.interface';
+import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {
+  ControlValidationComponent
+} from '../../../core/form-control-input/components/control-validation/control-validation.component';
 
 @Component({
   selector: 'ym-general-info',
@@ -18,7 +22,7 @@ import {AccountGeneralInfoFormInterface} from '../../interfaces/account-general-
   styleUrls: ['./general-info.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, LoaderComponent, FormControlInputComponent, ControlValidationComponent],
 })
 export class GeneralInfoComponent extends AccountBaseComponent<AccountGeneralInfoFormInterface> implements OnDestroy {
 
