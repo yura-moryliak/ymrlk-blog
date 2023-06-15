@@ -29,11 +29,7 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
 
     const passwordChangeSubscription: Subscription = this.usersService.changePassword(this.form.value as AccountPasswordsFormValue).subscribe({
       next: (isChanged: boolean): void => {
-        if (isChanged) {
-          this.loaderService.hide();
-          this.authService.logOut();
-          this.toastService.info('Password was successfully changed. Please login once again', 'Password change');
-        }
+        this.handlePasswordChange(isChanged);
       },
       error: (): void => {
         this.toastService.info('Something went wrong while changing password', 'Password change');
@@ -55,4 +51,15 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
     });
   }
 
+  private handlePasswordChange(isChanged: boolean): void {
+    if (!isChanged) {
+      this.loaderService.hide();
+      this.toastService.error('Make sure you provide correct passwords', 'Password change');
+      return;
+    }
+
+    this.loaderService.hide();
+    this.authService.logOut();
+    this.toastService.info('Password was successfully changed. Please login once again', 'Password change');
+  }
 }
