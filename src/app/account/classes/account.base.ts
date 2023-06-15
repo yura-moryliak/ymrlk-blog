@@ -1,9 +1,14 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, inject, Input, OnDestroy} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
+import {ToastrService} from 'ngx-toastr';
+
 import {UserInterface} from '../../core/interfaces/user/user.interface';
+import {LoaderService} from '../../core/shared-components/loader/services/loader.service';
+import {UsersService} from '../../core/services/users.service';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'ym-account-base',
@@ -22,6 +27,11 @@ export abstract class AccountBase<TControl extends {[K in keyof TControl]: Abstr
 
   user!: UserInterface;
   form!: FormGroup<TControl>;
+
+  protected authService: AuthService = inject(AuthService);
+  protected toastService: ToastrService = inject(ToastrService);
+  protected loaderService: LoaderService = inject(LoaderService);
+  protected usersService: UsersService = inject(UsersService);
 
   protected abstract populateForm(): void;
   protected abstract saveChanges(): void;

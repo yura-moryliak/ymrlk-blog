@@ -1,18 +1,13 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {ToastrService} from 'ngx-toastr';
-
 import {AccountBase} from '../../classes/account.base';
 import {AccountPasswordChangeFormInterface} from '../../interfaces/account-password-change-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
-import {UsersService} from '../../../core/services/users.service';
-import {AuthService} from '../../../core/services/auth.service';
-import {LoaderService} from '../../../core/shared-components/loader/services/loader.service';
 
 export type AccountPasswordsFormValue = {
   oldPassword: string;
@@ -29,11 +24,6 @@ export type AccountPasswordsFormValue = {
 })
 export class PasswordsChangeComponent extends AccountBase<AccountPasswordChangeFormInterface> {
 
-  private authService: AuthService = inject(AuthService);
-  private usersService: UsersService = inject(UsersService);
-  private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
-
   protected saveChanges(): void {
     this.loaderService.show();
 
@@ -45,7 +35,7 @@ export class PasswordsChangeComponent extends AccountBase<AccountPasswordChangeF
           this.toastService.info('Password was successfully changed. Please login once again', 'Password change');
         }
       },
-      error: () => {
+      error: (): void => {
         this.toastService.info('Something went wrong while changing password', 'Password change');
         this.loaderService.hide();
       }

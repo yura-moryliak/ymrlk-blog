@@ -1,19 +1,15 @@
-import {Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {ToastrService} from 'ngx-toastr';
-
 import {AccountBase} from '../../classes/account.base';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {EnvConfigsInterface} from '../../../core/interfaces/env-configs.interface';
-import {UsersService} from '../../../core/services/users.service';
 import {environment} from '../../../../environments/environment.development';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
-import {LoaderService} from '../../../core/shared-components/loader/services/loader.service';
 import {AccountGeneralInfoFormInterface} from '../../interfaces/account-general-info-form.interface';
 
 @Component({
@@ -27,10 +23,6 @@ import {AccountGeneralInfoFormInterface} from '../../interfaces/account-general-
 export class GeneralInfoComponent extends AccountBase<AccountGeneralInfoFormInterface> implements OnDestroy {
 
   env: EnvConfigsInterface = environment;
-
-  private usersService: UsersService = inject(UsersService);
-  private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
 
   private oldFormState!: UserInterface;
 

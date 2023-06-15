@@ -4,15 +4,11 @@ import {FormArray, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {ToastrService} from 'ngx-toastr';
-
 import {AccountBase} from '../../classes/account.base';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
-import {UsersService} from '../../../core/services/users.service';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {AccountSocialProfilesStaticFormGroup} from '../../classes/account-social-profiles-static-form-group';
-import {LoaderService} from '../../../core/shared-components/loader/services/loader.service';
 
 @Component({
   selector: 'ym-social-networks',
@@ -27,22 +23,19 @@ export class SocialNetworksComponent extends AccountBase<{ socialProfiles: FormA
   socialProfiles!: FormArray;
 
   private fb: FormBuilder = inject(FormBuilder);
-  private userService: UsersService = inject(UsersService);
-  private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
 
   protected saveChanges(): void {
     this.loaderService.show();
 
-    const updateProfileSubscription: Subscription = this.userService.updateSocialProfiles(this.form.value.socialProfiles).subscribe({
+    const updateProfileSubscription: Subscription = this.usersService.updateSocialProfiles(this.form.value.socialProfiles).subscribe({
       next: (user: UserInterface): void => {
-        this.userService.updateUserState(user);
+        this.usersService.updateUserState(user);
         this.loaderService.hide();
-        this.toastService.success('Social profile updated successfully', 'Social profile update')
+        this.toastService.success('Social profile updated successfully', 'Social profiles update')
       },
       error: (): void => {
         this.loaderService.hide();
-        this.toastService.error('Something went wrong while updating social profiles', 'Social profile update')
+        this.toastService.error('Something went wrong while updating social profiles', 'Social profiles update')
       }
     })
 

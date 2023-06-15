@@ -1,19 +1,15 @@
-import {Component, inject, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
 import {Subscription} from 'rxjs';
 
-import {ToastrService} from 'ngx-toastr';
-
 import {AccountBase} from '../../classes/account.base';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
 import {AccountEditProfileFormInterface} from '../../interfaces/account-edit-profile-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
-import {UsersService} from '../../../core/services/users.service';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
-import {LoaderService} from '../../../core/shared-components/loader/services/loader.service';
 
 @Component({
   selector: 'ym-edit-profile',
@@ -30,10 +26,6 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
 
   bioMaxLength = 1024;
 
-  private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
-  private usersService: UsersService = inject(UsersService);
-
   uploadPicture(event: Event): void {
     const filesList: FileList = (event.target as HTMLInputElement).files as FileList;
 
@@ -42,16 +34,15 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
     }
 
     const file: File = filesList[0];
+
     this.usersService.uploadProfileAvatar(file).subscribe({
       next: (user: UserInterface): void => {
         this.user = user;
         this.avatarComponent.source = <string>user.avatarSrc;
         this.usersService.updateUserState(user);
-        this.toastService.success('Picture uploaded successfully', 'Avatar picture upload');
+        this.toastService.success('Picture uploaded successfully', 'Upload picture');
       },
-      error: (error: HttpErrorResponse) => {
-        this.toastService.error(error.error.message, 'Avatar picture upload')
-      }
+      error: (error: HttpErrorResponse) => this.toastService.error(error.error.message, 'Upload picture')
     });
   }
 
@@ -60,11 +51,9 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
       next: (user: UserInterface): void => {
         this.user = user;
         this.usersService.updateUserState(user);
-        this.toastService.success('Picture deleted successfully', 'Avatar picture deletion');
+        this.toastService.success('Picture deleted successfully', 'Delete picture');
       },
-      error: (error: HttpErrorResponse) => {
-        this.toastService.error(error.error.message, 'Avatar picture deletion');
-      }
+      error: () => this.toastService.error('Something went wrong while deleting picture', 'Delete picture')
     });
   }
 
@@ -75,11 +64,11 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
       next: (user: UserInterface): void => {
         this.user = user;
         this.usersService.updateUserState(user);
-        this.toastService.success('profile deleted successfully', 'Update profile');
+        this.toastService.success('Profile deleted successfully', 'Update profile');
         this.loaderService.hide();
       },
-      error: (error: HttpErrorResponse): void => {
-        this.toastService.error(error.error.message, 'Update profile');
+      error: (): void => {
+        this.toastService.error('Something went wrong while updating profile', 'Update profile');
         this.loaderService.hide();
       }
     });
