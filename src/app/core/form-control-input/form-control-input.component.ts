@@ -43,7 +43,6 @@ export class FormControlInputComponent implements ControlValueAccessor {
   }
 
   writeValue(outsideValue: string): void {
-    console.log(outsideValue);
     this.value = outsideValue;
   }
 
