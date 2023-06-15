@@ -12,7 +12,7 @@ export class LinkifyPipe implements PipeTransform {
       return '';
     }
 
-    const urlRegex: RegExp = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 
     return text.replace(urlRegex, (url: string) => {
 

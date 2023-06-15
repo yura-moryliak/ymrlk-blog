@@ -27,8 +27,8 @@ export class FormControlInputComponent implements ControlValueAccessor {
   value!: string;
   isDisabled = false;
 
-  onChange: any = (_: any) =>  { }
-  onTouched: any = (_: any) => { }
+  onChange: any;
+  onTouched: any;
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
