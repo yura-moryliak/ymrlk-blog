@@ -19,9 +19,9 @@ import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModul
 })
 export class FormControlInputComponent implements ControlValueAccessor {
 
-  @Input({ required: true }) label!: string;
-  @Input({ required: true }) forId!: string;
-  @Input() type: 'password' | 'text' | 'date' | 'email' | 'file' | 'number' | 'url' | 'tel' = 'text';
+  @Input({ required: true }) label!: string | number;
+  @Input({ required: true }) forId!: string | number;
+  @Input() type: 'password' | 'text' | 'date' | 'email' | 'file' | 'number' | 'url' | 'tel' | 'textarea' = 'text';
   @Input() placeholder!: string;
 
   value!: string;
@@ -43,6 +43,7 @@ export class FormControlInputComponent implements ControlValueAccessor {
   }
 
   writeValue(outsideValue: string): void {
+    console.log(outsideValue);
     this.value = outsideValue;
   }
 

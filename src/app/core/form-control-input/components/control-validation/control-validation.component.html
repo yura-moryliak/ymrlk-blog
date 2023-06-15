@@ -1,7 +1,5 @@
 <div class="form-control-validators" *ngIf="control.invalid && control.dirty || control.touched">
 
-  <!--TODO Extend with other errors -->
-
   <ng-container *ngIf="control.errors?.['required']">
     <span class="error-message">Is required</span>
   </ng-container>
@@ -25,3 +23,11 @@
   </ng-container>
 
 </div>
+
+<ng-container *ngIf="maxLength">
+
+  <ng-container *ngIf="control.value?.length! <= maxLength">
+    <span class="info-message">{{ control.value?.length }} / {{ maxLength }}</span>
+  </ng-container>
+
+</ng-container>

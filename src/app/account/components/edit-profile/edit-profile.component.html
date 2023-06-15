@@ -22,39 +22,29 @@
 
   </div>
 
-  <div class="form-control">
-    <label for="location">Location</label>
-    <input id="location" type="text" placeholder="Type in your location" formControlName="location" />
-  </div>
+  <ym-form-control-input
+    label="Location"
+    forId="location"
+    type="text"
+    placeholder="Type in your location"
+    formControlName="location">
+  </ym-form-control-input>
 
-  <div class="form-control">
-    <label for="bio">
-      Bio
+  <ym-form-control-input
+    label="Bio"
+    forId="bio"
+    type="textarea"
+    placeholder="Tell about yourself in short"
+    formControlName="bio">
 
-      <ng-container *ngIf="form.controls.bio.value?.length! <= bioMaxLength else bioMaxLengthError">
-        <span class="info-message">{{ form.controls.bio.value?.length }} / {{ bioMaxLength }}</span>
-      </ng-container>
+    <ym-control-validation
+      [control]="form.controls.bio"
+      [maxLength]="bioMaxLength">
+    </ym-control-validation>
 
-      <ng-template #bioMaxLengthError>
-
-        <ng-container *ngIf="form.controls.bio.invalid && form.controls.bio.dirty || form.controls.bio.touched">
-
-          <ng-container *ngIf="form.controls.bio?.errors?.['maxlength']">
-              <span class="error-message">
-                {{ form.controls.bio?.errors?.['maxlength']['actualLength'] }}
-                /
-                {{ form.controls.bio?.errors?.['maxlength']['requiredLength'] }}
-              </span>
-          </ng-container>
-
-        </ng-container>
-
-      </ng-template>
-
-    </label>
-    <textarea id="bio" placeholder="Tell about yourself in short" formControlName="bio"></textarea>
     <span class="legend">Urls are hyperlinked</span>
-  </div>
+
+  </ym-form-control-input>
 
   <button class="primary-button"
           [disabled]="form.invalid"

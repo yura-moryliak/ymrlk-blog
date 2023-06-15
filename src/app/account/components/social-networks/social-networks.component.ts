@@ -9,6 +9,7 @@ import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.com
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {AccountSocialProfilesStaticFormGroup} from '../../classes/account-social-profiles-static-form-group';
+import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
 
 @Component({
   selector: 'ym-social-networks',
@@ -16,7 +17,7 @@ import {AccountSocialProfilesStaticFormGroup} from '../../classes/account-social
   styleUrls: ['./social-networks.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, AvatarComponent, LoaderComponent, ReactiveFormsModule],
+  imports: [CommonModule, AvatarComponent, LoaderComponent, ReactiveFormsModule, FormControlInputComponent],
 })
 export class SocialNetworksComponent extends AccountBaseComponent<{ socialProfiles: FormArray }> {
 

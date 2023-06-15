@@ -13,5 +13,6 @@ import {FormControl} from '@angular/forms';
 export class ControlValidationComponent {
 
   @Input({ required: true }) control!: FormControl;
+  @Input() maxLength!: number;
 
 }

@@ -4,12 +4,17 @@
 
     <ng-container *ngFor="let socialProfileControl of socialProfiles.controls; let socialProfileIndex = index">
 
-      <div class="form-control" [formGroupName]="socialProfileIndex">
-        <label [for]="socialProfileIndex">
-          {{ socialProfileControl.value.title }}
-        </label>
-        <input [id]="socialProfileIndex" type="text" placeholder="Type in or paste a link" formControlName="link">
-      </div>
+      <ng-container [formGroupName]="socialProfileIndex">
+
+        <ym-form-control-input
+          [label]="socialProfileControl.value.title"
+          [forId]="socialProfileIndex"
+          type="url"
+          placeholder="Type in or paste a link"
+          formControlName="url">
+        </ym-form-control-input>
+
+      </ng-container>
 
     </ng-container>
 

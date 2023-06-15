@@ -11,6 +11,10 @@ import {AccountEditProfileFormInterface} from '../../interfaces/account-edit-pro
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {LinkifyPipe} from '../../../core/pipes/linkify.pipe';
+import {
+  ControlValidationComponent
+} from '../../../core/form-control-input/components/control-validation/control-validation.component';
+import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
 
 @Component({
   selector: 'ym-edit-profile',
@@ -18,7 +22,7 @@ import {LinkifyPipe} from '../../../core/pipes/linkify.pipe';
   styleUrls: ['./edit-profile.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, LoaderComponent, ReactiveFormsModule, AvatarComponent, LinkifyPipe]
+  imports: [CommonModule, LoaderComponent, ReactiveFormsModule, AvatarComponent, LinkifyPipe, ControlValidationComponent, FormControlInputComponent]
 })
 export class EditProfileComponent extends AccountBaseComponent<AccountEditProfileFormInterface> {
 
