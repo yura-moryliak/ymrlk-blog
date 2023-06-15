@@ -1,1 +1,23 @@
-<p>social-networks works!</p>
+<form class="account-settings-form" [formGroup]="form">
+
+  <ng-container formArrayName="socialProfiles">
+
+    <ng-container *ngFor="let socialProfileControl of socialProfiles.controls; let socialProfileIndex = index">
+
+      <div class="form-control" [formGroupName]="socialProfileIndex">
+        <label [for]="socialProfileIndex">
+          {{ socialProfileControl.value.title }}
+        </label>
+        <input [id]="socialProfileIndex" type="text" placeholder="Type in or paste a link" formControlName="link">
+      </div>
+
+    </ng-container>
+
+  </ng-container>
+
+  <button class="primary-button" (click)="saveChanges()">
+    Save changes
+    <ym-loader></ym-loader>
+  </button>
+
+</form>

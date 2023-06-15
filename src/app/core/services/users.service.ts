@@ -43,6 +43,13 @@ export class UsersService {
     });
   }
 
+  updateSocialProfiles(model: Partial<UserInterface>): Observable<any> {
+    return this.httpClient.put(`${ environment.api.baseUrl }/users/profile/update-social-profiles`, {
+      uuid: this.localStorageService.getData(USER_UUID_KEY),
+      model
+    });
+  }
+
   uploadProfileAvatar(file: File): Observable<UserInterface> {
     const formData: FormData = new FormData();
 

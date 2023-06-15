@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/mixins/account-settings-form.mixin";
+
+ym-social-networks {
+  @include account-settings-form();
+
+  .account-settings-form {
+
+    .btn-as-link {
+      margin-bottom: 30px;
+    }
+
+  }
+}

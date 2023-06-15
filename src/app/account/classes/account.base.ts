@@ -3,7 +3,7 @@ import {AbstractControl, FormGroup} from '@angular/forms';
 
 import {Subscription} from 'rxjs';
 
-import {UserInterface} from '../core/interfaces/user/user.interface';
+import {UserInterface} from '../../core/interfaces/user/user.interface';
 
 @Component({
   selector: 'ym-account-base',

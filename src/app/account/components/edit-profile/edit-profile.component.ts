@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {AccountBase} from '../../account.base';
+import {AccountBase} from '../../classes/account.base';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
 import {AccountEditProfileFormInterface} from '../../interfaces/account-edit-profile-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
@@ -88,7 +88,7 @@ export class EditProfileComponent extends AccountBase<AccountEditProfileFormInte
   }
 
   protected populateForm(): void {
-    this.form = new FormGroup({
+    this.form = new FormGroup<AccountEditProfileFormInterface>({
       location: new FormControl(this.user.location || ''),
       bio: new FormControl(this.user.bio || '', Validators.maxLength(this.bioMaxLength))
     });

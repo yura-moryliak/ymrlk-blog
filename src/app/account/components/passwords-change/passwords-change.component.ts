@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {AccountBase} from '../../account.base';
+import {AccountBase} from '../../classes/account.base';
 import {AccountPasswordChangeFormInterface} from '../../interfaces/account-password-change-form.interface';
 import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
 import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';

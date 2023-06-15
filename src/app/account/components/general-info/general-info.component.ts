@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {AccountBase} from '../../account.base';
+import {AccountBase} from '../../classes/account.base';
 import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {EnvConfigsInterface} from '../../../core/interfaces/env-configs.interface';
 import {UsersService} from '../../../core/services/users.service';
