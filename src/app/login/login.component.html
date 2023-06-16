@@ -37,40 +37,27 @@
         </a>
       </div>
 
-      <div class="form-control">
-        <label for="email">
-          Email
+      <ym-form-control-input
+        label="Email"
+        forId="email"
+        type="text"
+        placeholder="Type in your email address"
+        formControlName="email">
 
-          <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
+        <ym-control-validation [control]="form.controls.email"></ym-control-validation>
 
-            <ng-container *ngIf="form.controls.email?.errors?.['email']">
-              <span class="error-message">Is not valid</span>
-            </ng-container>
+      </ym-form-control-input>
 
-            <ng-container *ngIf="form.controls.email?.errors?.['required']">
-              <span class="error-message">Is required</span>
-            </ng-container>
+      <ym-form-control-input
+        label="Password"
+        forId="password"
+        type="password"
+        placeholder="Type in your password"
+        formControlName="password">
 
-          </ng-container>
-        </label>
-        <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
-      </div>
+        <ym-control-validation [control]="form.controls.password"></ym-control-validation>
 
-      <div class="form-control with-forgot-password">
-        <label for="password">
-          Password
-
-          <ng-container *ngIf="form.controls.password.invalid && form.controls.password.dirty || form.controls.password.touched">
-
-            <ng-container *ngIf="form.controls.password?.errors?.['required']">
-              <span class="error-message">Password is required</span>
-            </ng-container>
-
-          </ng-container>
-        </label>
-        <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
-
-      </div>
+      </ym-form-control-input>
 
       <button class="primary-button"
               [disabled]="form.invalid"

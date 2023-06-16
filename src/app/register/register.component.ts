@@ -1,6 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {HttpErrorResponse} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
@@ -10,9 +9,9 @@ import {ToastrService} from 'ngx-toastr';
 
 import {AuthService} from '../core/services/auth.service';
 import {RegisterCredentialsInterface, RegisterFormInterface} from "../core/interfaces/register-form.interface";
-import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
 import {LoaderService} from '../core/shared-components/loader/services/loader.service';
+import {passwordMatchValidator} from '../core/validators/password-match.validator';
 
 @Component({
   selector: 'ym-register',
@@ -43,6 +42,8 @@ export class RegisterComponent {
     ]))
   });
 
+  isFormPending = false;
+
   private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
   private loaderService: LoaderService = inject(LoaderService);
@@ -51,20 +52,27 @@ export class RegisterComponent {
 
   register(): void {
 
+    if (this.isFormPending) {
+      return;
+    }
+
+    this.isFormPending = true;
     this.loaderService.show();
 
     const registerSubscription: Subscription = this.authService.register(this.form.value as RegisterCredentialsInterface).subscribe({
       next: (response): void => {
         if (response) {
-          this.toastService.success('Account was created successfully', 'Register successful');
+          this.toastService.success('Account was created successfully', 'Register');
           this.form.reset();
           this.loaderService.hide();
+          this.isFormPending = false;
         }
       },
-      error: (error: HttpErrorResponse): void => {
-        this.toastService.error(error.error.message, 'Register failure');
+      error: (): void => {
+        this.toastService.error('Something went wrong while registering ', 'Register');
         this.form.reset();
         this.loaderService.hide();
+        this.isFormPending = false;
       }
     });
 

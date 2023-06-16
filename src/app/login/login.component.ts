@@ -15,6 +15,10 @@ import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
 import {LoaderService} from '../core/shared-components/loader/services/loader.service';
 import {ForgotPasswordDialogComponent} from './components/forgot-password-dialog/forgot-password-dialog.component';
+import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
+import {
+  ControlValidationComponent
+} from '../core/form-control-input/components/control-validation/control-validation.component';
 
 @Component({
   selector: 'ym-login',
@@ -22,7 +26,7 @@ import {ForgotPasswordDialogComponent} from './components/forgot-password-dialog
   styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
 export class LoginComponent implements OnDestroy {
 
@@ -30,6 +34,8 @@ export class LoginComponent implements OnDestroy {
     email: new FormControl('', Validators.compose([Validators.email, Validators.required])),
     password: new FormControl('', Validators.required)
   });
+
+  isFormPending = false;
 
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
@@ -41,6 +47,11 @@ export class LoginComponent implements OnDestroy {
 
   login(): void {
 
+    if (this.isFormPending) {
+      return;
+    }
+
+    this.isFormPending = true;
     this.loaderService.show();
 
     const loginSubscription: Subscription = this.authService.login(this.form.value as AuthCredentialsInterface)
@@ -48,15 +59,17 @@ export class LoginComponent implements OnDestroy {
         next: (isLoggedIn: boolean | null): void => {
           if (isLoggedIn) {
             this.router.navigate(['/']).catch((error) => console.log(error));
-            this.toastService.success('You are successfully logged in', 'Login success');
+            this.toastService.success('You are successfully logged in', 'Login');
             this.form.reset();
             this.loaderService.hide();
+            this.isFormPending = false;
           }
         },
         error: (error: HttpErrorResponse): void => {
-          this.toastService.error(error.message, 'Login failure');
+          this.toastService.error(error.message, 'Login');
           this.form.reset();
           this.loaderService.hide();
+          this.isFormPending = false;
         }
       });
 
