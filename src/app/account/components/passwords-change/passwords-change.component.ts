@@ -65,7 +65,10 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
 
   protected populateForm(): void {
     this.form = new FormGroup<AccountPasswordChangeFormInterface>({
-      oldPassword: new FormControl(''),
+      oldPassword: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(5)
+      ])),
       newPassword: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(5),

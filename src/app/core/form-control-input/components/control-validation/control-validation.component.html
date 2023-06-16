@@ -4,22 +4,30 @@
     <span class="error-message">Is required</span>
   </ng-container>
 
+  <ng-container *ngIf="control.errors?.['email']">
+    <span class="error-message">Is not valid</span>
+  </ng-container>
+
   <ng-container *ngIf="control.errors?.['minlength']">
-              <span class="error-message">
-                Required min length is
-                {{ control.errors?.['minlength']['actualLength'] }}
-                of
-                {{ control.errors?.['minlength']['requiredLength'] }} chars
-              </span>
+    <span class="error-message">
+      Required min length is
+      {{ control.errors?.['minlength']['actualLength'] }}
+      of
+      {{ control.errors?.['minlength']['requiredLength'] }} chars
+    </span>
   </ng-container>
 
   <ng-container *ngIf="control.errors?.['maxlength']">
-              <span class="error-message">
-                Max length is
-                {{ control.errors?.['maxlength']['actualLength'] }}
-                of
-                {{ control.errors?.['maxlength']['requiredLength'] }} allowed chars
-              </span>
+    <span class="error-message">
+      Max length is
+      {{ control.errors?.['maxlength']['actualLength'] }}
+      of
+      {{ control.errors?.['maxlength']['requiredLength'] }} allowed chars
+    </span>
+  </ng-container>
+
+  <ng-container *ngIf="control.errors?.['matching']">
+    <span class="error-message">Is required or does not match</span>
   </ng-container>
 
 </div>

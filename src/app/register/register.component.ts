@@ -12,6 +12,10 @@ import {RegisterCredentialsInterface, RegisterFormInterface} from "../core/inter
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
 import {LoaderService} from '../core/shared-components/loader/services/loader.service';
 import {passwordMatchValidator} from '../core/validators/password-match.validator';
+import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
+import {
+  ControlValidationComponent
+} from '../core/form-control-input/components/control-validation/control-validation.component';
 
 @Component({
   selector: 'ym-register',
@@ -19,7 +23,7 @@ import {passwordMatchValidator} from '../core/validators/password-match.validato
   styleUrls: ['./register.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
 export class RegisterComponent {
 
