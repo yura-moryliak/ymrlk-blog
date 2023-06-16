@@ -1,8 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {DialogRef} from '@angular/cdk/dialog';
 
-import {Subscription} from 'rxjs';
+import {lastValueFrom, Subscription} from 'rxjs';
 
 import {AccountBaseComponent} from '../../classes/account.base';
 import {AccountPasswordChangeFormInterface} from '../../interfaces/account-password-change-form.interface';
@@ -12,6 +13,8 @@ import {FormControlInputComponent} from '../../../core/form-control-input/form-c
 import {
   ControlValidationComponent
 } from '../../../core/form-control-input/components/control-validation/control-validation.component';
+import {WarningDialogInterface} from '../../interfaces/warning-dialog.interface';
+import {WarningDialogComponent} from '../dialogs/warning-dialog/warning-dialog.component';
 
 export type AccountPasswordsFormValue = {
   oldPassword: string;
@@ -26,22 +29,38 @@ export type AccountPasswordsFormValue = {
   standalone: true,
   imports: [CommonModule, AvatarComponent, FormsModule, LoaderComponent, ReactiveFormsModule, FormControlInputComponent, ControlValidationComponent],
 })
-export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswordChangeFormInterface> {
+export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswordChangeFormInterface>
+  implements WarningDialogInterface<any, WarningDialogComponent> {
 
-  protected saveChanges(): void {
-    this.loaderService.show();
+  @ViewChild('warningDialogContent', { static: true, read: TemplateRef })
+  warningDialogContent!: TemplateRef<any>;
 
-    const passwordChangeSubscription: Subscription = this.usersService.changePassword(this.form.value as AccountPasswordsFormValue).subscribe({
-      next: (isChanged: boolean): void => {
-        this.handlePasswordChange(isChanged);
+  private dialogRef!: DialogRef<any, WarningDialogComponent>;
+
+  protected async saveChanges(): Promise<void> {
+
+    if (this.isFormPending) {
+      return;
+    }
+
+    await this.processWarningDialog();
+  }
+
+  openWarningDialog(): DialogRef<any, WarningDialogComponent> {
+    return this.dialogService.open(WarningDialogComponent, {
+      width: '550px',
+      maxWidth: '90vw',
+      height: '300px',
+      closeOnDestroy: true,
+      closeOnNavigation: true,
+      closeOnOverlayDetachments: true,
+      disableClose: true,
+      data: {
+        label: 'Email change warning!',
+        content: this.warningDialogContent
       },
-      error: (): void => {
-        this.toastService.info('Something went wrong while changing password', 'Password change');
-        this.loaderService.hide();
-      }
-    })
-
-    this.subscriptions.add(passwordChangeSubscription);
+      panelClass: 'ym-dialog-common-wrapper'
+    });
   }
 
   protected populateForm(): void {
@@ -65,5 +84,34 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
     this.loaderService.hide();
     this.authService.logOut();
     this.toastService.info('Password was successfully changed. Please login once again', 'Password change');
+  }
+
+  private async processWarningDialog(): Promise<void> {
+    this.dialogRef = this.openWarningDialog();
+
+    const proceedChange = await lastValueFrom(this.dialogRef.closed)
+
+    if (!proceedChange) {
+      return this.form.reset();
+    }
+
+    this.processSavingForm();
+  }
+
+  private processSavingForm(): void {
+    this.isFormPending = true;
+    this.loaderService.show();
+
+    const passwordChangeSubscription: Subscription = this.usersService.changePassword(this.form.value as AccountPasswordsFormValue).subscribe({
+      next: (isChanged: boolean): void => {
+        this.handlePasswordChange(isChanged);
+      },
+      error: (): void => {
+        this.toastService.info('Something went wrong while changing password', 'Password change');
+        this.loaderService.hide();
+      }
+    })
+
+    this.subscriptions.add(passwordChangeSubscription);
   }
 }

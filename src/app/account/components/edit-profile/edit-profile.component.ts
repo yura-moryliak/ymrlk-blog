@@ -70,16 +70,25 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
   }
 
   protected saveChanges(): void {
+
+    if (this.isFormPending) {
+      return;
+    }
+
+    this.isFormPending = true;
+
     const updateProfileSubscription: Subscription = this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
       next: (user: UserInterface): void => {
         this.user = user;
         this.usersService.updateUserState(user);
         this.toastService.success('Profile deleted successfully', 'Update profile');
         this.loaderService.hide();
+        this.isFormPending = false;
       },
       error: (): void => {
         this.toastService.error('Something went wrong while updating profile', 'Update profile');
         this.loaderService.hide();
+        this.isFormPending = false;
       }
     });
 

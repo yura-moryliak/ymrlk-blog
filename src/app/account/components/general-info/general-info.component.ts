@@ -1,4 +1,4 @@
-import {Component, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DialogRef} from '@angular/cdk/dialog';
 
@@ -28,7 +28,7 @@ import {WarningDialogInterface} from '../../interfaces/warning-dialog.interface'
   imports: [CommonModule, ReactiveFormsModule, LoaderComponent, FormControlInputComponent, ControlValidationComponent],
 })
 export class GeneralInfoComponent extends AccountBaseComponent<AccountGeneralInfoFormInterface>
-  implements OnDestroy, WarningDialogInterface<any, WarningDialogComponent> {
+  implements WarningDialogInterface<any, WarningDialogComponent> {
 
   @ViewChild('warningDialogContent', { static: true, read: TemplateRef })
   warningDialogContent!: TemplateRef<any>;
