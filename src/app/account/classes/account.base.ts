@@ -1,5 +1,6 @@
 import {Component, inject, Input, OnDestroy} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
+import {Dialog} from '@angular/cdk/dialog';
 
 import {Subscription} from 'rxjs';
 
@@ -28,10 +29,13 @@ export abstract class AccountBaseComponent<TControl extends {[K in keyof TContro
   user!: UserInterface;
   form!: FormGroup<TControl>;
 
+  protected isFormPending = false;
+
   protected authService: AuthService = inject(AuthService);
   protected toastService: ToastrService = inject(ToastrService);
   protected loaderService: LoaderService = inject(LoaderService);
   protected usersService: UsersService = inject(UsersService);
+  protected dialogService: Dialog = inject(Dialog);
 
   protected abstract populateForm(): void;
   protected abstract saveChanges(): void;

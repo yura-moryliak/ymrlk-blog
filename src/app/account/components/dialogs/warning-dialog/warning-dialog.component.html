@@ -1,0 +1,21 @@
+<form class="ym-dialog-container">
+
+  <div class="ym-dialog-title">
+    <h4>{{ dialogData.label }}</h4>
+  </div>
+
+  <div class="ym-dialog-content">
+    <ng-container *ngTemplateOutlet="dialogData.content!"></ng-container>
+  </div>
+
+  <div class="ym-dialog-footer">
+    <button class="primary-button" (click)="closeDialog()">
+      Cancel
+    </button>
+
+    <button class="primary-button" (click)="closeDialog(true)">
+      Yes, proceed
+    </button>
+  </div>
+
+</form>

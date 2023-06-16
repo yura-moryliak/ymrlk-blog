@@ -12,6 +12,7 @@ import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.inte
 import {LocalStorageService} from './local-storage.service';
 import {RegisterCredentialsInterface} from '../interfaces/register-form.interface';
 import {UsersService} from './users.service';
+import {LoaderService} from '../shared-components/loader/services/loader.service';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -28,6 +29,7 @@ export class AuthService {
 
   private usersService: UsersService = inject(UsersService);
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private loaderService: LoaderService = inject(LoaderService);
 
   constructor(
     private httpClient: HttpClient,
@@ -90,6 +92,7 @@ export class AuthService {
     this.removeTokens();
 
     this.router.navigate(['/']).catch((error) => console.log('Logout error: ', error));
+    this.loaderService.hide();
   }
 
   private getRefreshToken(): string {
