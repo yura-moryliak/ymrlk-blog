@@ -34,12 +34,13 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
   uploadPicture(event: Event): void {
     const filesList: FileList | null = (event.target as HTMLInputElement).files as FileList;
 
-    if (!filesList[0]) {
+    if (!filesList[0] || this.isFormPending) {
       return;
     }
 
     const file: File | null = filesList[0];
 
+    this.isFormPending = true;
     this.showLoader();
 
     const uploadPictureSubscription: Subscription = this.usersService.uploadProfileAvatar(file).subscribe({
@@ -51,12 +52,15 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
         this.usersService.updateUserState(user);
         this.toastService.success('Picture uploaded successfully', 'Upload picture');
 
+        this.isFormPending = false;
         this.hideLoader();
       },
       error: (error: HttpErrorResponse) => {
         (event.target as HTMLInputElement).value = '';
 
         this.toastService.error(error.message, 'Upload picture');
+        this.isFormPending = true;
+
         this.hideLoader();
       }
     });
