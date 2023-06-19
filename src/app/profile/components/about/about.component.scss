@@ -10,7 +10,7 @@ ym-about {
 
   .profile-about-container {
     display: flex;
-    padding: 48px 72px;
+    padding: 48px 72px 0;
     max-width: 100%;
     justify-content: center;
 
@@ -22,6 +22,11 @@ ym-about {
     .profile-about-content-left {
       flex: 2;
       max-width: 600px;
+      min-width: 600px;
+
+      @media screen and (max-width: $TabletBreakpoint) {
+        min-width: initial;
+      }
 
       h2 {
         margin: 0 0 40px 0;
@@ -30,6 +35,8 @@ ym-about {
       .bio-content {
         white-space: pre-wrap;
         line-height: 21px;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
 
