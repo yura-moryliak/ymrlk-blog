@@ -18,6 +18,7 @@ export class AvatarComponent {
   @Input() width = 100;
   @Input() height = 100;
   @Input() isRounded = true;
+  @Input() fitToMinScale = false;
 
   src!: string;
 

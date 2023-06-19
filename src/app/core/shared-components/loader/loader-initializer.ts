@@ -42,6 +42,11 @@ export abstract class LoaderInitializerComponent {
   private hide(priority: LoaderPriorityEnum = LoaderPriorityEnum.Primary): void {
 
     setTimeout((): void => {
+
+      if (!this.loadersQueryList) {
+        return;
+      }
+
       this.loadersQueryList.forEach((loader: LoaderComponent): void => loader.hide(priority));
 
       this.setIsLoading();

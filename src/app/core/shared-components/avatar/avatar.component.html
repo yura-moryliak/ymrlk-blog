@@ -1,5 +1,6 @@
 <div class="avatar-container"
-     [ngStyle]="{ 'width': width + 'px', 'height': height + 'px' }">
+     [ngStyle]="{ 'width': width + 'px', 'height': height + 'px' }"
+     [ngClass]="{ 'fit-to-min-scale': fitToMinScale }">
 
   <img
     [src]="src"
