@@ -11,7 +11,7 @@
 
     <div class="avatar-actions">
 
-      <button class="primary-button">
+      <button class="primary-button" [disabled]="isFormPending">
         <label for="uploadPicture">Upload avatar</label>
         <input id="uploadPicture" type="file" (change)="uploadPicture($event)" accept="image/jpeg" />
 
