@@ -1,7 +1,6 @@
 import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpErrorResponse} from '@angular/common/http';
 
 import {Subscription} from 'rxjs';
 
@@ -55,10 +54,10 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
         this.isFormPending = false;
         this.hideLoader();
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         (event.target as HTMLInputElement).value = '';
 
-        this.toastService.error(error.message, 'Upload picture');
+        this.toastService.error('Something went wrong while uploading pucture', 'Upload picture');
         this.isFormPending = true;
 
         this.hideLoader();

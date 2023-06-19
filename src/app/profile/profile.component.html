@@ -15,6 +15,8 @@
       <div class="profile-simple-info">
         <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
         <button class="primary-button" routerLink="/account-settings">Edit profile</button>
+
+        <a routerLink="/profile/{{ user?.subdomain }}" class="btn-as-link">My public profile</a>
       </div>
 
     </div>

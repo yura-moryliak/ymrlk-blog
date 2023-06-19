@@ -12,7 +12,7 @@
   </ym-form-control-input>
 
   <ym-form-control-input
-    label="last name"
+    label="Last name"
     forId="lastName"
     type="text"
     placeholder="Type in your last name"
@@ -27,6 +27,14 @@
     placeholder="Type in your email address"
     formControlName="email">
     <ym-control-validation [control]="form.controls.email"></ym-control-validation>
+  </ym-form-control-input>
+
+  <ym-form-control-input
+    label="Phone number"
+    forId="phoneNumber"
+    type="tel"
+    placeholder="Type in your contact phone number"
+    formControlName="phoneNumber">
   </ym-form-control-input>
 
   <ym-form-control-input

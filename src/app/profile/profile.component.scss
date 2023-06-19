@@ -26,6 +26,13 @@ ym-profile {
             overflow: hidden;
           }
 
+          a.btn-as-link {
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+          }
+
           @media screen and (max-width: $HandsetBreakpoint) {
             align-items: center;
             margin: 0;

@@ -5,7 +5,9 @@ export interface UserInterface {
   subdomain?: string;
   bio?: string;
   location?: string;
-  socialProfiles?: Array<{ title: string, link: string }>;
+  socialProfiles?: Array<{ title: string, url: string }>;
   avatarSrc?: string;
   uuid?: string;
+  phoneNumber?: string
+  joinedSince?: Date;
 }

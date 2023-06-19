@@ -78,6 +78,7 @@ export class GeneralInfoComponent extends AccountBaseComponent<AccountGeneralInf
         Validators.required,
         Validators.email
       ])),
+      phoneNumber: new FormControl(this.user.phoneNumber || ''),
       subdomain: new FormControl(this.user.subdomain || '')
     });
     this.oldFormState = { ...this.form.value } as Partial<UserInterface>;
