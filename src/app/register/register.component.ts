@@ -1,6 +1,5 @@
 import {Component, inject, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {HttpErrorResponse} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
@@ -10,9 +9,13 @@ import {ToastrService} from 'ngx-toastr';
 
 import {AuthService} from '../core/services/auth.service';
 import {RegisterCredentialsInterface, RegisterFormInterface} from "../core/interfaces/register-form.interface";
-import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
-import {LoaderService} from '../core/shared-components/loader/services/loader.service';
+import {passwordMatchValidator} from '../core/validators/password-match.validator';
+import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
+import {
+  ControlValidationComponent
+} from '../core/form-control-input/components/control-validation/control-validation.component';
+import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
 
 @Component({
   selector: 'ym-register',
@@ -20,9 +23,9 @@ import {LoaderService} from '../core/shared-components/loader/services/loader.se
   styleUrls: ['./register.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
-export class RegisterComponent {
+export class RegisterComponent extends LoaderInitializerComponent {
 
   form: FormGroup<RegisterFormInterface> = new FormGroup<RegisterFormInterface>({
     firstName: new FormControl('', Validators.required),
@@ -43,28 +46,37 @@ export class RegisterComponent {
     ]))
   });
 
+  isFormPending = false;
+
   private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
+  // private loaderService: LoaderService = inject(LoaderService);
 
   private subscriptions: Subscription = new Subscription();
 
   register(): void {
 
-    this.loaderService.show();
+    if (this.isFormPending) {
+      return;
+    }
+
+    this.isFormPending = true;
+    this.showLoader();
 
     const registerSubscription: Subscription = this.authService.register(this.form.value as RegisterCredentialsInterface).subscribe({
       next: (response): void => {
         if (response) {
-          this.toastService.success('Account was created successfully', 'Register successful');
+          this.toastService.success('Account was created successfully', 'Register');
           this.form.reset();
-          this.loaderService.hide();
+          this.hideLoader();
+          this.isFormPending = false;
         }
       },
-      error: (error: HttpErrorResponse): void => {
-        this.toastService.error(error.error.message, 'Register failure');
+      error: (): void => {
+        this.toastService.error('Something went wrong while registering ', 'Register');
         this.form.reset();
-        this.loaderService.hide();
+        this.hideLoader();
+        this.isFormPending = false;
       }
     });
 

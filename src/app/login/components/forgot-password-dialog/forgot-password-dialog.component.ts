@@ -6,6 +6,10 @@ import {DialogRef} from '@angular/cdk/dialog';
 import {ToastrService} from 'ngx-toastr';
 
 import {RegisterFormInterface} from '../../../core/interfaces/register-form.interface';
+import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {
+  ControlValidationComponent
+} from '../../../core/form-control-input/components/control-validation/control-validation.component';
 
 type ResetPasswordFormEmailControlType = Pick<RegisterFormInterface, 'email'>;
 
@@ -15,7 +19,7 @@ type ResetPasswordFormEmailControlType = Pick<RegisterFormInterface, 'email'>;
   styleUrls: ['./forgot-password-dialog.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, FormControlInputComponent, ControlValidationComponent]
 })
 export class ForgotPasswordDialogComponent {
 

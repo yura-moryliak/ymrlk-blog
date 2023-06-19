@@ -1,9 +1,7 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {Observable} from 'rxjs';
-
-import {LoaderService} from './services/loader.service';
+import {LoaderPriorityEnum} from './enums/loader-priority.enum';
 
 @Component({
   selector: 'ym-loader',
@@ -13,14 +11,26 @@ import {LoaderService} from './services/loader.service';
   standalone: true,
   imports: [CommonModule],
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent {
 
-  isLoading$!: Observable<boolean>;
+  @Input() priority: 'primary' | 'secondary' = 'primary';
 
-  private loaderService: LoaderService = inject(LoaderService);
+  showLoader = false;
 
-  ngOnInit(): void {
-    this.isLoading$ = this.loaderService.isLoading$;
+  show(priority: LoaderPriorityEnum): void {
+    if (this.priority !== priority) {
+      return;
+    }
+
+    this.showLoader = true;
+  }
+
+  hide(priority: LoaderPriorityEnum): void {
+    if (this.priority !== priority) {
+      return;
+    }
+
+    this.showLoader = false;
   }
 
 }

@@ -12,6 +12,7 @@ import {AuthCredentialsInterface} from '../interfaces/auth/auth-credentials.inte
 import {LocalStorageService} from './local-storage.service';
 import {RegisterCredentialsInterface} from '../interfaces/register-form.interface';
 import {UsersService} from './users.service';
+import {LoaderInitializerComponent} from '../shared-components/loader/loader-initializer';
 
 export const ACCESS_TOKEN_KEY = 'accessToken';
 export const REFRESH_TOKEN_KEY = 'refreshToken';
@@ -20,7 +21,7 @@ export const USER_UUID_KEY = 'uuid';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends LoaderInitializerComponent {
 
   get isLoggedIn$(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
@@ -33,7 +34,9 @@ export class AuthService {
     private httpClient: HttpClient,
     private router: Router,
     private localStorageService: LocalStorageService
-  ) { }
+  ) {
+    super();
+  }
 
 
   login(credentials: AuthCredentialsInterface): Observable<boolean | null> {
@@ -90,6 +93,7 @@ export class AuthService {
     this.removeTokens();
 
     this.router.navigate(['/']).catch((error) => console.log('Logout error: ', error));
+    this.hideLoader();
   }
 
   private getRefreshToken(): string {

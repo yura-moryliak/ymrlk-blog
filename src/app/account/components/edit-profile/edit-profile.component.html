@@ -14,8 +14,13 @@
       <button class="primary-button">
         <label for="uploadPicture">Upload avatar</label>
         <input id="uploadPicture" type="file" (change)="uploadPicture($event)" accept="image/jpeg" />
+
+        <ym-loader></ym-loader>
       </button>
-      <button class="default-button" [disabled]="user.avatarSrc === ''" (click)="deletePicture()">Delete</button>
+
+      <button class="default-button" [disabled]="user.avatarSrc === ''"(click)="deletePicture()">
+        Delete
+      </button>
 
       <span class="info-badge">Max JPG, JPEG image size 3 MB</span>
     </div>
@@ -50,7 +55,7 @@
           [disabled]="form.invalid"
           (click)="saveChanges()">
     Save changes
-    <ym-loader></ym-loader>
+    <ym-loader priority="secondary"></ym-loader>
   </button>
 
 </form>

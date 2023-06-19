@@ -30,6 +30,8 @@ export class FormControlInputComponent implements ControlValueAccessor {
   onChange: any;
   onTouched: any;
 
+  private isTypeToggled = false;
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -50,5 +52,10 @@ export class FormControlInputComponent implements ControlValueAccessor {
     this.value = value;
     this.onChange(value);
     this.onTouched();
+  }
+
+  toggleType(inputElement: HTMLInputElement): void {
+    this.isTypeToggled = !this.isTypeToggled;
+    inputElement.type = this.isTypeToggled ? 'text' : 'password';
   }
 }

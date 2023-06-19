@@ -21,6 +21,26 @@
     }
   }
 
+  .form-control-input {
+    width: 100%;
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: default;
+      }
+    }
+  }
+
   input, textarea {
     border: 1px solid $controls-border-color;
     border-radius: $border-radius;
@@ -30,6 +50,7 @@
     font-size: 14px;
     background-color: $general-bg-color;
     transition: $transition-ease;
+    width: inherit;
 
     &:focus {
       border: 1px solid $btn-border-color;

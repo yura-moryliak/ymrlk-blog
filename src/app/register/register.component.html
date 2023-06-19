@@ -19,12 +19,11 @@
     <nav class="auth-path">
 
       <p class="auth-link">
-        <a routerLink="">Go home</a>
+        <a routerLink="">Home</a>
       </p>
 
       <p class="auth-link">
-        Already a member?
-        <a routerLink="/login">Login right now</a>
+        <a routerLink="/login">Login</a>
       </p>
     </nav>
 
@@ -37,99 +36,60 @@
         </a>
       </div>
 
-      <div class="form-control">
-        <label for="firstName">
-          First name
+      <ym-form-control-input
+        label="First name"
+        forId="firstName"
+        type="text"
+        placeholder="Type in your first name"
+        formControlName="firstName">
 
-          <ng-container *ngIf="form.controls.firstName.invalid && form.controls.firstName.dirty || form.controls.firstName.touched">
-            <ng-container *ngIf="form.controls.firstName?.errors?.['required']">
-              <span class="error-message">Is required</span>
-            </ng-container>
-          </ng-container>
+        <ym-control-validation [control]="form.controls.firstName"></ym-control-validation>
 
-        </label>
-        <input id="firstName" type="text" placeholder="Type in your first name" formControlName="firstName" />
-      </div>
+      </ym-form-control-input>
 
-      <div class="form-control">
-        <label for="lastName">
-          Last name
+      <ym-form-control-input
+        label="Last name"
+        forId="lastName"
+        type="text"
+        placeholder="Type in your last name"
+        formControlName="lastName">
 
-          <ng-container *ngIf="form.controls.lastName.invalid && form.controls.lastName.dirty || form.controls.lastName.touched">
-            <ng-container *ngIf="form.controls.lastName?.errors?.['required']">
-              <span class="error-message">Is required</span>
-            </ng-container>
-          </ng-container>
-        </label>
-        <input id="lastName" type="text" placeholder="Type in your last name" formControlName="lastName" />
-      </div>
+        <ym-control-validation [control]="form.controls.lastName"></ym-control-validation>
 
-      <div class="form-control">
-        <label for="email">
-          Email
+      </ym-form-control-input>
 
-          <ng-container *ngIf="form.controls.email.invalid && form.controls.email.dirty || form.controls.email.touched">
+      <ym-form-control-input
+        label="Email"
+        forId="email"
+        type="email"
+        placeholder="Type in your email address"
+        formControlName="email">
 
-            <ng-container *ngIf="form.controls.email?.errors?.['email']">
-              <span class="error-message">Is not valid</span>
-            </ng-container>
+        <ym-control-validation [control]="form.controls.email"></ym-control-validation>
 
-            <ng-container *ngIf="form.controls.email?.errors?.['required']">
-              <span class="error-message">Is required</span>
-            </ng-container>
+      </ym-form-control-input>
 
-          </ng-container>
-        </label>
-        <input id="email" type="email" placeholder="Type in your email address" formControlName="email" />
-      </div>
+      <ym-form-control-input
+        label="Password"
+        forId="password"
+        type="password"
+        placeholder="Type in your password"
+        formControlName="password">
 
-      <div class="form-control">
-        <label for="password">
-          Password
+        <ym-control-validation [control]="form.controls.password"></ym-control-validation>
 
-          <ng-container *ngIf="form.controls.password.invalid && form.controls.password.dirty || form.controls.password.touched">
+      </ym-form-control-input>
 
-            <ng-container *ngIf="form.controls.password?.errors?.['required']">
-              <span class="error-message">Is required</span>
-            </ng-container>
+      <ym-form-control-input
+        label="Confirm password"
+        forId="confirmPassword"
+        type="password"
+        placeholder="Confirm password"
+        formControlName="confirmPassword">
 
-            <ng-container *ngIf="form.controls.password?.errors?.['minlength']">
-              <span class="error-message">
-                Required min length is
-                {{ form.controls.password?.errors?.['minlength']['actualLength'] }}
-                of
-                {{ form.controls.password?.errors?.['minlength']['requiredLength'] }} chars
-              </span>
-            </ng-container>
+        <ym-control-validation [control]="form.controls.confirmPassword"></ym-control-validation>
 
-            <ng-container *ngIf="form.controls.password?.errors?.['maxlength']">
-              <span class="error-message">
-                Max length is
-                {{ form.controls.password?.errors?.['maxlength']['actualLength'] }}
-                of
-                {{ form.controls.password?.errors?.['maxlength']['requiredLength'] }} allowed chars
-              </span>
-            </ng-container>
-
-          </ng-container>
-        </label>
-        <input id="password" type="password" placeholder="Type in your password" formControlName="password" />
-      </div>
-
-      <div class="form-control">
-        <label for="confirmPassword">
-          Confirm password
-
-          <ng-container *ngIf="form.controls.confirmPassword.invalid && form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched">
-
-            <ng-container *ngIf="form.controls.confirmPassword?.errors?.['required'] || form.controls.confirmPassword.errors?.['matching']">
-              <span class="error-message">Is required or does not match</span>
-            </ng-container>
-
-          </ng-container>
-        </label>
-        <input id="confirmPassword" type="password" placeholder="Confirm password" formControlName="confirmPassword" />
-      </div>
+      </ym-form-control-input>
 
       <button class="primary-button"
               [disabled]="form.invalid"
@@ -142,12 +102,11 @@
       <nav class="auth-path">
 
         <p class="auth-link">
-          <a routerLink="">Go home</a>
+          <a routerLink="">Home</a>
         </p>
 
         <p class="auth-link">
-          Already a member?
-          <a routerLink="/login">Login right now</a>
+          <a routerLink="/login">Login</a>
         </p>
 
       </nav>
