@@ -35,7 +35,8 @@ export class AccountComponent implements OnInit, OnDestroy {
       id: 'edit-profile',
       component: EditProfileComponent,
       componentType: EditProfileComponent,
-      title: 'Edit profile'
+      title: 'Edit profile',
+      isActive: true
     },
     {
       id: 'passwords',

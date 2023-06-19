@@ -79,12 +79,12 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
 
   private handlePasswordChange(isChanged: boolean): void {
     if (!isChanged) {
-      this.loaderService.hide();
+      this.hideLoader();
       this.toastService.error('Make sure you provide correct passwords', 'Password change');
       return;
     }
 
-    this.loaderService.hide();
+    this.hideLoader();
     this.authService.logOut();
     this.toastService.info('Password was successfully changed. Please login once again', 'Password change');
   }
@@ -103,7 +103,7 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
 
   private processSavingForm(): void {
     this.isFormPending = true;
-    this.loaderService.show();
+    this.showLoader();
 
     const passwordChangeSubscription: Subscription = this.usersService.changePassword(this.form.value as AccountPasswordsFormValue).subscribe({
       next: (isChanged: boolean): void => {
@@ -111,7 +111,7 @@ export class PasswordsChangeComponent extends AccountBaseComponent<AccountPasswo
       },
       error: (): void => {
         this.toastService.info('Something went wrong while changing password', 'Password change');
-        this.loaderService.hide();
+        this.hideLoader();
       }
     })
 

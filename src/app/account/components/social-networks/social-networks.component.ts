@@ -26,16 +26,16 @@ export class SocialNetworksComponent extends AccountBaseComponent<{ socialProfil
   private fb: FormBuilder = inject(FormBuilder);
 
   protected saveChanges(): void {
-    this.loaderService.show();
+    this.showLoader();
 
     const updateProfileSubscription: Subscription = this.usersService.updateSocialProfiles(this.form.value.socialProfiles).subscribe({
       next: (user: UserInterface): void => {
         this.usersService.updateUserState(user);
-        this.loaderService.hide();
+        this.hideLoader();
         this.toastService.success('Social profile updated successfully', 'Social profiles update')
       },
       error: (): void => {
-        this.loaderService.hide();
+        this.hideLoader();
         this.toastService.error('Something went wrong while updating social profiles', 'Social profiles update')
       }
     })

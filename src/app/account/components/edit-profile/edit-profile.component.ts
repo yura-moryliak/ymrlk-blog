@@ -32,24 +32,32 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
   bioMaxLength = 1024;
 
   uploadPicture(event: Event): void {
-    const filesList: FileList = (event.target as HTMLInputElement).files as FileList;
+    const filesList: FileList | null = (event.target as HTMLInputElement).files as FileList;
 
     if (!filesList[0]) {
       return;
     }
 
-    let file: File | null = filesList[0];
+    const file: File | null = filesList[0];
+
+    this.showLoader();
 
     const uploadPictureSubscription: Subscription = this.usersService.uploadProfileAvatar(file).subscribe({
       next: (user: UserInterface): void => {
+        (event.target as HTMLInputElement).value = '';
+
         this.user = user;
         this.avatarComponent.source = <string>user.avatarSrc;
         this.usersService.updateUserState(user);
         this.toastService.success('Picture uploaded successfully', 'Upload picture');
+
+        this.hideLoader();
       },
       error: (error: HttpErrorResponse) => {
-        this.toastService.error(error.error.message, 'Upload picture');
-        file = null;
+        (event.target as HTMLInputElement).value = '';
+
+        this.toastService.error(error.message, 'Upload picture');
+        this.hideLoader();
       }
     });
 
@@ -75,6 +83,7 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
       return;
     }
 
+    this.showSecondaryLoader();
     this.isFormPending = true;
 
     const updateProfileSubscription: Subscription = this.usersService.updateProfile(this.form.value as Partial<UserInterface>).subscribe({
@@ -82,12 +91,12 @@ export class EditProfileComponent extends AccountBaseComponent<AccountEditProfil
         this.user = user;
         this.usersService.updateUserState(user);
         this.toastService.success('Profile deleted successfully', 'Update profile');
-        this.loaderService.hide();
+        this.hideSecondaryLoader();
         this.isFormPending = false;
       },
       error: (): void => {
         this.toastService.error('Something went wrong while updating profile', 'Update profile');
-        this.loaderService.hide();
+        this.hideSecondaryLoader();
         this.isFormPending = false;
       }
     });

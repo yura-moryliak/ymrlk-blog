@@ -22,7 +22,7 @@ export class WarningDialogComponent {
 
   private dialogRef: DialogRef = inject(DialogRef);
 
-  closeDialog(proceed: boolean = false): void {
+  closeDialog(proceed = false): void {
     this.dialogRef.close(proceed);
   }
 }

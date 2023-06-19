@@ -10,12 +10,12 @@ import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../core/services/auth.service';
 import {RegisterCredentialsInterface, RegisterFormInterface} from "../core/interfaces/register-form.interface";
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
-import {LoaderService} from '../core/shared-components/loader/services/loader.service';
 import {passwordMatchValidator} from '../core/validators/password-match.validator';
 import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
 } from '../core/form-control-input/components/control-validation/control-validation.component';
+import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
 
 @Component({
   selector: 'ym-register',
@@ -25,7 +25,7 @@ import {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
-export class RegisterComponent {
+export class RegisterComponent extends LoaderInitializerComponent {
 
   form: FormGroup<RegisterFormInterface> = new FormGroup<RegisterFormInterface>({
     firstName: new FormControl('', Validators.required),
@@ -50,7 +50,7 @@ export class RegisterComponent {
 
   private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
+  // private loaderService: LoaderService = inject(LoaderService);
 
   private subscriptions: Subscription = new Subscription();
 
@@ -61,21 +61,21 @@ export class RegisterComponent {
     }
 
     this.isFormPending = true;
-    this.loaderService.show();
+    this.showLoader();
 
     const registerSubscription: Subscription = this.authService.register(this.form.value as RegisterCredentialsInterface).subscribe({
       next: (response): void => {
         if (response) {
           this.toastService.success('Account was created successfully', 'Register');
           this.form.reset();
-          this.loaderService.hide();
+          this.hideLoader();
           this.isFormPending = false;
         }
       },
       error: (): void => {
         this.toastService.error('Something went wrong while registering ', 'Register');
         this.form.reset();
-        this.loaderService.hide();
+        this.hideLoader();
         this.isFormPending = false;
       }
     });

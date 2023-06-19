@@ -13,12 +13,12 @@ import {AuthService} from '../core/services/auth.service';
 import {LoginFormInterface} from '../core/interfaces/login-form.interface';
 import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials.interface';
 import {LoaderComponent} from '../core/shared-components/loader/loader.component';
-import {LoaderService} from '../core/shared-components/loader/services/loader.service';
 import {ForgotPasswordDialogComponent} from './components/forgot-password-dialog/forgot-password-dialog.component';
 import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
 } from '../core/form-control-input/components/control-validation/control-validation.component';
+import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
 
 @Component({
   selector: 'ym-login',
@@ -28,7 +28,7 @@ import {
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent extends LoaderInitializerComponent implements OnDestroy {
 
   form: FormGroup<LoginFormInterface> = new FormGroup<LoginFormInterface>({
     email: new FormControl('', Validators.compose([Validators.email, Validators.required])),
@@ -40,7 +40,6 @@ export class LoginComponent implements OnDestroy {
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
   private toastService: ToastrService = inject(ToastrService);
-  private loaderService: LoaderService = inject(LoaderService);
   private dialogService: Dialog = inject(Dialog);
 
   private subscriptions: Subscription = new Subscription();
@@ -52,7 +51,7 @@ export class LoginComponent implements OnDestroy {
     }
 
     this.isFormPending = true;
-    this.loaderService.show();
+    this.showLoader();
 
     const loginSubscription: Subscription = this.authService.login(this.form.value as AuthCredentialsInterface)
       .subscribe({
@@ -61,14 +60,14 @@ export class LoginComponent implements OnDestroy {
             this.router.navigate(['/']).catch((error) => console.log(error));
             this.toastService.success('You are successfully logged in', 'Login');
             this.form.reset();
-            this.loaderService.hide();
+            this.hideLoader();
             this.isFormPending = false;
           }
         },
         error: (error: HttpErrorResponse): void => {
           this.toastService.error(error.message, 'Login');
           this.form.reset();
-          this.loaderService.hide();
+          this.hideLoader();
           this.isFormPending = false;
         }
       });
