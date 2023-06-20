@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Dialog, DialogRef} from '@angular/cdk/dialog';
+import {DialogRef} from '@angular/cdk/dialog';
 import {Router} from '@angular/router';
 
 import {Subscription} from 'rxjs';

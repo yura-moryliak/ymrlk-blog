@@ -7,7 +7,7 @@ import {catchError, Observable, of, switchMap} from 'rxjs';
 import {UserInterface} from '../interfaces/user/user.interface';
 import {UsersService} from '../services/users.service';
 
-export const publicProfileGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state) => {
+export const publicProfileGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
 
   const usersService: UsersService = inject(UsersService);
   const router: Router = inject(Router);
