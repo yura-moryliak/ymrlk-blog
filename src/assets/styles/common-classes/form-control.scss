@@ -56,6 +56,11 @@
     &:focus {
       border: 1px solid $btn-border-color;
     }
+
+    &:disabled {
+      background-color: $secondary-font-color;
+      opacity: 0.7;
+    }
   }
 
   textarea {

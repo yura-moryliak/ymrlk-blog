@@ -18,15 +18,29 @@ export class UsersService {
     return this.userStateSubject.asObservable();
   }
 
+  get profile$(): Observable<UserInterface> {
+    return this.profileSubject.asObservable();
+  }
+
   private httpClient: HttpClient = inject(HttpClient);
   private localStorageService: LocalStorageService = inject(LocalStorageService);
 
   private userStateSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private profileSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   getUserByUUID(): Observable<UserInterface | null> {
     return this.httpClient.get(`${ environment.api.baseUrl }/users/uuid/${ this.localStorageService.getData(USER_UUID_KEY) }`).pipe(
       switchMap((user: UserInterface) => {
         this.userStateSubject.next(user);
+        return of(user);
+      })
+    )
+  }
+
+  getUserByUUIDOrSubdomain(uuidOrSubdomain: string): Observable<UserInterface | null> {
+    return this.httpClient.get(`${ environment.api.baseUrl }/users/public/${ uuidOrSubdomain }`).pipe(
+      switchMap((user: UserInterface) => {
+        this.profileSubject.next(user);
         return of(user);
       })
     )

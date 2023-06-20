@@ -19,6 +19,7 @@ import {
   ControlValidationComponent
 } from '../core/form-control-input/components/control-validation/control-validation.component';
 import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
+import {sharedLoginForm} from './components/shared-login-form';
 
 @Component({
   selector: 'ym-login',
@@ -30,10 +31,7 @@ import {LoaderInitializerComponent} from '../core/shared-components/loader/loade
 })
 export class LoginComponent extends LoaderInitializerComponent implements OnDestroy {
 
-  form: FormGroup<LoginFormInterface> = new FormGroup<LoginFormInterface>({
-    email: new FormControl('', Validators.compose([Validators.email, Validators.required])),
-    password: new FormControl('', Validators.required)
-  });
+  form: FormGroup<LoginFormInterface> = sharedLoginForm;
 
   isFormPending = false;
 

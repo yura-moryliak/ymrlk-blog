@@ -12,7 +12,13 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 export class AvatarComponent {
 
   @Input() set source(src: string) {
-    src !== '' ? this.src = src : this.src = 'assets/images/user-avatar.png';
+
+    if (!src) {
+      this.src = 'assets/images/user-avatar.png'
+      return;
+    }
+
+    this.src = src;
   }
   @Input() alt = '';
   @Input() width = 100;

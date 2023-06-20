@@ -1,11 +1,8 @@
-import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {Observable, tap} from 'rxjs';
-
-import {UserInterface} from '../../../core/interfaces/user/user.interface';
-import {UsersService} from '../../../core/services/users.service';
 import {LinkifyPipe} from '../../../core/pipes/linkify.pipe';
+import {UserInterface} from '../../../core/interfaces/user/user.interface';
 import {LinkifyLinkDirective} from '../../../core/directives/linkify-link.directive';
 
 @Component({
@@ -16,18 +13,20 @@ import {LinkifyLinkDirective} from '../../../core/directives/linkify-link.direct
   standalone: true,
   imports: [CommonModule, LinkifyPipe, LinkifyLinkDirective],
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
 
-  user$!: Observable<UserInterface>;
-  hasSocialProfilesAdded = false;
+  @Input() set data(user: UserInterface) {
 
-  private usersService: UsersService = inject(UsersService);
+    if (!user) {
+      return;
+    }
 
-  ngOnInit(): void {
-    this.user$ = this.usersService.userState$.pipe(
-      tap((user: UserInterface) => this.mapSocialProfiles(user.socialProfiles))
-    );
+    this.user = user;
+    this.mapSocialProfiles(user?.socialProfiles);
   }
+
+  user!: UserInterface;
+  hasSocialProfilesAdded = false;
 
   private mapSocialProfiles(socialProfiles: Array<{title: string; url: string}> | undefined): void {
     this.hasSocialProfilesAdded = <boolean>socialProfiles?.some((socialProfile: {title: string; url: string} ) =>

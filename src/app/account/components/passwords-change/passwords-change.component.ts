@@ -14,7 +14,7 @@ import {
   ControlValidationComponent
 } from '../../../core/form-control-input/components/control-validation/control-validation.component';
 import {WarningDialogInterface} from '../../interfaces/warning-dialog.interface';
-import {WarningDialogComponent} from '../dialogs/warning-dialog/warning-dialog.component';
+import {WarningDialogComponent} from '../../dialogs/warning-dialog/warning-dialog.component';
 
 export type AccountPasswordsFormValue = {
   oldPassword: string;

@@ -50,7 +50,6 @@ export class RegisterComponent extends LoaderInitializerComponent {
 
   private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
-  // private loaderService: LoaderService = inject(LoaderService);
 
   private subscriptions: Subscription = new Subscription();
 
