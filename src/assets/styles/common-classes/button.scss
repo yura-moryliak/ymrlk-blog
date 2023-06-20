@@ -46,10 +46,16 @@
   font-size: inherit;
   display: inline-flex;
   padding: 0;
+  transition: $transition-ease;
+  user-select: none;
 
   svg {
     width: 17px;
     height: 17px;
+  }
+
+  &:hover {
+    opacity: 0.7;
   }
 }
 

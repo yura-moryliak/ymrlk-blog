@@ -5,7 +5,7 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/layout';
 
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, filter, Observable, Subscription} from 'rxjs';
 
 import {TabInterface} from './interfaces/tab.interface';
 
@@ -18,6 +18,10 @@ import {TabInterface} from './interfaces/tab.interface';
   imports: [CommonModule, RouterLink, RouterLinkActive],
 })
 export class TabsComponent implements OnInit, OnDestroy {
+
+  get activeTab$(): Observable<TabInterface> {
+    return this.activeTabSubject.asObservable().pipe(filter((tab) => !!tab));
+  }
 
   @Input() tabsList: TabInterface[] = [];
   @Input() isRouterLess = false;
@@ -32,6 +36,7 @@ export class TabsComponent implements OnInit, OnDestroy {
   private router: Router = inject(Router);
   private componentRef!: ComponentRef<any>;
 
+  private activeTabSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
   private subscriptions: Subscription = new Subscription();
 
@@ -52,6 +57,8 @@ export class TabsComponent implements OnInit, OnDestroy {
 
     this.tabsViewContainer.clear();
     this.componentRef = this.tabsViewContainer.createComponent(selectedTab.component);
+
+    this.activeTabSubject.next(selectedTab);
 
     if (selectedTab.data) {
       (this.componentRef.instance as any).data = selectedTab.data;
@@ -82,9 +89,7 @@ export class TabsComponent implements OnInit, OnDestroy {
       (tab: TabInterface): boolean => tab.routerLink === lastUrlSegment
     );
 
-    foundTab ?
-      this.setActive(foundTab) :
-      this.setActive(this.tabsList[0]);
+    this.setActive(foundTab ? foundTab : this.tabsList[0]);
   }
 
   private observeResize(): void {

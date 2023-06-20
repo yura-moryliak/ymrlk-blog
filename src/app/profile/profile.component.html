@@ -1,4 +1,4 @@
-<ym-navbar (userState)="initUser($event)"></ym-navbar>
+<ym-navbar></ym-navbar>
 
 <div class="profile-container">
 
@@ -14,13 +14,21 @@
 
       <div class="profile-simple-info">
         <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
-        <button class="primary-button" routerLink="/account-settings">Edit profile</button>
+
+        <div class="profile-simple-info-actions" *ngIf="!isPublicProfile && isMe">
+          <button class="btn-as-link" routerLink="/account-settings">Edit profile</button>
+          <button class="btn-as-link" routerLink="/profile/{{ user?.subdomain }}">View public profile</button>
+        </div>
+
+        <button *ngIf="isPublicProfile && isMe" class="btn-as-link" routerLink="/profile/current" (click)="follow()">Back</button>
+        <button *ngIf="isPublicProfile && !isMe" class="btn-as-link" (click)="follow()">Follow</button>
+
       </div>
 
     </div>
 
   </div>
 
-  <ym-tabs [tabsList]="profileTabs"></ym-tabs>
+  <ym-tabs #tabsComponent [tabsList]="profileTabs"></ym-tabs>
 
 </div>

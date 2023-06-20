@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {authGuard} from './core/guards/auth.guard';
 import {loggedInGuard} from './core/guards/loggedin.guard';
+import {publicProfileGuard} from './core/guards/public-profile.guard';
 
 import {profileChildRoutes} from './profile/profile-child.routes';
 
@@ -30,11 +31,19 @@ export const routes: Routes = [
     canActivate: [loggedInGuard]
   },
   {
-    path: 'profile',
+    path: 'profile/current',
     loadComponent: () => import('./profile/profile.component')
       .then((cmp) => cmp.ProfileComponent),
     children: profileChildRoutes,
     canActivate: [authGuard]
+  },
+  {
+    path: 'profile/:profileUUIDOrSubdomain',
+    loadComponent: () => import('./profile/profile.component')
+      .then((cmp) => cmp.ProfileComponent),
+    children: profileChildRoutes,
+    data: { isPublic: true },
+    canActivate: [publicProfileGuard]
   },
   {
     path: 'account-settings',
@@ -46,6 +55,11 @@ export const routes: Routes = [
     path: 'user/:sub',
     loadComponent: () => import('./user/user.component')
       .then((cmp) => cmp.UserComponent),
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./not-found/not-found.component')
+      .then((cmp) => cmp.NotFoundComponent)
   },
   {
     path: '**',

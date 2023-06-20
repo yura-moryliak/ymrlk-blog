@@ -8,11 +8,11 @@
 
     <ng-container *ngIf="(isLoggedIn$ | async) !== true">
 
-      <button class="navbar-item" routerLink="login" routerLinkActive="active">
+      <button class="navbar-item" routerLink="/login" routerLinkActive="active">
         <span>Login</span>
       </button>
 
-      <button class="navbar-item" routerLink="register" routerLinkActive="active">
+      <button class="navbar-item" routerLink="/register" routerLinkActive="active">
         <span>Register</span>
       </button>
 
@@ -22,7 +22,7 @@
 
       <ng-container *ngIf="(user$ | async) as userState">
 
-        <button class="navbar-item avatar-item" routerLink="/profile">
+        <button class="navbar-item avatar-item" routerLink="/profile/current">
           <ym-avatar
             [source]="userState?.avatarSrc!"
             [width]="24"

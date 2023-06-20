@@ -1,0 +1,45 @@
+<form class="ym-dialog-container" [formGroup]="form">
+
+  <div class="ym-dialog-title">
+    <h4>Ooops... Please login first</h4>
+  </div>
+
+  <div class="ym-dialog-content">
+
+    <ym-form-control-input
+      label="Email"
+      forId="email"
+      type="text"
+      placeholder="Type in your email address"
+      formControlName="email">
+
+      <ym-control-validation [control]="form.controls.email"></ym-control-validation>
+
+    </ym-form-control-input>
+
+    <ym-form-control-input
+      label="Password"
+      forId="password"
+      type="password"
+      placeholder="Type in your password"
+      formControlName="password">
+
+      <ym-control-validation [control]="form.controls.password"></ym-control-validation>
+
+    </ym-form-control-input>
+
+  </div>
+
+  <div class="ym-dialog-footer">
+    <button class="primary-button" (click)="closeDialog($event)">
+      Cancel
+    </button>
+
+    <button class="primary-button"
+            [disabled]="form.invalid"
+            (click)="login()">
+      Get me in
+    </button>
+  </div>
+
+</form>

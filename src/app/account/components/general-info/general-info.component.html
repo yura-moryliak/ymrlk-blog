@@ -12,7 +12,7 @@
   </ym-form-control-input>
 
   <ym-form-control-input
-    label="last name"
+    label="Last name"
     forId="lastName"
     type="text"
     placeholder="Type in your last name"
@@ -30,6 +30,14 @@
   </ym-form-control-input>
 
   <ym-form-control-input
+    label="Phone number"
+    forId="phoneNumber"
+    type="tel"
+    placeholder="Type in your contact phone number"
+    formControlName="phoneNumber">
+  </ym-form-control-input>
+
+  <ym-form-control-input
     label="Subdomain"
     forId="subdomain"
     type="text"
@@ -37,7 +45,7 @@
     formControlName="subdomain">
 
     <span class="legend">
-      Your public URL will look like: <b>{{ env.client.baseUrl }}/{{ form.controls.subdomain.value ? form.controls.subdomain.value : user?.uuid }}</b>
+      Your public profile URl: <b>{{ env.client.baseUrl }}/{{ form.controls.subdomain.value ? form.controls.subdomain.value : user?.uuid }}</b>
     </span>
 
   </ym-form-control-input>

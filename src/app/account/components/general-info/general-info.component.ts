@@ -16,7 +16,7 @@ import {FormControlInputComponent} from '../../../core/form-control-input/form-c
 import {
   ControlValidationComponent
 } from '../../../core/form-control-input/components/control-validation/control-validation.component';
-import {WarningDialogComponent} from '../dialogs/warning-dialog/warning-dialog.component';
+import {WarningDialogComponent} from '../../dialogs/warning-dialog/warning-dialog.component';
 import {WarningDialogInterface} from '../../interfaces/warning-dialog.interface';
 
 @Component({
@@ -78,7 +78,8 @@ export class GeneralInfoComponent extends AccountBaseComponent<AccountGeneralInf
         Validators.required,
         Validators.email
       ])),
-      subdomain: new FormControl(this.user.subdomain || '')
+      phoneNumber: new FormControl(this.user.phoneNumber || ''),
+      subdomain: new FormControl({ value: this.user.subdomain || '', disabled: true })
     });
     this.oldFormState = { ...this.form.value } as Partial<UserInterface>;
   }
