@@ -30,6 +30,15 @@ export function app(): express.Express {
     maxAge: '1y'
   }));
 
+  const notSSRedRoutesList = [
+    '/profile/current/**',
+    '/account-settings'
+  ];
+
+  server.get(notSSRedRoutesList, (req, res) => {
+    res.sendFile(distFolder + '/index.html');
+  });
+
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     res.render(indexHtml, {
