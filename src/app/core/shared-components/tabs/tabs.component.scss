@@ -25,6 +25,7 @@ ym-tabs {
             display: inline-flex;
             align-items: center;
             height: inherit;
+            user-select: none;
 
             &:hover {
               opacity: 0.7;

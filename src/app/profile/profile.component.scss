@@ -18,7 +18,6 @@ ym-profile {
           margin-left: 20px;
           display: flex;
           flex-direction: column;
-          min-width: 200px;
 
           h1 {
             text-overflow: ellipsis;
@@ -26,11 +25,17 @@ ym-profile {
             overflow: hidden;
           }
 
-          a.btn-as-link {
-            margin-top: 10px;
-            width: 100%;
-            text-align: center;
-            display: inline-block;
+          .profile-simple-info-actions {
+            display: flex;
+            gap: 20px;
+
+            button.btn-as-link {
+              margin-top: 10px;
+              width: 100%;
+              white-space: nowrap;
+              flex: 1;
+              display: inline-flex;
+            }
           }
 
           @media screen and (max-width: $HandsetBreakpoint) {
