@@ -7,6 +7,8 @@ import * as express from 'express';
 import {existsSync} from 'node:fs';
 import {join} from 'node:path';
 
+import  { createProxyMiddleware } from 'http-proxy-middleware';
+
 import bootstrap from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -22,6 +24,10 @@ export function app(): express.Express {
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
+
+  server.use('/api/**', createProxyMiddleware({
+    target: 'https://ymrlk-blog-api.onrender.com',
+  }))
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });

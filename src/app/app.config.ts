@@ -13,9 +13,6 @@ import {UsersService} from './core/services/users.service';
 import {authInterceptor} from './core/interceptors/auth.interceptor';
 import {appInitializerAuthCheckFactory} from './core/factories/app-initializer-auth-check.factory';
 import {appUserPrefetchInitializerFactory} from './core/factories/app-user-prefetch-initializer.factory';
-import {transferHttpResponseInterceptor} from './core/interceptors/transfer-http-response.interceptor';
-import {TRANSFER_RESPONSE_BASE_URLS} from './core/services/request-ket-extractor.service';
-import {environment} from '../environments/environment.development';
 
 
 export const appConfig: ApplicationConfig = {
@@ -34,12 +31,8 @@ export const appConfig: ApplicationConfig = {
     },
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([authInterceptor, transferHttpResponseInterceptor])
+      withInterceptors([authInterceptor])
     ),
-    {
-      provide: TRANSFER_RESPONSE_BASE_URLS,
-      useValue: [`${ environment.api.baseUrl }`]
-    },
     provideClientHydration(),
     importProvidersFrom(ToastNoAnimationModule.forRoot({
       positionClass: 'toast-bottom-right',
