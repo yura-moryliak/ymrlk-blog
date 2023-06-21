@@ -1,7 +1,8 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {NavbarComponent} from '../core/shared-components/navbar/navbar.component';
+import {defaultPageMetaData, MetadataService} from '../core/services/metadata.service';
 
 @Component({
   selector: 'ym-feed',
@@ -11,6 +12,12 @@ import {NavbarComponent} from '../core/shared-components/navbar/navbar.component
   standalone: true,
   imports: [CommonModule, NavbarComponent]
 })
-export class FeedComponent {
+export class FeedComponent implements OnInit {
+
+  private metadataService: MetadataService = inject(MetadataService);
+
+  ngOnInit(): void {
+    this.metadataService.setPageMetadata(defaultPageMetaData);
+  }
 
 }

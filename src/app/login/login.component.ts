@@ -1,6 +1,6 @@
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {Component, inject, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {HttpErrorResponse} from '@angular/common/http';
 import {Dialog} from '@angular/cdk/dialog';
@@ -20,6 +20,7 @@ import {
 } from '../core/form-control-input/components/control-validation/control-validation.component';
 import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
 import {sharedLoginForm} from './components/shared-login-form';
+import {MetadataService} from '../core/services/metadata.service';
 
 @Component({
   selector: 'ym-login',
@@ -29,7 +30,7 @@ import {sharedLoginForm} from './components/shared-login-form';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
-export class LoginComponent extends LoaderInitializerComponent implements OnDestroy {
+export class LoginComponent extends LoaderInitializerComponent implements OnInit, OnDestroy {
 
   form: FormGroup<LoginFormInterface> = sharedLoginForm;
 
@@ -39,8 +40,16 @@ export class LoginComponent extends LoaderInitializerComponent implements OnDest
   private router: Router = inject(Router);
   private toastService: ToastrService = inject(ToastrService);
   private dialogService: Dialog = inject(Dialog);
+  private metadataService: MetadataService = inject(MetadataService);
 
   private subscriptions: Subscription = new Subscription();
+
+  ngOnInit(): void {
+    this.metadataService.setPageMetadata({
+      title: 'Login to YMRLK',
+      description: 'Please login to YMRLK blogging system'
+    })
+  }
 
   login(): void {
 

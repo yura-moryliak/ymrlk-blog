@@ -18,6 +18,7 @@ import {AuthService, USER_UUID_KEY} from '../core/services/auth.service';
 import {UsersService} from '../core/services/users.service';
 import {LocalStorageService} from '../core/services/local-storage.service';
 import {AuthWarningDialogComponent} from './dialogs/auth-warning-dialog/auth-warning-dialog.component';
+import {MetadataService} from '../core/services/metadata.service';
 
 @Component({
   selector: 'ym-profile',
@@ -70,6 +71,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private localStorageService: LocalStorageService = inject(LocalStorageService);
   private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
   private dialog: Dialog = inject(Dialog);
+  private metaDataService: MetadataService = inject(MetadataService);
 
   private subscriptions: Subscription = new Subscription();
 
@@ -102,6 +104,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
         this.isLoggedIn = isLoggedIn;
         this.user = isProfilePublic ? profile : userState;
+        this.initMetaData();
+
         this.isPublicProfile = isProfilePublic;
         this.isMe = this.checkIsMe(isProfilePublic ? profile : userState);
         selectedTab.data = isProfilePublic ? {...profile} : {...userState};
@@ -147,5 +151,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private processFollowing(): void {
     console.error('PROCESS FOLLOWING with usersService.follow()');
+  }
+
+  private initMetaData(): void {
+    this.metaDataService.setPageMetadata({
+      title: `${ this.user.firstName } ${ this.user.lastName } @ YMRLK`,
+      description: this.user.bio,
+      author: `${ this.user.firstName } ${ this.user.lastName }`,
+      keywords: [`${ this.user.firstName } ${ this.user.lastName }`]
+    });
   }
 }
