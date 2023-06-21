@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {BehaviorSubject, Observable, of, switchMap} from 'rxjs';
@@ -8,6 +8,7 @@ import {UserInterface} from '../interfaces/user/user.interface';
 import {USER_UUID_KEY} from './auth.service';
 import {environment} from '../../../environments/environment.development';
 import {AccountPasswordsFormValue} from '../../account/components/passwords-change/passwords-change.component';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +39,20 @@ export class UsersService {
   }
 
   getUserByUUIDOrSubdomain(uuidOrSubdomain: string): Observable<UserInterface | null> {
-    return this.httpClient.get(`${ environment.api.baseUrl }/users/public/${ uuidOrSubdomain }`).pipe(
-      switchMap((user: UserInterface) => {
-        this.profileSubject.next(user);
-        return of(user);
-      })
-    )
+
+    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+
+      return this.httpClient.get(`${ environment.api.baseUrl }/users/public/${ uuidOrSubdomain }`).pipe(
+        switchMap((user: UserInterface) => {
+          this.profileSubject.next(user);
+          return of(user);
+        })
+      )
+
+    }
+
+    return of(null)
+
   }
 
   updateUserState(userState: UserInterface): void {
