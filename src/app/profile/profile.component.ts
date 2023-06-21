@@ -150,7 +150,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private processFollowing(): void {
-    console.error('PROCESS FOLLOWING with usersService.follow()');
+    alert('PROCESS FOLLOWING with usersService.follow()');
   }
 
   private initMetaData(): void {

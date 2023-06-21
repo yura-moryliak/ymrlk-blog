@@ -2,6 +2,7 @@ import 'zone.js/node';
 
 import {APP_BASE_HREF} from '@angular/common';
 import {ngExpressEngine} from '@nguniversal/express-engine';
+import {REQUEST, RESPONSE} from '@nguniversal/express-engine/tokens';
 
 import * as express from 'express';
 import {existsSync} from 'node:fs';
@@ -44,7 +45,9 @@ export function app(): express.Express {
     res.render(indexHtml, {
       req,
       providers: [
-        { provide: APP_BASE_HREF, useValue: req.baseUrl }
+        { provide: APP_BASE_HREF, useValue: req.baseUrl },
+        { provide: REQUEST, useValue: req },
+        { provide: RESPONSE, useValue: res },
       ]
     });
   });
