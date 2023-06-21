@@ -20,7 +20,7 @@
           <button class="btn-as-link" routerLink="/profile/{{ user?.subdomain }}">View public profile</button>
         </div>
 
-        <button *ngIf="isPublicProfile && isMe" class="btn-as-link" routerLink="/profile/current" (click)="follow()">Back</button>
+        <button *ngIf="isPublicProfile && isMe" class="btn-as-link" routerLink="/profile/current">Back</button>
         <button *ngIf="isPublicProfile && !isMe" class="btn-as-link" (click)="follow()">Follow</button>
 
       </div>

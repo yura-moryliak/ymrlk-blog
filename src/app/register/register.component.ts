@@ -1,4 +1,4 @@
-import {Component, inject, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -16,6 +16,7 @@ import {
   ControlValidationComponent
 } from '../core/form-control-input/components/control-validation/control-validation.component';
 import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
+import {MetadataService} from '../core/services/metadata.service';
 
 @Component({
   selector: 'ym-register',
@@ -25,7 +26,7 @@ import {LoaderInitializerComponent} from '../core/shared-components/loader/loade
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink, LoaderComponent, FormControlInputComponent, ControlValidationComponent]
 })
-export class RegisterComponent extends LoaderInitializerComponent {
+export class RegisterComponent extends LoaderInitializerComponent implements OnInit {
 
   form: FormGroup<RegisterFormInterface> = new FormGroup<RegisterFormInterface>({
     firstName: new FormControl('', Validators.required),
@@ -50,8 +51,16 @@ export class RegisterComponent extends LoaderInitializerComponent {
 
   private authService: AuthService = inject(AuthService);
   private toastService: ToastrService = inject(ToastrService);
+  private metadataService: MetadataService = inject(MetadataService);
 
   private subscriptions: Subscription = new Subscription();
+
+  ngOnInit(): void {
+    this.metadataService.setPageMetadata({
+      title: 'Register to YMRLK',
+      description: 'Not yet a member? Register to YMRLK to share your thoughts'
+    })
+  }
 
   register(): void {
 

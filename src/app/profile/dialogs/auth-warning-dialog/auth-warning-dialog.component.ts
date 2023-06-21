@@ -18,6 +18,7 @@ import {LoginFormInterface} from '../../../core/interfaces/login-form.interface'
 import {AuthService} from '../../../core/services/auth.service';
 import {AuthCredentialsInterface} from '../../../core/interfaces/auth/auth-credentials.interface';
 import {LoaderInitializerComponent} from '../../../core/shared-components/loader/loader-initializer';
+import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
 
 @Component({
   selector: 'ym-auth-warning-dialog',
@@ -25,7 +26,7 @@ import {LoaderInitializerComponent} from '../../../core/shared-components/loader
   styleUrls: ['./auth-warning-dialog.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, ControlValidationComponent, FormControlInputComponent, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, ControlValidationComponent, FormControlInputComponent, FormsModule, ReactiveFormsModule, LoaderComponent],
 })
 export class AuthWarningDialogComponent extends LoaderInitializerComponent implements  OnDestroy {
 
