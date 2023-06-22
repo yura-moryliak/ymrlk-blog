@@ -1,14 +1,15 @@
 import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {Subscription} from 'rxjs';
+import {Subscription, tap} from 'rxjs';
 
-import {UsersService} from '../core/services/users.service';
-import {UserInterface} from '../core/interfaces/user/user.interface';
+import {UsersService} from '../_a_core/services/users.service';
+import {UserInterface} from '../_a_core/interfaces/user/user.interface';
 
-import {TabInterface} from '../core/shared-components/tabs/interfaces/tab.interface';
-import {NavbarComponent} from '../core/shared-components/navbar/navbar.component';
-import {TabsComponent} from '../core/shared-components/tabs/tabs.component';
+import {TabInterface} from '../_a_core/shared-components/tabs/interfaces/tab.interface';
+import {NavbarComponent} from '../_a_core/shared-components/navbar/navbar.component';
+import {TabsComponent} from '../_a_core/shared-components/tabs/tabs.component';
+import {MetadataService} from '../_a_core/services/metadata.service';
 import {GeneralInfoComponent} from './components/general-info/general-info.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {PasswordsChangeComponent} from './components/passwords-change/passwords-change.component';
@@ -52,17 +53,27 @@ export class AccountComponent implements OnInit, OnDestroy {
   ];
 
   private usersService: UsersService = inject(UsersService);
+  private metaDataService: MetadataService = inject(MetadataService);
+
   private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
-    const userStateSubscription: Subscription = this.usersService.userState$.subscribe((userState: UserInterface) =>
-      this.accountTabList.forEach((tab: TabInterface) => tab.data = { user: userState })
-    );
+    const userStateSubscription: Subscription = this.usersService.userState$.pipe(
+      tap((user: UserInterface) => this.initMetaData(user))
+    ).subscribe({
+      next: (userState: UserInterface) => this.accountTabList.forEach((tab: TabInterface) => tab.data = { user: userState })
+    });
 
     this.subscriptions.add(userStateSubscription);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  private initMetaData(user: UserInterface): void {
+    this.metaDataService.setPageMetadata({
+      title: `${ user.firstName } ${ user.lastName }'s account settings`
+    });
   }
 }

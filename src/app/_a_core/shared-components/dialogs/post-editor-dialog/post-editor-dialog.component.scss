@@ -1,0 +1,16 @@
+@import "../../../../../assets/styles/mixins/dialog.mixin";
+
+ym-post-editor-dialog {
+
+  @include ym-dialog();
+
+  //  Overridden
+  .ym-dialog-container {
+    grid-template-rows: 50px calc(100% - 110px) 60px;
+
+    .ym-dialog-content {
+
+    }
+
+  }
+}

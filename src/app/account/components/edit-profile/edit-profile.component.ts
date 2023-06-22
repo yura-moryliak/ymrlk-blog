@@ -5,15 +5,15 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Subscription} from 'rxjs';
 
 import {AccountBaseComponent} from '../../classes/account.base';
-import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
+import {LoaderComponent} from '../../../_a_core/shared-components/loader/loader.component';
 import {AccountEditProfileFormInterface} from '../../interfaces/account-edit-profile-form.interface';
-import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
-import {UserInterface} from '../../../core/interfaces/user/user.interface';
-import {LinkifyPipe} from '../../../core/pipes/linkify.pipe';
+import {AvatarComponent} from '../../../_a_core/shared-components/avatar/avatar.component';
+import {UserInterface} from '../../../_a_core/interfaces/user/user.interface';
+import {LinkifyPipe} from '../../../_a_core/pipes/linkify.pipe';
 import {
   ControlValidationComponent
-} from '../../../core/form-control-input/components/control-validation/control-validation.component';
-import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+} from '../../../_a_core/form-control-input/components/control-validation/control-validation.component';
+import {FormControlInputComponent} from '../../../_a_core/form-control-input/form-control-input.component';
 
 @Component({
   selector: 'ym-edit-profile',

@@ -1,8 +1,8 @@
 import {Routes} from '@angular/router';
 
-import {authGuard} from './core/guards/auth.guard';
-import {loggedInGuard} from './core/guards/loggedin.guard';
-import {publicProfileGuard} from './core/guards/public-profile.guard';
+import {authGuard} from './_a_core/guards/auth.guard';
+import {loggedInGuard} from './_a_core/guards/loggedin.guard';
+import {publicProfileGuard} from './_a_core/guards/public-profile.guard';
 
 import {profileChildRoutes} from './profile/profile-child.routes';
 

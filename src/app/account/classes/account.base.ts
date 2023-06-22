@@ -6,10 +6,10 @@ import {Subscription} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {UserInterface} from '../../core/interfaces/user/user.interface';
-import {UsersService} from '../../core/services/users.service';
-import {AuthService} from '../../core/services/auth.service';
-import {LoaderInitializerComponent} from '../../core/shared-components/loader/loader-initializer';
+import {UserInterface} from '../../_a_core/interfaces/user/user.interface';
+import {UsersService} from '../../_a_core/services/users.service';
+import {AuthService} from '../../_a_core/services/auth.service';
+import {LoaderInitializerComponent} from '../../_a_core/shared-components/loader/loader-initializer';
 
 @Component({
   selector: 'ym-account-base',

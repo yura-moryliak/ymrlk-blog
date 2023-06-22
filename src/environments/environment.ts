@@ -1,4 +1,4 @@
-import {EnvConfigsInterface} from '../app/core/interfaces/env-configs.interface';
+import {EnvConfigsInterface} from '../app/_a_core/interfaces/env-configs.interface';
 
 export const environment: EnvConfigsInterface = {
   production: true,

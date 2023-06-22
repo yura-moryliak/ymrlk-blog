@@ -7,14 +7,14 @@ import {lastValueFrom, Subscription} from 'rxjs';
 
 import {AccountBaseComponent} from '../../classes/account.base';
 import {AccountPasswordChangeFormInterface} from '../../interfaces/account-password-change-form.interface';
-import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
-import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
-import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {AvatarComponent} from '../../../_a_core/shared-components/avatar/avatar.component';
+import {LoaderComponent} from '../../../_a_core/shared-components/loader/loader.component';
+import {FormControlInputComponent} from '../../../_a_core/form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
-} from '../../../core/form-control-input/components/control-validation/control-validation.component';
+} from '../../../_a_core/form-control-input/components/control-validation/control-validation.component';
 import {WarningDialogInterface} from '../../interfaces/warning-dialog.interface';
-import {WarningDialogComponent} from '../../dialogs/warning-dialog/warning-dialog.component';
+import {WarningDialogComponent} from '../../../_a_core/shared-components/dialogs/warning-dialog/warning-dialog.component';
 
 export type AccountPasswordsFormValue = {
   oldPassword: string;

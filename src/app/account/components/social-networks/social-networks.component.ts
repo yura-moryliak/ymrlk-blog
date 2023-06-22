@@ -5,11 +5,11 @@ import {FormArray, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {Subscription} from 'rxjs';
 
 import {AccountBaseComponent} from '../../classes/account.base';
-import {AvatarComponent} from '../../../core/shared-components/avatar/avatar.component';
-import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
-import {UserInterface} from '../../../core/interfaces/user/user.interface';
+import {AvatarComponent} from '../../../_a_core/shared-components/avatar/avatar.component';
+import {LoaderComponent} from '../../../_a_core/shared-components/loader/loader.component';
+import {UserInterface} from '../../../_a_core/interfaces/user/user.interface';
 import {AccountSocialProfilesStaticFormGroup} from '../../classes/account-social-profiles-static-form-group';
-import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {FormControlInputComponent} from '../../../_a_core/form-control-input/form-control-input.component';
 
 @Component({
   selector: 'ym-social-networks',

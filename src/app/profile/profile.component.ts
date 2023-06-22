@@ -5,20 +5,20 @@ import {Dialog, DialogRef} from '@angular/cdk/dialog';
 
 import {combineLatest, map, Observable, Subscription} from 'rxjs';
 
-import {NavbarComponent} from '../core/shared-components/navbar/navbar.component';
-import {TabInterface} from '../core/shared-components/tabs/interfaces/tab.interface';
-import {UserInterface} from '../core/interfaces/user/user.interface';
-import {TabsComponent} from '../core/shared-components/tabs/tabs.component';
+import {NavbarComponent} from '../_a_core/shared-components/navbar/navbar.component';
+import {TabInterface} from '../_a_core/shared-components/tabs/interfaces/tab.interface';
+import {UserInterface} from '../_a_core/interfaces/user/user.interface';
+import {TabsComponent} from '../_a_core/shared-components/tabs/tabs.component';
 import {AboutComponent} from './components/about/about.component';
 import {PostsComponent} from './components/posts/posts.component';
 import {SubscriptionsComponent} from './components/subscriptions/subscriptions.component';
 import {FollowersComponent} from './components/followers/followers.component';
-import {AvatarComponent} from '../core/shared-components/avatar/avatar.component';
-import {AuthService, USER_UUID_KEY} from '../core/services/auth.service';
-import {UsersService} from '../core/services/users.service';
-import {LocalStorageService} from '../core/services/local-storage.service';
-import {AuthWarningDialogComponent} from './dialogs/auth-warning-dialog/auth-warning-dialog.component';
-import {MetadataService} from '../core/services/metadata.service';
+import {AvatarComponent} from '../_a_core/shared-components/avatar/avatar.component';
+import {AuthService, USER_UUID_KEY} from '../_a_core/services/auth.service';
+import {UsersService} from '../_a_core/services/users.service';
+import {LocalStorageService} from '../_a_core/services/local-storage.service';
+import {AuthWarningDialogComponent} from '../_a_core/shared-components/dialogs/auth-warning-dialog/auth-warning-dialog.component';
+import {MetadataService} from '../_a_core/services/metadata.service';
 
 @Component({
   selector: 'ym-profile',

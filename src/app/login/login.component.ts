@@ -9,18 +9,18 @@ import {Subscription} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {AuthService} from '../core/services/auth.service';
-import {LoginFormInterface} from '../core/interfaces/login-form.interface';
-import {AuthCredentialsInterface} from '../core/interfaces/auth/auth-credentials.interface';
-import {LoaderComponent} from '../core/shared-components/loader/loader.component';
-import {ForgotPasswordDialogComponent} from './components/forgot-password-dialog/forgot-password-dialog.component';
-import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
+import {AuthService} from '../_a_core/services/auth.service';
+import {LoginFormInterface} from '../_a_core/interfaces/login-form.interface';
+import {AuthCredentialsInterface} from '../_a_core/interfaces/auth/auth-credentials.interface';
+import {LoaderComponent} from '../_a_core/shared-components/loader/loader.component';
+import {ForgotPasswordDialogComponent} from '../_a_core/shared-components/dialogs/forgot-password-dialog/forgot-password-dialog.component';
+import {FormControlInputComponent} from '../_a_core/form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
-} from '../core/form-control-input/components/control-validation/control-validation.component';
-import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
-import {sharedLoginForm} from './components/shared-login-form';
-import {MetadataService} from '../core/services/metadata.service';
+} from '../_a_core/form-control-input/components/control-validation/control-validation.component';
+import {LoaderInitializerComponent} from '../_a_core/shared-components/loader/loader-initializer';
+import {sharedLoginForm} from './shared-login-form';
+import {MetadataService} from '../_a_core/services/metadata.service';
 
 @Component({
   selector: 'ym-login',
