@@ -8,8 +8,103 @@ ym-post-editor-dialog {
   .ym-dialog-container {
     grid-template-rows: 50px calc(100% - 110px) 60px;
 
-    .ym-dialog-content {
+    .ym-dialog-title {
+      .badge {
+        background-color: $btn-border-color;
+        padding: 5px;
+        color: $white-font-color;
+        border-radius: 7px;
+        margin-left: 10px;
+      }
+    }
 
+    .ym-dialog-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      padding-top: 20px;
+      justify-self: center;
+      width: 700px;
+
+      @media all and (max-width: $TabletBreakpoint) {
+        width: 100%;
+      }
+
+      p-editor {
+
+        .p-editor-container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          min-height: 100%;
+
+          .p-editor-toolbar {
+            border: none;
+            padding: 0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border-bottom: 1px solid $divider-color;
+
+            .ql-formats {
+
+              .ql-size {
+                border: 1px solid $divider-color;
+                border-radius: 7px;
+                margin-right: 10px;
+              }
+
+            }
+          }
+
+          .p-editor-content {
+            border: none;
+            height: 100%;
+            flex: 1;
+            overflow-y: auto;
+            width: 100%;
+            padding-top: 5px;
+
+            .ql-editor {
+              padding: 20px 10px;
+
+              &:before {
+                left: 10px;
+                font-size: 16px;
+                color: $secondary-font-color;
+              }
+
+              * {
+                font-family: Roboto-regular-400, sans-serif;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
+      }
+
+      .preview-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: none;
+        background-color: $white-font-color;
+
+        &:not(h1.post-headline) {
+          font-family: Roboto-regular-400, sans-serif;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .ym-dialog-footer {
+      align-items: center;
     }
 
   }

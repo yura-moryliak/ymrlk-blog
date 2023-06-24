@@ -18,7 +18,7 @@ export class PostsComponent {
 
   private dialog: Dialog = inject(Dialog);
 
-  createPost(): void {
+  openEditorDialog(): void {
     this.dialog.open(PostEditorDialogComponent, {
       minWidth: '100%',
       minHeight: '100%',
