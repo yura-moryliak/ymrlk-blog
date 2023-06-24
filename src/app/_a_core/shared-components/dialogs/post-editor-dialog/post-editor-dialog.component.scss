@@ -11,7 +11,7 @@ ym-post-editor-dialog {
     .ym-dialog-title {
       .badge {
         background-color: $btn-border-color;
-        padding: 5px;
+        padding: 5px 10px;
         color: $white-font-color;
         border-radius: 7px;
         margin-left: 10px;
@@ -105,6 +105,16 @@ ym-post-editor-dialog {
 
     .ym-dialog-footer {
       align-items: center;
+
+      .ym-dialog-buttons-group {
+
+        button {
+          &:not(&:last-of-type) {
+            margin-right: 10px;
+          }
+        }
+
+      }
     }
 
   }

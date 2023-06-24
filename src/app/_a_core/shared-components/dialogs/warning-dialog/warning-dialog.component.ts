@@ -6,6 +6,8 @@ import {DialogRef, DIALOG_DATA} from '@angular/cdk/dialog';
 export interface WarningDialogDataInterface {
   label?: string;
   content?: TemplateRef<any>;
+  cancelButtonText?: string;
+  confirmButtonText?: string;
 }
 
 @Component({

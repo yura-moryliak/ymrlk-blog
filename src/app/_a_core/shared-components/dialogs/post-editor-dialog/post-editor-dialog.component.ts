@@ -1,10 +1,14 @@
 import {
   Component,
-  inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation
+  inject, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {CommonModule, DOCUMENT} from '@angular/common';
-import {DialogRef} from '@angular/cdk/dialog';
+import {Dialog, DialogRef} from '@angular/cdk/dialog';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+
+import {lastValueFrom} from 'rxjs';
+
+import {ToastrService} from 'ngx-toastr';
 
 import {EditorModule} from 'primeng/editor';
 
@@ -15,6 +19,8 @@ import {FormControlInputComponent} from '../../../form-control-input/form-contro
 import {
   ControlValidationComponent
 } from '../../../form-control-input/components/control-validation/control-validation.component';
+import {WarningDialogComponent, WarningDialogDataInterface} from '../warning-dialog/warning-dialog.component';
+import {DraftPostInterface, DraftPostService} from '../../../services/draft-post.service';
 
 @Component({
   selector: 'ym-post-editor-dialog',
@@ -26,9 +32,14 @@ import {
 })
 export class PostEditorDialogComponent implements OnInit, OnDestroy {
 
+  @ViewChild('warningDialogContent', { static: true, read: TemplateRef })
+  warningDialogContent!: TemplateRef<any>;
+
   Quill: any = QuillNamespace;
 
   isPreviewMode = false;
+
+  draft!: DraftPostInterface;
 
   form: FormGroup<{ postDescription: FormControl<string | null>; content: FormControl<string | null> }> = new FormGroup<{postDescription: FormControl; content: FormControl<string | null>}>({
     postDescription: new FormControl<string | null>('', Validators.compose([
@@ -38,17 +49,28 @@ export class PostEditorDialogComponent implements OnInit, OnDestroy {
     content: new FormControl<string | null>('', Validators.required)
   })
 
+  private dialogService: Dialog = inject(Dialog);
   private dialogRef: DialogRef = inject(DialogRef);
   private renderer: Renderer2 = inject(Renderer2);
   private document: Document = inject(DOCUMENT);
+  private toastService: ToastrService = inject(ToastrService);
+  private draftPostService: DraftPostService = inject(DraftPostService);
 
   ngOnInit(): void {
     this.initEditorFontSizes();
     this.handleBodyScroll();
+    this.initDraft();
   }
 
   closeDialog(): void {
-    this.dialogRef.close();
+
+    const isFormControlsEdited = this.form.controls.postDescription.value || this.form.controls.content.value;
+
+    if (!isFormControlsEdited || !this.form.dirty) {
+      return this.dialogRef.close();
+    }
+
+    this.openWarningDialog();
   }
 
   togglePreview(): void {
@@ -57,6 +79,38 @@ export class PostEditorDialogComponent implements OnInit, OnDestroy {
 
   createPost(): void {
     console.log(this.form.value);
+  }
+
+  removeFromDraft(): void {
+    this.draft = this.draftPostService.remove();
+    this.form.reset();
+  }
+
+  async openWarningDialog(): Promise<void> {
+    const warningDialogRef: DialogRef<boolean, WarningDialogComponent> = this.dialogService.open(WarningDialogComponent, {
+      width: '550px',
+      maxWidth: '90vw',
+      height: '300px',
+      closeOnDestroy: true,
+      closeOnNavigation: true,
+      closeOnOverlayDetachments: true,
+      disableClose: true,
+      data: {
+        label: 'Create new post warning',
+        content: this.warningDialogContent,
+        cancelButtonText: 'Exit',
+        confirmButtonText: this.draft.isDraft ? 'Update draft' : 'Save to draft'
+      } as WarningDialogDataInterface,
+      panelClass: 'ym-dialog-common-wrapper'
+    });
+
+    const cancelWithoutSavingToDraft = await lastValueFrom(warningDialogRef.closed);
+
+    if (!cancelWithoutSavingToDraft) {
+      return this.dialogRef.close();
+    }
+
+    this.saveToDraft();
   }
 
   ngOnDestroy(): void {
@@ -73,5 +127,16 @@ export class PostEditorDialogComponent implements OnInit, OnDestroy {
 
   private handleBodyScroll(onDestroy = false): void {
     this.renderer.setStyle(this.document.body, 'overflow', !onDestroy ? 'hidden' : 'initial');
+  }
+
+  private initDraft(): void {
+    this.draft = this.draftPostService.init();
+    this.form.patchValue(this.draft.content);
+  }
+
+  private saveToDraft(): void {
+    this.draftPostService.save(this.form.value);
+    this.toastService.info('Your post was save as draft', 'Draft');
+    this.dialogRef.close();
   }
 }

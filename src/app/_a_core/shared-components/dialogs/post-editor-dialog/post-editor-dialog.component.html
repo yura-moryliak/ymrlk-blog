@@ -6,6 +6,7 @@
       Post editor
 
       <span *ngIf="isPreviewMode" class="badge">Preview mode</span>
+      <span *ngIf="draft.isDraft" class="badge">Draft</span>
     </h4>
     <button class="btn-as-link" (click)="closeDialog()">
       <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
@@ -158,13 +159,27 @@
       Cancel
     </button>
 
-    <button class="default-button" [disabled]="!form.controls.content.value" (click)="togglePreview()">
-      {{ isPreviewMode ? 'Back to editor' : 'Preview' }}
-    </button>
+    <div class="ym-dialog-buttons-group">
+
+      <button class="default-button" [disabled]="!form.dirty" (click)="togglePreview()">
+        {{ isPreviewMode ? 'Back to editor' : 'Preview' }}
+      </button>
+
+      <button class="default-button" *ngIf="draft.isDraft && !isPreviewMode" (click)="removeFromDraft()">
+        Remove from draft
+      </button>
+
+    </div>
 
     <button class="primary-button" [disabled]="form.invalid" (click)="createPost()">
       Save
     </button>
+
   </div>
 
 </form>
+
+<ng-template #warningDialogContent>
+  <p>Are your sure you want to cancel creating your post?</p>
+  <p>If you exit, changes will not be saved, instead we recommend to safe changes everytime as draft before publishing it</p>
+</ng-template>
