@@ -1,6 +1,6 @@
-@import "../../../../assets/styles/mixins/dialog.mixin";
+@import "../../../../../assets/styles/mixins/dialog.mixin";
 
-ym-warning-dialog {
+ym-auth-warning-dialog {
 
   @include ym-dialog();
 

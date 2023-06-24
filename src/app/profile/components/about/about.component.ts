@@ -1,9 +1,9 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {LinkifyPipe} from '../../../core/pipes/linkify.pipe';
-import {UserInterface} from '../../../core/interfaces/user/user.interface';
-import {LinkifyLinkDirective} from '../../../core/directives/linkify-link.directive';
+import {LinkifyPipe} from '../../../_a_core/pipes/linkify.pipe';
+import {UserInterface} from '../../../_a_core/interfaces/user/user.interface';
+import {LinkifyLinkDirective} from '../../../_a_core/directives/linkify-link.directive';
 
 @Component({
   selector: 'ym-about',

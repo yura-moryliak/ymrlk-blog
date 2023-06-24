@@ -1,8 +1,8 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {NavbarComponent} from '../core/shared-components/navbar/navbar.component';
-import {defaultPageMetaData, MetadataService} from '../core/services/metadata.service';
+import {NavbarComponent} from '../_a_core/shared-components/navbar/navbar.component';
+import {defaultPageMetaData, MetadataService} from '../_a_core/services/metadata.service';
 
 @Component({
   selector: 'ym-feed',

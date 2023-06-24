@@ -2,8 +2,8 @@ import {Component, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 
-import {NavbarComponent} from './core/shared-components/navbar/navbar.component';
-import {backendRequestProvider} from './core/providers/backend-request.provider';
+import {NavbarComponent} from './_a_core/shared-components/navbar/navbar.component';
+import {backendRequestProvider} from './_a_core/providers/backend-request.provider';
 
 @Component({
   selector: 'ym-root',

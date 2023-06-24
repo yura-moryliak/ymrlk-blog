@@ -11,14 +11,14 @@ import {ToastrService} from 'ngx-toastr';
 
 import {
   ControlValidationComponent
-} from '../../../core/form-control-input/components/control-validation/control-validation.component';
-import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
-import {sharedLoginForm} from '../../../login/components/shared-login-form';
-import {LoginFormInterface} from '../../../core/interfaces/login-form.interface';
-import {AuthService} from '../../../core/services/auth.service';
-import {AuthCredentialsInterface} from '../../../core/interfaces/auth/auth-credentials.interface';
-import {LoaderInitializerComponent} from '../../../core/shared-components/loader/loader-initializer';
-import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
+} from '../../../form-control-input/components/control-validation/control-validation.component';
+import {FormControlInputComponent} from '../../../form-control-input/form-control-input.component';
+import {sharedLoginForm} from '../../../../login/shared-login-form';
+import {LoginFormInterface} from '../../../interfaces/login-form.interface';
+import {AuthService} from '../../../services/auth.service';
+import {AuthCredentialsInterface} from '../../../interfaces/auth/auth-credentials.interface';
+import {LoaderInitializerComponent} from '../../loader/loader-initializer';
+import {LoaderComponent} from '../../loader/loader.component';
 
 @Component({
   selector: 'ym-auth-warning-dialog',

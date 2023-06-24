@@ -7,12 +7,12 @@ import {DialogModule} from '@angular/cdk/dialog';
 import {ToastNoAnimationModule} from 'ngx-toastr';
 
 import {routes} from './app.routes';
-import {AuthService} from './core/services/auth.service';
-import {UsersService} from './core/services/users.service';
+import {AuthService} from './_a_core/services/auth.service';
+import {UsersService} from './_a_core/services/users.service';
 
-import {authInterceptor} from './core/interceptors/auth.interceptor';
-import {appInitializerAuthCheckFactory} from './core/factories/app-initializer-auth-check.factory';
-import {appUserPrefetchInitializerFactory} from './core/factories/app-user-prefetch-initializer.factory';
+import {authInterceptor} from './_a_core/interceptors/auth.interceptor';
+import {appInitializerAuthCheckFactory} from './_a_core/factories/app-initializer-auth-check.factory';
+import {appUserPrefetchInitializerFactory} from './_a_core/factories/app-user-prefetch-initializer.factory';
 
 
 export const appConfig: ApplicationConfig = {

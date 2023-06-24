@@ -7,16 +7,16 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {lastValueFrom, Subscription} from 'rxjs';
 
 import {AccountBaseComponent} from '../../classes/account.base';
-import {UserInterface} from '../../../core/interfaces/user/user.interface';
-import {EnvConfigsInterface} from '../../../core/interfaces/env-configs.interface';
+import {UserInterface} from '../../../_a_core/interfaces/user/user.interface';
+import {EnvConfigsInterface} from '../../../_a_core/interfaces/env-configs.interface';
 import {environment} from '../../../../environments/environment.development';
-import {LoaderComponent} from '../../../core/shared-components/loader/loader.component';
+import {LoaderComponent} from '../../../_a_core/shared-components/loader/loader.component';
 import {AccountGeneralInfoFormInterface} from '../../interfaces/account-general-info-form.interface';
-import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {FormControlInputComponent} from '../../../_a_core/form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
-} from '../../../core/form-control-input/components/control-validation/control-validation.component';
-import {WarningDialogComponent} from '../../dialogs/warning-dialog/warning-dialog.component';
+} from '../../../_a_core/form-control-input/components/control-validation/control-validation.component';
+import {WarningDialogComponent} from '../../../_a_core/shared-components/dialogs/warning-dialog/warning-dialog.component';
 import {WarningDialogInterface} from '../../interfaces/warning-dialog.interface';
 
 @Component({

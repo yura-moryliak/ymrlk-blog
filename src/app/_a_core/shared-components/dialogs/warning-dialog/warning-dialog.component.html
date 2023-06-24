@@ -10,11 +10,11 @@
 
   <div class="ym-dialog-footer">
     <button class="primary-button" (click)="closeDialog()">
-      Cancel
+      {{ dialogData.cancelButtonText || 'Cancel' }}
     </button>
 
     <button class="primary-button" (click)="closeDialog(true)">
-      Yes, proceed
+      {{ dialogData.confirmButtonText || 'Ok' }}
     </button>
   </div>
 

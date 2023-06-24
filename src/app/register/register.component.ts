@@ -7,16 +7,16 @@ import {Subscription} from 'rxjs';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {AuthService} from '../core/services/auth.service';
-import {RegisterCredentialsInterface, RegisterFormInterface} from "../core/interfaces/register-form.interface";
-import {LoaderComponent} from '../core/shared-components/loader/loader.component';
-import {passwordMatchValidator} from '../core/validators/password-match.validator';
-import {FormControlInputComponent} from '../core/form-control-input/form-control-input.component';
+import {AuthService} from '../_a_core/services/auth.service';
+import {RegisterCredentialsInterface, RegisterFormInterface} from "../_a_core/interfaces/register-form.interface";
+import {LoaderComponent} from '../_a_core/shared-components/loader/loader.component';
+import {passwordMatchValidator} from '../_a_core/validators/password-match.validator';
+import {FormControlInputComponent} from '../_a_core/form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
-} from '../core/form-control-input/components/control-validation/control-validation.component';
-import {LoaderInitializerComponent} from '../core/shared-components/loader/loader-initializer';
-import {MetadataService} from '../core/services/metadata.service';
+} from '../_a_core/form-control-input/components/control-validation/control-validation.component';
+import {LoaderInitializerComponent} from '../_a_core/shared-components/loader/loader-initializer';
+import {MetadataService} from '../_a_core/services/metadata.service';
 
 @Component({
   selector: 'ym-register',

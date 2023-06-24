@@ -1,6 +1,6 @@
-@import "../../../../assets/styles/mixins/dialog.mixin";
+@import "../../../../../assets/styles/mixins/dialog.mixin";
 
-ym-auth-warning-dialog {
+ym-warning-dialog {
 
   @include ym-dialog();
 
@@ -12,6 +12,10 @@ ym-auth-warning-dialog {
       align-items: center;
       justify-content: center;
       flex-direction: column;
+
+      p {
+        text-align: center;
+      }
     }
 
   }

@@ -5,11 +5,11 @@ import {DialogRef} from '@angular/cdk/dialog';
 
 import {ToastrService} from 'ngx-toastr';
 
-import {RegisterFormInterface} from '../../../core/interfaces/register-form.interface';
-import {FormControlInputComponent} from '../../../core/form-control-input/form-control-input.component';
+import {RegisterFormInterface} from '../../../interfaces/register-form.interface';
+import {FormControlInputComponent} from '../../../form-control-input/form-control-input.component';
 import {
   ControlValidationComponent
-} from '../../../core/form-control-input/components/control-validation/control-validation.component';
+} from '../../../form-control-input/components/control-validation/control-validation.component';
 
 type ResetPasswordFormEmailControlType = Pick<RegisterFormInterface, 'email'>;
 

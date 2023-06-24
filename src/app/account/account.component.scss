@@ -5,6 +5,14 @@ ym-account {
   .account-settings-container {
     padding: 0 80px;
 
+    h2 {
+
+      .btn-as-link {
+        margin-left: 10px;
+      }
+
+    }
+
     @media screen and (max-width: $HandsetBreakpoint) {
       padding: 0 20px;
     }

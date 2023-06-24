@@ -28,6 +28,12 @@ html, body {
   padding: 0;
   box-sizing: border-box;
   background-color: $general-bg-color;
+  font-family: var(--font-family);
+
+  .ql-snow .ql-picker.ql-size .ql-picker-label[data-value]::before,
+  .ql-snow .ql-picker.ql-size .ql-picker-item[data-value]::before {
+    content: attr(data-value) !important;
+  }
 
   .ymrlk-toast-override-panel {
     .toast-title,
@@ -40,5 +46,26 @@ html, body {
     padding: 10px;
     background-color: $white-font-color;
     border-radius: $border-radius;
+
+    .cdk-dialog-container {
+      height: inherit;
+    }
+  }
+
+  .ym-dialog-common-wrapper-no-border {
+    @extend .ym-dialog-common-wrapper;
+    border-radius: 0;
+  }
+
+  // Global scroll overrides
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $glow-effect-color;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: $btn-border-color;
+    transition: 0.3s ease-in;
   }
 }

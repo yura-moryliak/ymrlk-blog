@@ -16,6 +16,16 @@
     color: $white-font-color;
   }
 
+  svg {
+    width: 17px;
+    height: 17px;
+    margin-left: 10px;
+
+    path {
+      fill: $white-font-color;
+    }
+  }
+
   ym-loader {
     position: absolute;
     right: 10px;
@@ -52,10 +62,20 @@
   svg {
     width: 17px;
     height: 17px;
+    margin-left: 10px;
+
+    path {
+      fill: $btn-border-color;
+    }
   }
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &:disabled {
+    color: $secondary-font-color;
+    cursor: default !important;
   }
 }
 

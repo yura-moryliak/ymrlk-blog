@@ -1,0 +1,185 @@
+<form class="ym-dialog-container"
+      [formGroup]="form">
+
+  <div class="ym-dialog-title">
+    <h4>
+      Post editor
+
+      <span *ngIf="isPreviewMode" class="badge">Preview mode</span>
+      <span *ngIf="draft.isDraft" class="badge">Draft</span>
+    </h4>
+    <button class="btn-as-link" (click)="closeDialog()">
+      <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+        <path
+          d="M16,8a1,1,0,0,0-1.414,0L12,10.586,9.414,8A1,1,0,0,0,8,9.414L10.586,12,8,14.586A1,1,0,0,0,9.414,16L12,13.414,14.586,16A1,1,0,0,0,16,14.586L13.414,12,16,9.414A1,1,0,0,0,16,8Z"/>
+        <path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="ym-dialog-content"
+       #dialogContainer>
+
+    <ym-form-control-input
+      label="Post description"
+      forId="postDescription"
+      placeholder="Type is short post description"
+      formControlName="postDescription">
+
+      <ym-control-validation
+        [control]="form.controls.postDescription"
+        [maxLength]="100">
+      </ym-control-validation>
+
+    </ym-form-control-input>
+
+    <p-editor
+      [ngStyle]="{ 'height': '85%' }"
+      [scrollingContainer]="dialogContainer"
+      [bounds]="dialogContainer"
+      [placeholder]="'Start to create your post by typing here'"
+      formControlName="content">
+
+      <ng-template pTemplate="header">
+
+        <span class="ql-formats">
+
+          <select class="ql-size" [title]="'Size'">
+            <option value="16px"></option>
+            <option value="18px"></option>
+            <option value="24px"></option>
+            <option value="30px"></option>
+            <option value="36px"></option>
+            <option value="48px"></option>
+          </select>
+
+        </span>
+
+        <span class="ql-formats">
+
+          <select class="ql-color"></select>
+
+          <select class="ql-background"></select>
+
+          <button type="button"
+                  class="ql-bold"
+                  aria-label="Bold">
+            </button>
+
+          <button type="button"
+                  class="ql-italic"
+                  aria-label="Italic">
+          </button>
+
+          <button type="button"
+                  class="ql-underline"
+                  aria-label="Underline">
+          </button>
+
+          <button type="button"
+                  class="ql-strike"
+                  aria-label="strike">
+          </button>
+
+          <button type="button"
+                  class="ql-blockquote"
+                  aria-label="blockquote">
+          </button>
+        </span>
+
+        <span class="ql-formats">
+
+          <select class="ql-align">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+          </select>
+
+          <button type="button"
+                  class="ql-list"
+                  aria-label="List"
+                  value="ordered">
+          </button>
+
+          <button type="button"
+                  class="ql-list"
+                  aria-label="List"
+                  value="bullet">
+          </button>
+
+          <button type="button"
+                  class="ql-indent"
+                  aria-label="Indent"
+                  value="-1">
+          </button>
+
+          <button type="button"
+                  class="ql-indent"
+                  aria-label="Indent"
+                  value="+1">
+          </button>
+
+        </span>
+
+        <span class="ql-formats">
+
+          <button type="button"
+                  class="ql-image"
+                  aria-label="Image">
+          </button>
+
+          <button type="button"
+                  class="ql-link"
+                  aria-label="Link">
+          </button>
+
+          <button type="button"
+                  class="ql-code-block"
+                  aria-label="code-block">
+          </button>
+
+        </span>
+
+      </ng-template>
+
+    </p-editor>
+
+    <!--TODO Provide here custom preview component which will render only preview content-->
+    <div class="preview-container ql-container ql-snow"
+         *ngIf="isPreviewMode">
+      <h1 class="post-headline" [innerText]="form.controls.postDescription.value"></h1>
+      <div class="ql-editor" [innerHTML]="form.controls.content.value! | sanitizeHtml"></div>
+    </div>
+
+  </div>
+
+  <div class="ym-dialog-footer">
+    <button class="primary-button" (click)="closeDialog()">
+      Cancel
+    </button>
+
+    <div class="ym-dialog-buttons-group">
+
+      <button class="default-button" [disabled]="!form.dirty" (click)="togglePreview()">
+        {{ isPreviewMode ? 'Back to editor' : 'Preview' }}
+      </button>
+
+      <button class="default-button" *ngIf="draft.isDraft && !isPreviewMode" (click)="removeFromDraft()">
+        Remove from draft
+      </button>
+
+    </div>
+
+    <button class="primary-button" [disabled]="form.invalid" (click)="createPost()">
+      Save
+    </button>
+
+  </div>
+
+</form>
+
+<ng-template #warningDialogContent>
+  <p>Are your sure you want to cancel creating your post?</p>
+  <p>If you exit, changes will not be saved, instead we recommend to safe changes everytime as draft before publishing it</p>
+</ng-template>
